@@ -1,13 +1,5 @@
-import React from "react";
-
-interface ProfileCardProps {
-  UserName: String;
-  UserType: String;
-  ImageSrc: string;
-}
-
-const ProfileCard: React.FC<ProfileCardProps> = ({ UserName: UserName, UserType: UserType, ImageSrc }) => {
-  
+function ProfileCard(props:any){
+  const {UserName, UserType, ImageSrc} = props;
   return (
     
     <div className=" flex items-end px-6 py-4 ">
