@@ -5,7 +5,7 @@ const Navbar: React.FC = () => {
   // const navigate = useNavigate();
 
   return (
-    <nav className="bg-green-700 flex items-center justify-between px-6 py-2">
+    <nav className="bg-[#047857] flex items-center justify-between px-6 py-2">
       <img src="/image/Logo.jpg" alt="Placeholder Image" className="w-9 h-10 " />
 
       <div className="flex gap-4">
