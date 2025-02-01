@@ -1,44 +1,46 @@
 import Navbar from "@/app/components/Navbar";
 import ActionButton from "./components/ActionButton";
+import ProfileCard from "./components/ProfileCard";
 
-import { FolderPlus, Grid2X2 } from 'lucide-react';
-import { IdCard } from 'lucide-react';
-import { Grid2x2 } from 'lucide-react';
+import { FolderPlus, Grid2X2, IdCard } from 'lucide-react';
 
 export default function Home() {0
   return (
-    <div className="bg-[#F6F7F9] justify-center items-center">
+    <div className="bg-[#F6F7F9] bg-auto justify-center items-center">
       <Navbar />
       <div className="flex place-content-evenly">
-      <div className="w-80 h-20 font-semibold text-black text-3xl px-6 py-16">
+      <div className="w-[300px] h-[80px] font-semibold text-black text-3xl px-6 py-16">
         ข้อมูลส่วนบุคคล
         </div>
-      <div className="w-64 h-20 font-semibold text-black text-3xl px-6 py-16">fsdogfjpokm</div>
+      <ProfileCard key = {0}
+            UserName = {"วสุพล ดิสสานนท์"}
+            UserType = {"ผู้ชาย"}
+            ImageSrc = {"/image/ProfilePicture.jpg"}
+      />
+
       </div>
       <div className="flex px-9 place-content-center">
         <ActionButton key = {1}
-            Name = {"เพิ่มสินค้า"} 
+            ActionName = {"เพิ่มสินค้า"} 
             Icon = {<FolderPlus/>}
             route = {"/AddProductPage"}
         />
         <ActionButton key = {2}
-            Name = {"จัดการสินค้า"} 
+            ActionName = {"จัดการสินค้า"} 
             Icon = {<Grid2X2/>}
             route = {"/AddProductPage"}
         />
         <ActionButton key = {3}
-            Name = {"ข้อมูลส่วนตัว"} 
+            ActionName = {"ข้อมูลส่วนตัว"} 
             Icon = {<IdCard/>}
             route = {"/AddProductPage"}
         />
         <ActionButton key = {4}
-            Name = {"-"} 
+            ActionName = {"-"} 
             Icon = {""}
             route = {""}
         />
       </div>
-
-      
     </div>
   );
 }
