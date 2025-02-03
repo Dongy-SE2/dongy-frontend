@@ -1,11 +1,11 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 
-interface CustomAlert{
-    title: String;
-    message: String;
-    onConfirm: () => void;
-    onCancel?: () => void;
+interface CustomAlert {
+  title: string;
+  message: string;
+  onConfirm: () => void;
+  onCancel?: () => void;
 }
 
 const CustomAlert = ({ title, message, onConfirm, onCancel }: CustomAlert) => {
@@ -23,7 +23,10 @@ const CustomAlert = ({ title, message, onConfirm, onCancel }: CustomAlert) => {
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)} className="bg-[#10B981] hover:bg-[#059669] text-white font-bold py-2 px-4 rounded">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="bg-[#10B981] hover:bg-[#059669] text-white font-bold py-2 px-4 rounded"
+      >
         {title}
       </button>
       {isOpen && (
@@ -31,18 +34,20 @@ const CustomAlert = ({ title, message, onConfirm, onCancel }: CustomAlert) => {
           <div className="bg-white p-8 rounded-lg shadow-md w-96 justify-center">
             <p className="text-gray-700 mb-6">{message}</p>
             <div className="flex justify-end">
-                <button
+              <button
                 onClick={handleConfirm}
                 className="text-[#059669] font-semibold text-base px-2"
               >
                 ตกลง
               </button>
-              {onCancel && <button
-                onClick={handleCancel}
-                className=" text-red-700 font-semibold text-base px-2"
-              >
-                ยกเลิก
-              </button>}
+              {onCancel && (
+                <button
+                  onClick={handleCancel}
+                  className=" text-red-700 font-semibold text-base px-2"
+                >
+                  ยกเลิก
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -51,4 +56,5 @@ const CustomAlert = ({ title, message, onConfirm, onCancel }: CustomAlert) => {
   );
 };
 
-export default CustomAlert
+export default CustomAlert;
+

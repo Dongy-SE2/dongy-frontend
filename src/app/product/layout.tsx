@@ -4,7 +4,7 @@ interface Props {
 export default function ProductLayout({ children }: Readonly<Props>) {
   return (
     <>
-      <div>{children}</div>
+      <>{children}</>
     </>
   );
 }
