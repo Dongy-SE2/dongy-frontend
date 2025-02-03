@@ -1,10 +1,10 @@
 "use server";
 
-export default async function ProductEditPage() {
+export default async function ProductRegisterPage() {
   return (
     <>
       <div>
-        <p>Hello Edit Page</p>
+        <p>ภาษาไทย</p>
       </div>
     </>
   );

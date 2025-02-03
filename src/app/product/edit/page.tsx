@@ -1,6 +1,6 @@
 "use server";
 
-export default async function ProductRegisterPage() {
+export default async function ProductEditPage() {
   return (
     <>
       <div>
