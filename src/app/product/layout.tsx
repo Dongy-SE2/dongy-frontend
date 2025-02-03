@@ -1,7 +1,10 @@
-export default function ProductLayout({
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
-}) {
-  return <div>{children}</div>;
+}
+export default function ProductLayout({ children }: Readonly<Props>) {
+  return (
+    <>
+      <div>{children}</div>
+    </>
+  );
 }
