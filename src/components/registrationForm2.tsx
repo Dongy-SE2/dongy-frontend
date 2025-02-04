@@ -6,23 +6,23 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function RegistrationForm2() {
   const [role, setRole] = useState<"buyer" | "seller">("seller");
-  const [email, setEmail] = useState("wasuphon@gmail.com");
-  const [password, setPassword] = useState("********");
-  const [confirmPassword, setConfirmPassword] = useState("********");
+  const [email, setEmail] = useState("Email");
+  const [password, setPassword] = useState("Password");
+  const [confirmPassword, setConfirmPassword] = useState("Confirm Password");
 
   return (
     <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
       <CardContent>
         {/* Role Selection */}
-        <div className="mb-4">
+        <div className="mb-4 flex items-center gap-3s">
           <label className="block text-gray-700 font-medium mb-2">
             คุณคือ <span className="text-red-500">*</span>
           </label>
-          <div className="flex gap-4">
+          <div className="flex gap-4 ">
             <button
               className={`flex-1 py-2 rounded-lg border ${
                 role === "buyer"
-                  ? "bg-gray-200 border-gray-400 text-gray-500"
+                  ? "bg-gray-800 text-white border-gray-800"
                   : "bg-white border-gray-300"
               }`}
               onClick={() => setRole("buyer")}
@@ -43,8 +43,8 @@ export default function RegistrationForm2() {
         </div>
 
         {/* Email Input */}
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-1">
+        <div className="mb-4 flex items-center gap-3">
+          <label className="block text-gray-700 font-medium mb-1 ">
             อีเมล <span className="text-red-500">*</span>
           </label>
           <Input
@@ -56,7 +56,7 @@ export default function RegistrationForm2() {
         </div>
 
         {/* Password Input */}
-        <div className="mb-4">
+        <div className="mb-4 flex items-center gap-3">
           <label className="block text-gray-700 font-medium mb-1">
             รหัสผ่าน <span className="text-red-500">*</span>
           </label>
@@ -72,7 +72,7 @@ export default function RegistrationForm2() {
         </div>
 
         {/* Confirm Password Input */}
-        <div className="mb-6">
+        <div className="mb-6 ">
           <Input
             type="password"
             value={confirmPassword}
@@ -81,10 +81,7 @@ export default function RegistrationForm2() {
           />
         </div>
 
-        {/* Submit Button */}
-        <Button className="w-full bg-green-500 text-white py-2 rounded-lg">
-          เข้าสู่ระบบ
-        </Button>
+        
       </CardContent>
     </Card>
   );
