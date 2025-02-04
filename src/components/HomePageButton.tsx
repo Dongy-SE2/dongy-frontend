@@ -14,7 +14,7 @@ const HomePageButton: React.FC<HomePageButtonProps> = ({ name, color, route }) =
   return (
     <button
       onClick={() => router.push(route)}
-      className="w-[160px] h-[41px] m-3 rounded-md transition items-center justify-center"
+      className="w-[160px] h-[41px] mx-3 rounded-md transition items-center justify-center"
       style={{ backgroundColor: color }}
     >
       <div className="text-white text-lg font-medium">{name}</div>
