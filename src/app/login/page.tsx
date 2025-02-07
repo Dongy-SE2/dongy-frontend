@@ -25,7 +25,7 @@ export default function Login() {
           <LoginForm/>
           <p className="text-center text-sm text-gray-500 mt-4">
             ยังไม่ได้เป็นสมาชิก?{" "}
-            <a href="/registor" className="text-green-600 font-medium">
+            <a href="/register" className="text-green-600 font-medium">
               สร้างบัญชีใหม่
             </a>
           </p>

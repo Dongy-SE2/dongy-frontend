@@ -2,9 +2,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 export default function AgreementForm() {
   const [isChecked, setIsChecked] = useState(false);
+  const router = useRouter();
 
   return (
     <Card className="max-w-md mx-auto p-4 bg-white rounded-2xl shadow-lg">
@@ -29,6 +31,7 @@ export default function AgreementForm() {
         <Button
           className="w-full bg-green-500 text-white py-2 rounded-lg mt-4"
           disabled={!isChecked}
+          onClick={() => router.push("/login")}
         >
           สมัครใช้งาน
         </Button>

@@ -5,11 +5,13 @@ import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
 import { cn } from "@/lib/utils";
 import ActionButton from "./ActionButton";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [role, setRole] = useState<"buyer" | "seller">("seller");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   return (
     <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
@@ -62,7 +64,7 @@ export default function LoginForm() {
           />
         </div>
 
-        <Button className="w-full bg-green-500 text-white py-2 rounded-lg">
+        <Button className="w-full bg-green-500 text-white py-2 rounded-lg" onClick={() => router.push("/user")}>
           เข้าสู่ระบบ
         </Button>
       </CardContent>

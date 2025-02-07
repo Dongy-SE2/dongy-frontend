@@ -72,7 +72,7 @@ export default function RegistrationForm() {
           <Input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
         </div>
 
-        <Button className="w-full bg-blue-500 text-white py-2 rounded-lg">บันทึก</Button>
+     
       </CardContent>
     </Card>
   );
