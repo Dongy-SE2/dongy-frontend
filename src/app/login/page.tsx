@@ -6,7 +6,7 @@ import LoginForm from "@/components/loginForm";
 export default function Login() {
   return (
     <div className="flex h-screen w-full">
-      {/* Left side - Image */}
+ 
       <div className="w-1/2 flex items-center justify-center p-10">
         <Image
           src="/image/Logo.jpg"
@@ -16,7 +16,7 @@ export default function Login() {
         />
       </div>
       
-      {/* Right side - Login Form */}
+  
       <div className="w-1/2 flex flex-col items-center justify-center p-8">
         <div className="bg-white p-8 rounded-lg  w-full max-w-md">
           <h2 className="text-2xl font-semibold text-center mb-6">

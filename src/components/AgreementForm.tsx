@@ -11,7 +11,7 @@ export default function AgreementForm() {
   return (
     <Card className="max-w-md mx-auto p-4 bg-white rounded-2xl shadow-lg">
       <CardContent>
-        {/* Checkbox Agreement */}
+       
         <div className="flex items-start gap-3">
           <input
             type="checkbox"
@@ -27,7 +27,6 @@ export default function AgreementForm() {
           </label>
         </div>
 
-        {/* Submit Button */}
         <Button
           className="w-full bg-green-500 text-white py-2 rounded-lg mt-4"
           disabled={!isChecked}

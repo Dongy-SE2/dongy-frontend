@@ -18,17 +18,17 @@ export default function Register() {
         สร้างบัญชีใหม่
         </div>
       </h1>
-      {/* Form Container */}
+
       <div className="max-w-5xl w-full  p-8  flex justify-between">
         
-        {/* Left: Personal Info */}
+     
         
         <div className="w-1/2 p-4">
           <h2 className="text-lg font-semibold mb-4">ข้อมูลส่วนบุคคล</h2>
           <RegistrationForm/>
         </div>
 
-        {/* Right: General Info */}
+   
         <div className="w-1/2 p-4">
           <h2 className="text-lg font-semibold mb-4">ข้อมูลทั่วไป</h2>
           <RegistrationForm2/>

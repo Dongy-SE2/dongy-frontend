@@ -13,7 +13,7 @@ export default function RegistrationForm2() {
   return (
     <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
       <CardContent>
-        {/* Role Selection */}
+  
         <div className="mb-4 flex items-center gap-3s">
           <label className="block text-gray-700 font-medium mb-2">
             คุณคือ <span className="text-red-500">*</span>
@@ -42,7 +42,7 @@ export default function RegistrationForm2() {
           </div>
         </div>
 
-        {/* Email Input */}
+
         <div className="mb-4 flex items-center gap-3">
           <label className="block text-gray-700 font-medium mb-1 ">
             อีเมล <span className="text-red-500">*</span>
@@ -55,7 +55,7 @@ export default function RegistrationForm2() {
           />
         </div>
 
-        {/* Password Input */}
+    
         <div className="mb-4 flex items-center gap-3">
           <label className="block text-gray-700 font-medium mb-1">
             รหัสผ่าน <span className="text-red-500">*</span>
@@ -71,7 +71,7 @@ export default function RegistrationForm2() {
           </div>
         </div>
 
-        {/* Confirm Password Input */}
+    
         <div className="mb-6 ">
           <Input
             type="password"
