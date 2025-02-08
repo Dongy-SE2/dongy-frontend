@@ -19,14 +19,14 @@ export default function ProfilePage() {
     <div className="p-6 max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold mb-4">แก้ไขข้อมูล</h2>
       <div className="grid grid-cols-2 gap-6">
-        {/* Personal Info */}
+    
         <div className=" ">
             <RegistrationForm isEdit={true} userId={"1"}/>
             <div/>
             <div/>
         </div>
         
-        {/* Profile Section */}
+     
         <div className="space-x-8">
           <div className="mb-3">
               <ProfileImageUploader/>

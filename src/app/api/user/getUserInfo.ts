@@ -1,4 +1,4 @@
-// getUserInfo.ts
+
 import axios from 'axios';
 
 interface UserInfo {
