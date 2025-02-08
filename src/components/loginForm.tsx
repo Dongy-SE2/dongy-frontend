@@ -21,7 +21,7 @@ export default function LoginForm() {
           <div className="flex gap-4">
             <button
               className={cn(
-                "flex-1 py-2 rounded-lg border w-32 h-14",
+                "flex-1 py-2 rounded-lg border w-28 h-14",
                 role === "buyer"
                   ? "bg-gray-800 text-white border-gray-800"
                   : "bg-white border-gray-300"
@@ -32,7 +32,7 @@ export default function LoginForm() {
             </button>
             <button
               className={cn(
-                "flex-1 py-2 rounded-lg border w-32 h-14",
+                "flex-1 py-2 rounded-lg border w-28 h-14",
                 role === "seller"
                   ? "bg-gray-800 text-white border-gray-800"
                   : "bg-white border-gray-300"

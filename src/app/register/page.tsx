@@ -10,31 +10,30 @@ export default function Register() {
   const [checked, setChecked] = useState(false);
 
   return (
-    
-    <div className="flex flex-col items-center min-h-screen bg-[#F6F7F9] bg-auto">
+    <div className="mx-auto flex flex-col items-center min-h-screen bg-[#F6F7F9] bg-auto">
       
-      <h1 className="flex place-content-evenly">
-        <div className="w-[300px] h-[80px] font-semibold text-black text-3xl px-6 py-4 text-left">
-          สร้างบัญชีใหม่
-        </div>
-      </h1>
-
-      <div className="max-w-5xl w-full  p-8  flex justify-between">
+      {/* Container for Heading + First Form */}
+      <div className="max-w-5xl w-full p-8 flex justify-between space-x-8">
         
-     
-        
-        <div className="w-1/2 p-4">
-          
-          <RegistrationForm/>
+        <div className="w-1/2">
+          {/* Heading aligned directly above the first form */}
+          <h1 className="text-left font-semibold text-black text-3xl mb-4">
+            สร้างบัญชีใหม่
+          </h1>
+
+          {/* First Form: Personal Information */}
+          <div className="p-4">
+            <RegistrationForm />
+          </div>
         </div>
 
-   
-        <div className="w-1/2 p-4">
-          <div className="mb-8"> 
+        {/* Second form on the right */}
+        <div className="w-1/2 p-4 mt-14">
+          <div className="mb-16">
             <RegistrationForm2 />
           </div>
           <AgreementForm />
-</div>
+        </div>
       </div>
     </div>
   );

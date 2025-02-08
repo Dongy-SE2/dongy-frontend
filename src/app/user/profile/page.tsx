@@ -20,24 +20,25 @@ export default function ProfilePage() {
       <h2 className="text-2xl font-semibold mb-4">แก้ไขข้อมูล</h2>
       <div className="grid grid-cols-2 gap-6">
         {/* Personal Info */}
-        <div>
+        <div className=" ">
             <RegistrationForm/>
         </div>
         
         {/* Profile Section */}
-        <div>
-          <div>
+        <div className="space-x-8">
+          <div className="mb-3">
               <ProfileImageUploader/>
           </div>
           <div>
 
               <RegistrationForm2/>
           </div>
+          <div className="flex justify-end mt-4">
+        <Button  className="bg-green-500 text-white py-2 rounded-lg mt-4 w-36" onClick={() => router.push("/user")}>บันทึก</Button>
+      </div>
         </div>
       
-      <div className="flex justify-end mt-4">
-        <Button  className="bg-green-600" onClick={() => router.push("/user")}>บันทึก</Button>
-      </div>
+      
       </div>
     </div>
     </div>
