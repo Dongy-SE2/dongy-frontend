@@ -26,24 +26,22 @@ export default function User() {
           key={1}
           ActionName={"เพิ่มสินค้า"}
           Icon={<FolderPlus />}
-          route={"/AddProductPage"}
+          route={"/product"}
         />
         <ActionButton
           key={2}
           ActionName={"จัดการสินค้า"}
           Icon={<Grid2X2 />}
-          route={"/ManageProductPage"}
+          route={"/product/manage"}
         />
         <ActionButton
           key={3}
           ActionName={"ข้อมูลส่วนตัว"}
           Icon={<IdCard />}
-          route={"/ProfilePage"}
+          route={"/user/profile"}
         />
         <ActionButton key={4} ActionName={"-"} Icon={""} route={""} />
       </div>
-      <DeleteProductAlert productName="รองเท้า" />
-      <InsertImageAlert />
     </div>
   );
 }
