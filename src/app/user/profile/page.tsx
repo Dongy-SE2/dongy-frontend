@@ -21,7 +21,9 @@ export default function ProfilePage() {
       <div className="grid grid-cols-2 gap-6">
         {/* Personal Info */}
         <div className=" ">
-            <RegistrationForm/>
+            <RegistrationForm isEdit={true} userId={"1"}/>
+            <div/>
+            <div/>
         </div>
         
         {/* Profile Section */}
@@ -31,10 +33,10 @@ export default function ProfilePage() {
           </div>
           <div>
 
-              <RegistrationForm2/>
+              <RegistrationForm2 isEdit={true} userId={"1"}/>
           </div>
           <div className="flex justify-end mt-4">
-        <Button  className="bg-green-500 text-white py-2 rounded-lg mt-4 w-36" onClick={() => router.push("/user")}>บันทึก</Button>
+        <Button  className="bg-[#10B981] text-white py-2 rounded-lg mt-4 w-36" onClick={() => router.push("/user")}>บันทึก</Button>
       </div>
         </div>
       

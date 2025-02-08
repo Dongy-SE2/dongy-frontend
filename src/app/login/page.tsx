@@ -8,12 +8,7 @@ export default function Login() {
     <div className="min-h-screen w-full bg-[#F6F7F9] bg-auto justify-center items-center flex">
  
       <div className="w-1/2 flex items-center justify-center p-10">
-        <Image
-          src="/image/LoginImage.png"
-          alt="Shopping Illustration"
-          width={400}
-          height={400}
-        />
+      <img src="/home_picture.svg" alt="Logo" className="pr-[83px]" />
       </div>
       
   

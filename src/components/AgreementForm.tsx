@@ -28,7 +28,7 @@ export default function AgreementForm() {
         </div>
 
         <Button
-          className="w-full bg-green-500 text-white py-2 rounded-lg mt-4"
+          className="w-full bg-[#10B981] text-white py-2 rounded-lg mt-4"
           disabled={!isChecked}
           onClick={() => router.push("/login")}
         >

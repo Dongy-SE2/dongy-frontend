@@ -64,7 +64,7 @@ export default function LoginForm() {
           />
         </div>
 
-        <Button className="w-full bg-green-500 text-white py-2 rounded-lg" onClick={() => router.push("/user")}>
+        <Button className="w-full bg-[#10B981] text-white py-2 rounded-lg" onClick={() => router.push("/user")}>
           เข้าสู่ระบบ
         </Button>
       </CardContent>
