@@ -11,11 +11,11 @@ export default function Register() {
 
   return (
     
-    <div className="flex flex-col items-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center min-h-screen bg-[#F6F7F9] bg-auto">
       
-          <h1 className="flex place-content-evenly">
-        <div className="w-[300px] h-[80px] font-semibold text-black text-3xl px-6 py-16">
-        สร้างบัญชีใหม่
+      <h1 className="flex place-content-evenly">
+        <div className="w-[300px] h-[80px] font-semibold text-black text-3xl px-6 py-4 text-left">
+          สร้างบัญชีใหม่
         </div>
       </h1>
 
@@ -24,16 +24,17 @@ export default function Register() {
      
         
         <div className="w-1/2 p-4">
-          <h2 className="text-lg font-semibold mb-4">ข้อมูลส่วนบุคคล</h2>
+          
           <RegistrationForm/>
         </div>
 
    
         <div className="w-1/2 p-4">
-          <h2 className="text-lg font-semibold mb-4">ข้อมูลทั่วไป</h2>
-          <RegistrationForm2/>
-          <AgreementForm/>
-        </div>
+          <div className="mb-8"> 
+            <RegistrationForm2 />
+          </div>
+          <AgreementForm />
+</div>
       </div>
     </div>
   );

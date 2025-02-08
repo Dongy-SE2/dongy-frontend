@@ -6,11 +6,13 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function RegistrationForm2() {
   const [role, setRole] = useState<"buyer" | "seller">("seller");
-  const [email, setEmail] = useState("Email");
-  const [password, setPassword] = useState("Password");
-  const [confirmPassword, setConfirmPassword] = useState("Confirm Password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
+    <div className="bg-[#F6F7F9] bg-auto">
+      <h2 className="font-semibold text-2xl mb-5">ข้อมูลทั่วไป</h2>
     <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
       <CardContent>
   
@@ -20,7 +22,7 @@ export default function RegistrationForm2() {
           </label>
           <div className="flex gap-4 ">
             <button
-              className={`flex-1 py-2 rounded-lg border ${
+              className={`flex-1 py-2 rounded-lg border w-32 h-14 ${
                 role === "buyer"
                   ? "bg-gray-800 text-white border-gray-800"
                   : "bg-white border-gray-300"
@@ -51,7 +53,7 @@ export default function RegistrationForm2() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full"
+            className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
           />
         </div>
 
@@ -65,7 +67,7 @@ export default function RegistrationForm2() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full"
+              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
             />
             <span className="absolute right-2 top-2 text-green-500">✔️</span>
           </div>
@@ -77,12 +79,13 @@ export default function RegistrationForm2() {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full"
+            className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
           />
         </div>
 
         
       </CardContent>
     </Card>
+    </div>
   );
 }

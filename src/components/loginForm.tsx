@@ -14,10 +14,10 @@ export default function LoginForm() {
   const router = useRouter();
 
   return (
-    <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
+    <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg w-full sm:w-auto ">
       <CardContent>
         <div className="mb-4 flex items-center gap-8">
-          <p className="text-lg font-medium mb-2 c">คุณคือ</p>
+          <p className="text-lg font-medium whitespace-nowrap mb-2 c">คุณคือ</p>
           <div className="flex gap-4">
             <button
               className={cn(
@@ -50,7 +50,7 @@ export default function LoginForm() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full"
+            className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-60"
           />
         </div>
 
@@ -60,7 +60,7 @@ export default function LoginForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full"
+            className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-60"
           />
         </div>
 

@@ -38,7 +38,7 @@ export default function User() {
           key={3}
           ActionName={"ข้อมูลส่วนตัว"}
           Icon={<IdCard />}
-          route={"/ProfilePage"}
+          route={"/user/profile"}
         />
         <ActionButton key={4} ActionName={"-"} Icon={""} route={""} />
       </div>

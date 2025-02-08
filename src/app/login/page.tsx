@@ -5,11 +5,11 @@ import LoginForm from "@/components/loginForm";
 
 export default function Login() {
   return (
-    <div className="flex h-screen w-full">
+    <div className="min-h-screen w-full bg-[#F6F7F9] bg-auto justify-center items-center flex">
  
       <div className="w-1/2 flex items-center justify-center p-10">
         <Image
-          src="/image/Logo.jpg"
+          src="/image/LoginImage.png"
           alt="Shopping Illustration"
           width={400}
           height={400}
@@ -17,9 +17,9 @@ export default function Login() {
       </div>
       
   
-      <div className="w-1/2 flex flex-col items-center justify-center p-8">
-        <div className="bg-white p-8 rounded-lg  w-full max-w-md">
-          <h2 className="text-2xl font-semibold text-center mb-6">
+      <div className="w-1/2 flex flex-col items-center justify-center p-8 ">
+        <div className="bg-[#F6F7F9] bg-auto p-8 rounded-lg  w-full max-w-md ">
+          <h2 className="text-2xl font-semibold text-center mb-6 ">
             ลงชื่อเข้าใช้
           </h2>
           <LoginForm/>
