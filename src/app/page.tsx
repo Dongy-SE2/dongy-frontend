@@ -1,3 +1,4 @@
+
 import HomePageButton from "@/components/HomePageButton";
 import QuoteCard from "@/components/QuoteCard";
 
