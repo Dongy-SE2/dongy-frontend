@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { getUserInfo } from "@/app/api/user/getUserInfo";
+import DateInput from "./DateInput";
 
 interface RegistrationFormProps {
   isEdit?: boolean;  
@@ -41,7 +42,10 @@ export default function RegistrationForm({ isEdit = false, userId }: Registratio
     }
   }, [isEdit, userId]);
 
-  
+  const handleDobChange = (formattedDate: string) => {
+    setDob(formattedDate);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isEdit) {
@@ -101,23 +105,21 @@ export default function RegistrationForm({ isEdit = false, userId }: Registratio
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
+            
 
            
             <div className="mb-4 flex items-center gap-8">
               <label className="block text-gray-700 mb-1 whitespace-nowrap">
                 วันเกิด <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
-                <Input
-                  type="text"
-                  className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-60"
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
-                />
-                <span className="absolute right-3 top-5 text-gray-500">📅</span>
-              </div>
+              
+                <DateInput value={dob} onChange={handleDobChange} />
+                {/* <span className="absolute right-3 top-5 text-gray-500">📅</span> */}
+             
               {!isValidDate(dob) && <p className="text-red-500 text-sm mt-1">วันที่ไม่ถูกต้อง</p>}
             </div>
+
+            
 
            
             <div className="mb-4 flex items-center gap-6">

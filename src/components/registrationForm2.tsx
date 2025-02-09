@@ -47,11 +47,11 @@ export default function RegistrationForm2({ isEdit = false, userId }: Registrati
     <div className="bg-[#F6F7F9]">
       <h2 className="font-semibold text-2xl mb-5">{isEdit ? "แก้ไขข้อมูลทั่วไป" : "ข้อมูลทั่วไป"}</h2>
 
-      <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
+      <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg overflow-hidden">
         <CardContent>
           <form onSubmit={handleSubmit}>
 
-       
+            <div className="">
             <div className="mb-4 flex items-center gap-6">
               <label className="block text-gray-700 font-medium mb-2">
                 คุณคือ <span className="text-red-500">*</span>
@@ -84,7 +84,7 @@ export default function RegistrationForm2({ isEdit = false, userId }: Registrati
 
 
             <div className="mb-4 flex items-center gap-8">
-              <label className="block text-gray-700 font-medium mb-1">
+              <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
                 อีเมล <span className="text-red-500">*</span>
               </label>
               <Input
@@ -98,10 +98,10 @@ export default function RegistrationForm2({ isEdit = false, userId }: Registrati
 
    
             <div className="mb-4 flex items-center gap-3">
-              <label className="block text-gray-700 font-medium mb-1">
+              <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
                 รหัสผ่าน <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
+              
                 <Input
                   type="password"
                   value={password}
@@ -109,13 +109,13 @@ export default function RegistrationForm2({ isEdit = false, userId }: Registrati
                   className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
                   required
                 />
-                {password.length >= 6 && <span className="absolute right-3 top-4 text-green-500">✔️</span>}
-              </div>
+                {/* {password.length >= 6 && <span className="absolute right-3 top-4 text-green-500">✔️</span>} */}
+              
             </div>
 
        
-            <div className="ml-20">
-              <div className="relative">
+            <div className="ml-20 ">
+              
                 <Input
                   type="password"
                   value={confirmPassword}
@@ -123,10 +123,10 @@ export default function RegistrationForm2({ isEdit = false, userId }: Registrati
                   className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
                   required
                 />
-                {password === confirmPassword && <span className="absolute right-3 top-4 text-green-500">✔️</span>}
-              </div>
+                {/* {password === confirmPassword && <span className="absolute right-3 top-4 text-green-500">✔️</span>} */}
+              
             </div>
-
+            </div>
             
 
           </form>

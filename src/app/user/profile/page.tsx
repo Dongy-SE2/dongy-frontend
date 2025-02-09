@@ -28,10 +28,10 @@ export default function ProfilePage() {
         
      
         <div className="space-x-8">
-          <div className="mb-3">
+          <div className="mb-6">
               <ProfileImageUploader/>
           </div>
-          <div>
+          <div className=" ">
 
               <RegistrationForm2 isEdit={true} userId={"1"}/>
           </div>

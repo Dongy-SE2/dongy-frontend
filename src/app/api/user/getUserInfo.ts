@@ -24,7 +24,7 @@ export const getUserInfo = async (userId: string): Promise<UserInfo> => {
         title: "Mr.",
         firstname: "John",
         lastname: "Doe",
-        dob: "1990-01-01",
+        dob: "01/01/1990",
         phone: "123-456-7890",
         idnumber: "A123456789",
         address: "123 Main St, Cityville",
