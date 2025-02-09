@@ -32,7 +32,7 @@ export function SelectItem({ children, value }: SelectItemProps) {
   return (
     <RadixSelect.Item
       value={value}
-      className="p-2 cursor-pointer hover:bg-gray-100"
+      className="p-2 cursor-pointer hover:bg-gray-100 "
     >
       <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
     </RadixSelect.Item>

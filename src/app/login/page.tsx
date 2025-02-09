@@ -7,8 +7,8 @@ export default function Login() {
   return (
     <div className="min-h-screen w-full bg-[#F6F7F9] bg-auto justify-center items-center flex">
  
-      <div className="w-1/2 flex items-center justify-center p-10">
-      <img src="/home_picture.svg" alt="Logo" className="pr-[83px]" />
+      <div className=" flex items-center justify-center p-10 items-stretch">
+      <img src="/home_picture.svg" alt="Logo" className="pr-[14px]" />
       </div>
       
   

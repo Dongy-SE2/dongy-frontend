@@ -70,7 +70,7 @@ export default function RegistrationForm({ isEdit = false, userId }: Registratio
                 คำนำหน้า <span className="text-red-500">*</span>
               </label>
               <select
-                className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-24"
+                className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-26 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               >
@@ -112,8 +112,9 @@ export default function RegistrationForm({ isEdit = false, userId }: Registratio
               <label className="block text-gray-700 mb-1 whitespace-nowrap">
                 วันเกิด <span className="text-red-500">*</span>
               </label>
-              
-                <DateInput value={dob} onChange={handleDobChange} />
+                
+                <DateInput value={dob} onChange={handleDobChange}/>
+                
                 {/* <span className="absolute right-3 top-5 text-gray-500">📅</span> */}
              
               {!isValidDate(dob) && <p className="text-red-500 text-sm mt-1">วันที่ไม่ถูกต้อง</p>}
@@ -148,17 +149,17 @@ export default function RegistrationForm({ isEdit = false, userId }: Registratio
             </div>
 
         
-            <div className="flex items-center gap-12">
-              <label className="block text-gray-700 mb-1 whitespace-nowrap">
-                ที่อยู่ <span className="text-red-500">*</span>
-              </label>
-              <Input
-                className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </div>
+            <div className="mb-4 flex items-center gap-12">
+  <label className="block text-gray-700 mb-1 whitespace-nowrap">
+    ที่อยู่ <span className="text-red-500">*</span>
+  </label>
+  <textarea
+    className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 h-24 resize-none border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    value={address}
+    onChange={(e) => setAddress(e.target.value)}
+  />
+</div>
+
 
             
           </form>

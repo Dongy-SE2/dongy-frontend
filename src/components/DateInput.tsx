@@ -27,9 +27,9 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
     <input
       type="text"
       value={value}
-      onChange={handleInputChange}
+      onChange={handleInputChange} 
       placeholder="DD/MM/YYYY"
-      className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 placeholder-gray-500"
+      className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 placeholder-gray-500  border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
     />
   );
 };
