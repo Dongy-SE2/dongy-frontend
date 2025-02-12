@@ -24,12 +24,12 @@ export const getUserInfo = async (userId: string): Promise<UserInfo> => {
         title: "Mr.",
         firstname: "John",
         lastname: "Doe",
-        dob: "01/01/1990",
+        dob: "1990-01-01",
         phone: "123-456-7890",
         idnumber: "A123456789",
         address: "123 Main St, Cityville",
         role: "buyer",
-        email: "john.doe@example.com",
+        email: "john.doe@gmail.com",
         password: "password123",
         confirmPassword: "password123"
       };
