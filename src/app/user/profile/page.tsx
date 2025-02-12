@@ -1,48 +1,73 @@
 "use client";
-import { Input } from "@/components/ui/input";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Select, SelectItem } from "@/components/ui/select";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { useState } from "react";
-import { CalendarIcon, UploadIcon, TrashIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import RegistrationForm from "@/components/registrationForm";
 import RegistrationForm2 from "@/components/registrationForm2";
-import { useRouter } from "next/navigation";
 import ProfileImageUploader from "@/components/ProfileImageUploader";
 
 export default function ProfilePage() {
   const [profilePic, setProfilePic] = useState<string>("/placeholder-profile.jpg");
   const router = useRouter();
+
+  interface FormRef {
+    submitForm: () => Promise<void>;
+  }
+  
+  const personalFormRef = useRef<FormRef>(null);
+  const accountFormRef = useRef<FormRef>(null);
+  
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); 
+    
+    if (personalFormRef.current && accountFormRef.current) {
+      await Promise.all([
+        personalFormRef.current.submitForm(),
+        accountFormRef.current.submitForm(),
+      ]);
+    }
+    
+    router.push("/user"); 
+  };
+  
+  const handlePersonalSubmit = (data: any) => {
+    console.log("Personal Information:", data);
+  };
+  
+  const handleAccountSubmit = (data: any) => {
+    console.log("Account Information:", data);
+  };
+
   return (
     <div className="min-h-screen w-full bg-[#F6F7F9] bg-auto">
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4">แก้ไขข้อมูล</h2>
-      <div className="grid grid-cols-2 gap-6">
-    
-        <div className=" ">
-            <RegistrationForm isEdit={true} userId={"1"}/>
-            <div/>
-            <div/>
-        </div>
-        
-     
-        <div className="space-x-8">
-          <div className="mb-6">
-              <ProfileImageUploader/>
-          </div>
-          <div className=" ">
+      <div className="p-6 max-w-4xl mx-auto">
+        <h2 className="text-2xl font-semibold mb-4">แก้ไขข้อมูล</h2>
+        <form className="grid grid-cols-2 gap-6" onSubmit={handleFormSubmit}>
 
-              <RegistrationForm2 isEdit={true} userId={"1"}/>
+          
+          <div>
+            <RegistrationForm ref={personalFormRef} isEdit={true} userId={"1"} onSubmit={handlePersonalSubmit} />
           </div>
-          <div className="flex justify-end mt-4">
-        <Button  className="bg-[#10B981] text-white py-2 rounded-lg mt-4 w-36" onClick={() => router.push("/user")}>บันทึก</Button>
+
+         
+          <div className="space-x-8">
+            <div className="mb-6">
+              <ProfileImageUploader />
+            </div>
+
+            <div>
+              <RegistrationForm2 ref={accountFormRef} isEdit={true} userId={"1"} onSubmit={handleAccountSubmit} />
+            </div>
+
+            <div className="flex justify-end mt-4">
+              <Button type="submit" className="bg-[#10B981] text-white py-2 rounded-lg mt-4 w-36">
+                บันทึก
+              </Button>
+            </div>
+          </div>
+
+        </form>
       </div>
-        </div>
-      
-      
-      </div>
-    </div>
     </div>
   );
 }

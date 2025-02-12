@@ -13,6 +13,12 @@ const users = [
     email: 'seller@gmail.com',
     password: bcrypt.hashSync('sellerpassword', 10),
     role: 'seller'
+  },
+  {
+    id: 3,
+    email: 'john.doe@gmail.com',
+    password: bcrypt.hashSync('password123', 10),
+    role: 'buyer'
   }
 ];
 
