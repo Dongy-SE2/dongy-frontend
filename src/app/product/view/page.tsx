@@ -1,10 +1,8 @@
-
 import Image from "next/image";
 import { CircleUserRound } from 'lucide-react';
 import ProductManageHeader from "@/components/ProductManageHeader";
 import getProductInfo from "@/app/api/product/getProductInfo";
 import Link from "next/link";
-
 
 export default async function ProductDetail({
     params,
