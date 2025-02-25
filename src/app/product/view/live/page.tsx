@@ -4,7 +4,7 @@ import MovebackButton from "@/components/MovebackButton";
 import { CircleUserRound, Link } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 
-export default async function ProductDetail({
+export default async function LiveBidding({
     params,
 }: {
     params: Promise<{ productId: string }>;
@@ -16,67 +16,73 @@ export default async function ProductDetail({
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] ">
-            <div className="flex justify-center items-center h-400 my-14">
-                <div className="w-full max-w-[724px] aspect-video">
-                    <iframe
-                    className="w-full h-full rounded-lg"
-                    src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0"
-                    title="Bidding Live Stream"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    ></iframe>
+                <div className="flex justify-center items-center relative w-full pt-14 pb-6">
+                    <div className="w-full max-w-[724px] h-full max-h-[353px] aspect-video">
+                        <iframe
+                        className="w-full h-full rounded-lg"
+                        src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0"
+                        title="Bidding Live Stream"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        ></iframe>
+                    </div>
+                    <div className="absolute right-64 top-14">
+                        <MovebackButton href="/product/view"/>
+                    </div>
                 </div>
-                <MovebackButton href="/product/view"/>
-            </div>
-            
             
             <div className="flex justify-center">
                 {/* Left: Product Detail Card */}
-                <div className="w-[340px] h-[400px] bg-white p-6 rounded-lg shadow-md">
-                    <h2 className="text-2xl font-semibold p-1">ประมูลรองเท้าสุดคุ้ม x2</h2>
-                    
-                    <div className="grid grid-cols-2 grid-rows-4 mt-6 align-center space-y-3">
-                        <p className="text-lg font-medium">สินค้า</p> 
-                        <p className="text-base font-normal text-gray-900">รองเท้า</p>
-                        <p className="text-lg font-medium">ผู้ขาย</p> 
-                        <p className="text-base font-normal text-gray-900 flex align-center">
+                <div className="w-[340px] h-[400px] bg-white p-7 rounded-lg shadow-md">
+                    <h2 className="text-2xl font-semibold">ประมูลรองเท้าสุดคุ้ม x2</h2>
+                    <div className="grid grid-cols-2 grid-rows-4 mt-6">
+                        <p className="text-lg font-medium pb-3">สินค้า</p> 
+                        <p className="text-base font-normal text-gray-900 pb-3">รองเท้า</p>
+                        <p className="text-lg font-medium pb-3">ผู้ขาย</p> 
+                        <p className="text-base font-normal text-gray-900 flex items-center pb-3">
                             <CircleUserRound className="w-[18px] h-[18px] mr-1"/> 
                             วสุพล ดิสสานนท์
                         </p>
-                        <p className="text-lg font-medium ">ประเภท</p> 
-                        <p className="text-base font-normal text-gray-900">รองเท้า</p>
-                        <p className="text-lg font-medium">รายละเอียด</p>
+                        <p className="text-lg font-medium pb-3">ประเภท</p> 
+                        <p className="text-base font-normal text-gray-900 pb-3">รองเท้า</p>
+                        <p className="text-lg font-medium pb-3">รายละเอียด</p>
                     </div>
-                    <p className=" text-gray-600 font-normal">
-                    รองเท้าใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบาย
+                    <p className="text-sm text-gray-600 font-normal">
+                        รองเท้าใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบายใส่ง่ายใส่สบาย
                     </p>
                 </div>
 
                 {/* Right: Cards Container */}
-                <div className="justify-center relative px-9">
+                <div className="justify-center relative pl-5">
                     {/* Top Right: Bidding Info Card */}
-                    <div className="w-[365px] h-[200px] p-4 bg-white rounded-lg shadow-md text-center">
-                        <div className="grid grid-cols-2 grid-rows-4 min-w-max min-h-max items-center">
-                            <p className="text-lg font-medium ">ราคาปัจจุบัน</p> 
-                            <p className="text-base font-normal text-gray-900">3,000 บาท</p>
-                            <p className="text-lg font-medium ">เวลาที่เหลือ</p> 
-                            <p className="text-base font-normal text-gray-900">20 นาที</p>
-                            <p className="text-lg font-medium col-span-2">ราคาที่ต้องการประมูล (บาท)</p>
-                            <button className="w-24 h-8 bg-[#10B981] text-white rounded-lg">ตกลง</button>
-                        
+                    <div className="w-[365px] h-[202px] p-7 bg-white rounded-lg shadow-md">
+                        <div className="grid grid-cols-2 grid-rows-3">
+                            <p className="text-base font-medium text-left pb-3">ราคาปัจจุบัน</p> 
+                            <p className="text-xl font-semibold text-[#10B981] text-left px-5 pb-3">3,000 บาท</p>
+                            <p className="text-base font-medium text-left pb-3">เวลาที่เหลือ</p> 
+                            <p className="text-xl font-normal text-gray-900 text-left px-5 pb-3">20 นาที</p>
+                            <p className="text-base font-medium text-left col-span-2">ราคาที่ต้องการประมูล (บาท)</p>
+                        </div>
+                        <div className="flex space-x-3 items-center">
+                            <input
+                                type="text"
+                                placeholder="0"
+                                className="bg-[#F3F4F6] rounded-lg w-40 h-11 text-center"
+                            />
+                            <button className="w-24 h-8 bg-[#10B981] font-medium text-base text-white rounded-lg">ตกลง</button>
                         </div>
                     </div>
 
 
                     {/* Bottom Right: Bidding Time Card */}
-                    <div className="w-[365px] h-[180px] mt-4 p-4 bg-white rounded-lg shadow-md text-center">
-                        <div className="grid grid-cols-2 grid-rows-4 align-center space-y-3">
+                    <div className="w-[365px] h-[180px] mt-4 p-7 bg-white rounded-lg shadow-md text-center">
+                        <div className="grid grid-cols-3 grid-rows-2">
+                            <p className="text-lg font-medium pb-3">เวลาเริ่มต้น</p> 
+                            <p className="text-base font-normal text-gray-900 col-span-2 pb-3">21 กุมภาพันธ์ 2568 12.00 น.</p>
                             <p className="text-lg font-medium">เวลาเริ่มต้น</p> 
-                            <p className="text-base font-normal text-gray-900">21 กุมภาพันธ์ 2568 12.00 น.</p>
-                            <p className="text-lg font-medium">เวลาเริ่มต้น</p> 
-                            <p className="text-base font-normal text-gray-900">21 กุมภาพันธ์ 2568 12.00 น.</p>
-                            <button className="col-span-2 bg-gray-600 text-white rounded-lg">ประวัติการประมูล</button>
+                            <p className="text-base font-normal text-gray-900 col-span-2">21 กุมภาพันธ์ 2568 12.00 น.</p>
                         </div>
+                        <button className="w-36 h-9 mt-4 col-span-3 place-self-center bg-gray-600 font-medium text-base text-white rounded-lg">ประวัติการประมูล</button>                            
                     </div>
                 
                 </div>
