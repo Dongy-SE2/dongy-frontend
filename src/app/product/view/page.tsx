@@ -1,7 +1,10 @@
+
 import Image from "next/image";
 import { CircleUserRound } from 'lucide-react';
 import ProductManageHeader from "@/components/ProductManageHeader";
 import getProductInfo from "@/app/api/product/getProductInfo";
+import Link from "next/link";
+
 
 export default async function ProductDetail({
     params,
@@ -10,8 +13,8 @@ export default async function ProductDetail({
 })  {
     const productId = (await params).productId;
     const productInfo = await getProductInfo(productId);
-    const isLive = false // get api about live status
-    const timeLeft = null // need to connect api about time(null = not going to live soon)
+    const isLive = true // get api about live status
+    const timeLeft = 120 // need to connect api about time(null = not going to live soon)
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] ">
@@ -46,7 +49,7 @@ export default async function ProductDetail({
                 {isLive &&(<div className="w-[385px] h-[144px] mt-4 p-4 bg-white rounded-lg shadow text-center">
                 <p className="text-lg font-semibold">สินค้านี้กำลังมีการประมูล</p>
                 <p className="text-base text-gray-600">การประมูลจะสิ้นสุดในอีก {timeLeft} นาที </p>
-                <button className="mt-3 bg-[#10B981] text-white px-4 py-2 rounded-lg">ดูการประมูล</button>
+                <Link href='/product/view/live'><button className="mt-3 bg-[#10B981] text-white px-4 py-2 rounded-lg">ดูการประมูล</button></Link>
                 </div>)}
                 {!isLive && timeLeft != null &&(<div className="w-[385px] h-[144px] mt-4 p-4 bg-white rounded-lg shadow text-center">
                 <p className="text-lg font-semibold">สินค้านี้กำลังจะมีการประมูล</p>
