@@ -1,12 +1,9 @@
 "use client"; // Ensure this is a client-side component
 
 import { useState, useEffect } from "react";
-import getProductInfo from "@/app/api/product/getProductInfo";
 import MovebackButton from "@/components/MovebackButton";
-import { CircleUserRound } from "lucide-react";
-import CustomAlert from "@/components/CustomAlert";
-import LiveBiddingHistory from "@/components/live/liveBiddingHistory";
-import LiveProductInfo from "@/components/live/liveProductInfo";
+import LiveBiddingHistory from "@/components/live/LiveBiddingHistory";
+import LiveProductInfo from "@/components/live/LiveProductInfo";
 import BiddingInfoCard from "@/components/live/BiddingInfoCard";
 
 type Bid = {

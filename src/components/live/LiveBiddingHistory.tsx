@@ -1,6 +1,6 @@
 "use client";
 
-import BidHistoryPopup from "./bidHistoryPopup";
+import BidHistoryPopup from "./BidHistoryPopup";
 
 type Bid = {
   name: string;

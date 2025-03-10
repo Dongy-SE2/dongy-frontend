@@ -14,7 +14,7 @@ export default async function ProductDetail({
 })  {
     const productId = (await params).productId;
     const productInfo = await getProductInfo(productId);
-    const isLive = false // get api about live status
+    const isLive = true // get api about live status
     const timeLeft = '120' // need to connect api about time(null = not going to live soon)
 
     return (
