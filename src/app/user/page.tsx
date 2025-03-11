@@ -3,12 +3,12 @@ import ActionButton from "@/components/ActionButton";
 import ProfileCard from "@/components/ProfileCard";
 import DeleteProductAlert from "@/components/DeleteProductAlert";
 
-import { FolderPlus, Grid2X2, IdCard } from "lucide-react";
+import { FolderPlus, Grid2X2, IdCard, BoomBox } from "lucide-react";
 import InsertImageAlert from "@/components/InsertImageAlert";
 
 export default function User() {
   return (
-    <div className="min-h-screen w-full bg-[#F6F7F9] bg-auto justify-center items-center">
+    <div className="min-h-screen w-full justify-center items-center bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9]">
       <h1 className="flex place-content-evenly">
         <div className="w-[300px] h-[80px] font-semibold text-black text-3xl px-6 py-16">
           ข้อมูลส่วนบุคคล
@@ -40,7 +40,11 @@ export default function User() {
           Icon={<IdCard />}
           route={"/user/profile"}
         />
-        <ActionButton key={4} ActionName={"-"} Icon={""} route={""} />
+        <ActionButton 
+          key={4} 
+          ActionName={"จัดการไลฟ์"} 
+          Icon={<BoomBox/>} 
+          route={"/user/manage"} />
       </div>
     </div>
   );
