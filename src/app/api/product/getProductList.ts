@@ -3,6 +3,7 @@ export interface Product {
   image: string;
   id: string;
   minPrice: number;
+  maxPrice: number;
 }
 
 const getProductList = async (userId: string): Promise<Product[]> => {
@@ -13,18 +14,21 @@ const getProductList = async (userId: string): Promise<Product[]> => {
       id: "001",
       image: "/image/emotional-damage.gif",
       minPrice: 100,
+      maxPrice: 100,
     },
     {
       name: "รองเท้า2",
       id: "002",
       image: "/image/emotional-damage.gif",
       minPrice: 100,
+      maxPrice: 10,
     },
     {
       name: "รองเท้า3",
       id: "003",
       image: "/image/emotional-damage.gif",
       minPrice: 100,
+      maxPrice: 500,
     },
   ];
 };
