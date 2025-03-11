@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { CalendarIcon } from "lucide-react";
 import { LinkIcon } from "lucide-react";
+import MovebackButton from "@/components/MovebackButton";
 
 interface LiveItem{
     id: number;
@@ -30,35 +31,46 @@ export default function SetLiveBiddingPage(){
 
     return(
         <>
-        <div className=" p-6">
+        <div className="w-3/4 mx-auto">
+        <div className=" ">
             <header className=" p-4 flex items-center justify-between">
                 <h1 className="text-xl font-semibold">จัดการไลฟ์</h1>
+                <MovebackButton href="./user"/>
             </header>
-        
+        </div>
+        <div className="w-5/6 mx-auto">
 
-        <div className="mt-6 flex gap-6">
-            <aside className="w-1/4 bg-white rounded-lg shadow p-4">
+        <div className="mt-6 flex gap-6 ">
+            <div className="w-1/3  bg-white rounded-lg shadow p-4">
                 
                 {liveBiddingItems.map((item) => (
                     <button
                         key={item.id}
                         onClick={() => setSelectedItem(item)}
-                        className={`w-full p-3 text-left rounded-lg mb-2 ${selectedItem?.id === item.id ? "bg-green-100 font-semibold" : "bg-gray-100"}`}
+                        className={
+                            `w-full p-3 text-left rounded-lg mb-2 ${selectedItem?.id === item.id ? "bg-gray-200 " : "bg-gray-100"}`
+                        }
                     >
-                    {item.title}
+                        <div className="flex items-center justify-center">
+                        <img
+                            src="image/shoes.png"
+                            alt="Live Thumbnail"
+                            className="size-12 rounded-lg"
+                        />
+                    <span>{item.title}</span></div>
                     </button>
                 ))}
 
                 <button className="w-full border-dashed border-2 border-gray-300 p-3 rounded-lg text-gray-500 mt-4">
                     + เพิ่มไลฟ์ใหม่
                 </button>
-            </aside>
+            </div>
         
         <main className="flex-1 ">
             {selectedItem ? (
                 <>
                 <div className="flex gap-6 bg-white rounded-lg shadow p-6">
-                    <div className="w-1/3">
+                    <div className="w-1/2">
                         <img
                             src="image/shoes.png"
                             alt="Live Thumbnail"
@@ -66,8 +78,8 @@ export default function SetLiveBiddingPage(){
                         /> 
                     </div>
                     <div className="flex-1">
-                        <p>ตัวอย่าง</p>
-                        <h3 className="text-xl font-semibold mb-2">{selectedItem.title}</h3>
+                        <p className="flex-1 py-2 rounded-lg border w-32 h-10 bg-gray-800 text-white border-gray-800 items-center justify-center flex">ตัวอย่าง</p>
+                        <h3 className="text-l font-semibold mb-2">{selectedItem.title}</h3>
                         
                     </div>
                 </div>
@@ -134,18 +146,19 @@ export default function SetLiveBiddingPage(){
                     <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
                         สถานะ <span className="text-red-500">*</span>
                     </label>
-                    <input
-                        type="text"
-                        value={selectedItem.status}
-                        onChange={(e) => setSelectedItem({...selectedItem, status: e.target.value})}
-                        className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
-                        required
-                     
-                    />
+                    
+                    <select className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
+                    onChange={(e) => setSelectedItem({...selectedItem, status: e.target.value})}
+                    value={selectedItem.status}
+                    >
+                        <option value="สาธารณะ">สาธารณะ</option>
+                        <option value="ส่วนตัว">ส่วนตัว</option>
+                       
+                    </select>
                 </div>
 
                 <div className="mb-4 flex items-center gap-8">
-                    <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
+                    <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap justify-center">
                         ลิงก์ <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -160,10 +173,10 @@ export default function SetLiveBiddingPage(){
                 </div>
                 
 
-                <div className="flex gap-4">
-                  <button className="bg-red-500 text-white py-2 px-4 rounded-lg">ลบ</button>
-                  <button className="bg-green-500 text-white py-2 px-4 rounded-lg">เริ่มทันที</button>
-                  <button className="bg-gray-400 text-white py-2 px-4 rounded-lg">คัดลอกลิงก์</button>
+                <div className="flex gap-4 justify-center ">
+                  <button className="bg-red-400 text-white py-2 px-4 rounded-lg ">ลบ</button>
+                  <button className="bg-[#10B981] text-white py-2 px-4 rounded-lg ">เริ่มทันที</button>
+                  <button className="bg-gray-500 text-white py-2 px-4 rounded-lg ">คัดลอกลิงก์</button>
                 </div>
             </form>
             </>
@@ -171,6 +184,7 @@ export default function SetLiveBiddingPage(){
                 <p className="text-gray-500">เลือกไลฟ์เพื่อดูรายละเอียด</p>
             )}
         </main>
+        </div>
         </div>
         </div>
         </>
