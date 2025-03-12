@@ -19,6 +19,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
       </p>
       <input
         type="text"
+        name="product_name"
         className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
         defaultValue={data.name}
         required
@@ -28,6 +29,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
       </p>
       <select
         className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
+        name="categories"
         defaultValue={data.type}
         required
       >
@@ -43,6 +45,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
           type="range"
           min="0"
           max="100000"
+          name="price"
           onChange={(e) => changeSliderValue(parseInt(e.currentTarget.value))}
           value={sliderValue}
           className="align-middle accent-green-500 border-none"
@@ -58,6 +61,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
       <p className="text-gray-400 mt-1 mb-3 text-sm">ไม่เกิน 200 อักขระ</p>
       <textarea
         maxLength={200}
+        name="product_description"
         className="resize-none text-sm bg-gray-100 w-full h-36 mb-7 px-4 py-2"
         defaultValue={data.description}
       />

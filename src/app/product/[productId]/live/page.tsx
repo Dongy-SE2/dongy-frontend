@@ -1,25 +1,40 @@
 "use client"; // Ensure this is a client-side component
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import MovebackButton from "@/components/MovebackButton";
 import LiveBiddingHistory from "@/components/live/LiveBiddingHistory";
 import LiveProductInfo from "@/components/live/LiveProductInfo";
 import BiddingInfoCard from "@/components/live/BiddingInfoCard";
 
-type Bid = {
+interface Bid {
   name: string;
   amount: number;
   date: string;
   time: string;
-};
+}
 
 const bidHistory: Bid[] = [
-  { name: "กอไผ่ กอไผ่", amount: 2500, date: "21 กุมภาพันธ์ 2568", time: "12:15 น." },
-  { name: "กอไผ่ กอไผ่", amount: 3000, date: "21 กุมภาพันธ์ 2568", time: "12:30 น." },
-  { name: "กอไผ่ กอไผ่", amount: 3500, date: "21 กุมภาพันธ์ 2568", time: "12:40 น." },
+  {
+    name: "กอไผ่ กอไผ่",
+    amount: 2500,
+    date: "21 กุมภาพันธ์ 2568",
+    time: "12:15 น.",
+  },
+  {
+    name: "กอไผ่ กอไผ่",
+    amount: 3000,
+    date: "21 กุมภาพันธ์ 2568",
+    time: "12:30 น.",
+  },
+  {
+    name: "กอไผ่ กอไผ่",
+    amount: 3500,
+    date: "21 กุมภาพันธ์ 2568",
+    time: "12:40 น.",
+  },
 ];
 const currentBidding = "3000"; // Example current bid
-const timeLeft = "20 นาที"
+const timeLeft = "20 นาที";
 
 export default function LiveBidding() {
   const [productInfo, setProductInfo] = useState(null);
@@ -38,7 +53,7 @@ export default function LiveBidding() {
             allowFullScreen
           ></iframe>
         </div>
-        <div className="absolute right-64 top-14">
+        <div className="absolute right-96 top-14">
           <MovebackButton href="/product/view" />
         </div>
       </div>
@@ -51,7 +66,7 @@ export default function LiveBidding() {
           productType="รองเท้า"
           productDescription="รองเท้าใส่ง่าย ใส่สบาย น้ำหนักเบา เหมาะสำหรับทุกโอกาส"
         />
-        
+
         <div className="justify-center relative pl-5">
           <BiddingInfoCard
             currentBidding={currentBidding}
@@ -64,9 +79,6 @@ export default function LiveBidding() {
           />
         </div>
       </div>
-      
-      
-      
     </div>
   );
 }
