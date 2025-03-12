@@ -58,9 +58,9 @@ const RegistrationForm = () => {
               className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-50"
               required
             />
-            {window.location.href.indexOf("error=invalidData") !== -1 && (
-              <p className="text-red-500 text-sm mt-1">วันที่ไม่ถูกต้อง</p>
-            )}
+            {/* {window.location.href.indexOf("error=invalidData") !== -1 && ( */}
+            {/*   <p className="text-red-500 text-sm mt-1">วันที่ไม่ถูกต้อง</p> */}
+            {/* )} */}
           </div>
 
           <div className="mb-4 flex items-center gap-6">
