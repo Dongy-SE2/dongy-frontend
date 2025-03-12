@@ -3,6 +3,7 @@ import { Product } from "@/app/api/product/getProductList";
 import PaymentMethod from "./PaymentMethod";
 import { useContext } from "react";
 import { Selection } from "./PaymentContext";
+import Script from "next/script";
 import paymentSubmit from "@/app/api/payment/paymentSubmit";
 
 const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
@@ -21,8 +22,57 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
   const tax = parseFloat((price * 0.07).toFixed(2));
   const total = parseFloat((price + tax - price).toFixed(2));
 
+  const TransanctionProcess = async (data: FormData) => {
+    const promptpay = data.get("promptpay")?.toString();
+    const scb = data.get("scb")?.toString();
+    const kplus = data.get("kplus")?.toString();
+
+    window.Omise.setPublicKey(process.env.NEXT_PUBLIC_OMISE_PUBLIC_KEY);
+    let res;
+    if (promptpay === "on") {
+      res = await window.Omise.createSource(
+        "promptpay",
+        {
+          amount: total * 100,
+          currency: "THB",
+        },
+        (status: any, res: any) => console.log(res),
+      );
+    }
+
+    if (scb === "on") {
+      res = await window.Omise.createSource(
+        "mobile_banking_scb",
+        {
+          amount: total * 100,
+          currency: "THB",
+        },
+        (status: any, res: any) => console.log(res),
+      );
+    }
+
+    if (kplus === "on") {
+      window.Omise.createSource(
+        "mobile_banking_kbank",
+        {
+          amount: total * 100,
+          currency: "THB",
+        },
+        (status: any, res: any) => console.log(res),
+      );
+    }
+  };
+
   return (
-    <form action={(form) => paymentSubmit(form, total, selected)}>
+    <form action={TransanctionProcess}>
+      <Script
+        type="text/javascript"
+        src="https://cdn.omise.co/omise.js"
+        data-key={process.env.NEXT_PUBLIC_OMISE_PUBLIC_KEY}
+        data-amount="12345"
+        data-currency="THB"
+        deta-default-payment-methods="mobile_banking_kbank"
+      />
       <h2 className="text-xl font-medium mb-2">ยอดที่ต้องชำระ</h2>
       <div className="flex flex-row justify-evenly bg-white px-7 py-5 rounded-xl shadow-md text-gray-600 text-sm mb-4">
         <div className="mr-14">
@@ -85,11 +135,12 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
       <h2 className="text-xl font-medium mb-2">วิธีการชำระเงิน</h2>
       <PaymentMethod />
       <div className="w-full flex justify-end mt-3">
-        <input
+        <button
           type="submit"
           className="cursor-pointer bg-green-500 rounded-lg px-11 py-2 text-white font-medium"
-          value="ต่อไป"
-        />
+        >
+          ต่อไป
+        </button>
       </div>
     </form>
   );

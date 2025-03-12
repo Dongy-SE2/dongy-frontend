@@ -1,10 +1,7 @@
-import Navbar from "@/components/Navbar";
 import ActionButton from "@/components/ActionButton";
 import ProfileCard from "@/components/ProfileCard";
-import DeleteProductAlert from "@/components/DeleteProductAlert";
 
 import { FolderPlus, Grid2X2, IdCard, BoomBox } from "lucide-react";
-import InsertImageAlert from "@/components/InsertImageAlert";
 
 export default function User() {
   return (
@@ -40,11 +37,12 @@ export default function User() {
           Icon={<IdCard />}
           route={"/user/profile"}
         />
-        <ActionButton 
-          key={4} 
-          ActionName={"จัดการไลฟ์"} 
-          Icon={<BoomBox/>} 
-          route={"/user/manage"} />
+        <ActionButton
+          key={4}
+          ActionName={"จัดการไลฟ์"}
+          Icon={<BoomBox />}
+          route={"/user/manage"}
+        />
       </div>
     </div>
   );

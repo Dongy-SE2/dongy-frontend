@@ -24,6 +24,7 @@ export default function PaymentMethod() {
         <div>
           <input
             type="checkbox"
+            name="kplus"
             className="ml-12"
             ref={kplus}
             onChange={() =>
@@ -35,6 +36,7 @@ export default function PaymentMethod() {
           <span className="ml-2">K Plus</span>
           <input
             type="checkbox"
+            name="scb"
             className="ml-12"
             ref={scb}
             onChange={() =>
@@ -55,7 +57,7 @@ export default function PaymentMethod() {
             mobileRef.current.checked = false;
           changeOpen(false);
         }}
-        id="promptpay"
+        name="promptpay"
         ref={promptRef}
       />
       <span className="ml-2">Promptpay</span>

@@ -7,16 +7,16 @@ interface Props {
 }
 
 interface SelectionContext {
-  selection: string[];
-  setSelect?: React.Dispatch<React.SetStateAction<string[]>>;
+  selection: number;
+  setSelect?: React.Dispatch<React.SetStateAction<number>>;
 }
 const Selection = createContext<SelectionContext>({
-  selection: [],
+  selection: 0,
   setSelect: undefined,
 });
 
-export default function PaymentContext({ children }: Props) {
-  const [selection, setSelect] = useState<string[]>([]);
+export default function LiveContext({ children }: Props) {
+  const [selection, setSelect] = useState<number>(0);
 
   return (
     <Selection.Provider value={{ selection, setSelect }}>
