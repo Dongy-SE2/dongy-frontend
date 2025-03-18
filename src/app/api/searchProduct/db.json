@@ -1,0 +1,11 @@
+{
+    "searchProducts": [
+        {
+            "product_name" : "รองเท้า",
+            "product_description" : "เอาไว้ใส่ที่เท้า",
+            "categories" :"เสื้อผ้า",
+            "owner" : 12345678,
+            "price" :1300
+        }
+    ]
+}
