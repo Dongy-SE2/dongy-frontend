@@ -1,6 +1,6 @@
 import { searchProduct } from "./searchProduct";
-const baseUrl = "http:/localhost:4000";
-const url = `http:/localhost:4000${baseUrl}/searchProducts`
+const baseUrl = "http://localhost:4000";
+const url = `${baseUrl}/searchProducts`
 
 function translateStatusToErrorMessage(status: number){
     switch(status){
