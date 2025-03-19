@@ -44,8 +44,8 @@ function convertToSearchProductModel(item: any): searchProduct {
 
 const searchProductAPI = {
 
-    get(page = 1, limit = 10) {
-        return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`)
+    get(searchText: string) {
+        return fetch(`${url}/?_sort=product_name&product_name_like=${searchText}`)
           .then(checkStatus)
           .then(parseJSON)
           .then(convertToSearchProductModels)
@@ -60,7 +60,23 @@ const searchProductAPI = {
             .then(checkStatus)
             .then(parseJSON)
             .then(convertToSearchProductModel)
-    }
+    },
+
+    post(searchText: string) {
+        return fetch(`${url}/${searchText}`, {
+          method: "POST",
+          body: JSON.stringify({query: searchText}),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(checkStatus)
+          .then(parseJSON)
+          .catch((error: TypeError) => {
+            console.log("log client error " + error);
+            throw new Error("There was an error retriving the project. Please try again.");
+          });
+      }
 }
 
 export { searchProductAPI }

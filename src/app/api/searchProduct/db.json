@@ -1,11 +1,208 @@
 {
     "searchProducts": [
-        {
-            "product_name" : "รองเท้า",
-            "product_description" : "เอาไว้ใส่ที่เท้า",
-            "categories" :"เสื้อผ้า",
-            "owner" : 12345678,
-            "price" :1300
-        }
+      {
+        "product_name": "รองเท้า",
+        "product_description": "เอาไว้ใส่ที่เท้า",
+        "categories": "เสื้อผ้า",
+        "owner": 12345678,
+        "price": 1300
+      },
+      {
+        "product_name": "เสื้อยืด",
+        "product_description": "เสื้อผ้าสวมใส่สบาย",
+        "categories": "เสื้อผ้า",
+        "owner": 87654321,
+        "price": 400
+      },
+      {
+        "product_name": "กางเกงยีนส์",
+        "product_description": "เหมาะกับทุกโอกาส",
+        "categories": "เสื้อผ้า",
+        "owner": 11223344,
+        "price": 1500
+      },
+      {
+        "product_name": "กระเป๋าสะพาย",
+        "product_description": "ใช้สำหรับใส่ของ",
+        "categories": "กระเป๋า",
+        "owner": 99887766,
+        "price": 1800
+      },
+      {
+        "product_name": "หมวกแก๊ป",
+        "product_description": "กันแดดได้ดี",
+        "categories": "เครื่องประดับ",
+        "owner": 33445566,
+        "price": 500
+      },
+      {
+        "product_name": "นาฬิกาข้อมือ",
+        "product_description": "บอกเวลาแม่นยำ",
+        "categories": "เครื่องประดับ",
+        "owner": 55667788,
+        "price": 3500
+      },
+      {
+        "product_name": "แว่นกันแดด",
+        "product_description": "ป้องกันแสงแดดและรังสี UV",
+        "categories": "เครื่องประดับ",
+        "owner": 66778899,
+        "price": 2000
+      },
+      {
+        "product_name": "หูฟังไร้สาย",
+        "product_description": "เสียงดี เบสหนัก",
+        "categories": "อิเล็กทรอนิกส์",
+        "owner": 77889900,
+        "price": 2500
+      },
+      {
+        "product_name": "แท็บเล็ต",
+        "product_description": "เหมาะสำหรับอ่านหนังสือและทำงาน",
+        "categories": "อิเล็กทรอนิกส์",
+        "owner": 88990011,
+        "price": 9000
+      },
+      {
+        "product_name": "โทรศัพท์มือถือ",
+        "product_description": "กล้องชัด เล่นเกมลื่น",
+        "categories": "อิเล็กทรอนิกส์",
+        "owner": 99001122,
+        "price": 15000
+      },
+      {
+        "product_name": "คีย์บอร์ดกลไก",
+        "product_description": "พิมพ์สนุก ตอบสนองไว",
+        "categories": "อิเล็กทรอนิกส์",
+        "owner": 10101010,
+        "price": 3500
+      },
+      {
+        "product_name": "เมาส์เกมมิ่ง",
+        "product_description": "เซ็นเซอร์แม่นยำ ปรับ DPI ได้",
+        "categories": "อิเล็กทรอนิกส์",
+        "owner": 20202020,
+        "price": 1200
+      },
+      {
+        "product_name": "เตาไฟฟ้า",
+        "product_description": "ทำอาหารสะดวก ไม่ต้องใช้แก๊ส",
+        "categories": "เครื่องใช้ไฟฟ้า",
+        "owner": 30303030,
+        "price": 2800
+      },
+      {
+        "product_name": "เครื่องดูดฝุ่น",
+        "product_description": "พลังดูดแรง ทำความสะอาดง่าย",
+        "categories": "เครื่องใช้ไฟฟ้า",
+        "owner": 40404040,
+        "price": 4500
+      },
+      {
+        "product_name": "พัดลมตั้งโต๊ะ",
+        "product_description": "ลมแรงเย็นสบาย",
+        "categories": "เครื่องใช้ไฟฟ้า",
+        "owner": 50505050,
+        "price": 900
+      },
+      {
+        "product_name": "เครื่องซักผ้า",
+        "product_description": "ซักสะอาด ไม่ทำลายเนื้อผ้า",
+        "categories": "เครื่องใช้ไฟฟ้า",
+        "owner": 60606060,
+        "price": 12000
+      },
+      {
+        "product_name": "โซฟาปรับนอนได้",
+        "product_description": "นั่งสบาย แปลงเป็นเตียงได้",
+        "categories": "เฟอร์นิเจอร์",
+        "owner": 70707070,
+        "price": 8000
+      },
+      {
+        "product_name": "โต๊ะทำงาน",
+        "product_description": "ขนาดพอดีสำหรับการทำงาน",
+        "categories": "เฟอร์นิเจอร์",
+        "owner": 80808080,
+        "price": 3500
+      },
+      {
+        "product_name": "เก้าอี้สำนักงาน",
+        "product_description": "รองรับหลัง ปรับระดับได้",
+        "categories": "เฟอร์นิเจอร์",
+        "owner": 90909090,
+        "price": 4500
+      },
+      {
+        "product_name": "เตียงนอน",
+        "product_description": "นอนสบาย รองรับน้ำหนักดี",
+        "categories": "เฟอร์นิเจอร์",
+        "owner": 11112222,
+        "price": 15000
+      },
+      {
+        "product_name": "ผ้าห่มนุ่มพิเศษ",
+        "product_description": "ให้ความอบอุ่นทุกคืน",
+        "categories": "เครื่องนอน",
+        "owner": 22223333,
+        "price": 1200
+      },
+      {
+        "product_name": "หมอนหนุน",
+        "product_description": "รองรับศีรษะอย่างดี",
+        "categories": "เครื่องนอน",
+        "owner": 33334444,
+        "price": 700
+      },
+      {
+        "product_name": "เสื้อกันหนาว",
+        "product_description": "กันลม กันหนาว",
+        "categories": "เสื้อผ้า",
+        "owner": 44445555,
+        "price": 2500
+      },
+      {
+        "product_name": "ร่มพับ",
+        "product_description": "พกพาสะดวก กันแดดกันฝน",
+        "categories": "เครื่องประดับ",
+        "owner": 55556666,
+        "price": 400
+      },
+      {
+        "product_name": "เครื่องเล่นเกมพกพา",
+        "product_description": "เล่นเกมทุกที่ทุกเวลา",
+        "categories": "อิเล็กทรอนิกส์",
+        "owner": 66667777,
+        "price": 12000
+      },
+      {
+        "product_name": "จักรยานเสือหมอบ",
+        "product_description": "ขี่เร็ว เบา ทนทาน",
+        "categories": "กีฬา",
+        "owner": 77778888,
+        "price": 25000
+      },
+      {
+        "product_name": "ลูกฟุตบอล",
+        "product_description": "ใช้สำหรับเล่นฟุตบอล",
+        "categories": "กีฬา",
+        "owner": 88889999,
+        "price": 900
+      },
+      {
+        "product_name": "เชือกกระโดด",
+        "product_description": "ช่วยเผาผลาญแคลอรี",
+        "categories": "กีฬา",
+        "owner": 99990000,
+        "price": 300
+      },
+      {
+        "product_name": "หม้อหุงข้าว",
+        "product_description": "หุงข้าวได้ไวและอร่อย",
+        "categories": "เครื่องใช้ไฟฟ้า",
+        "owner": 12121212,
+        "price": 3500
+      }
     ]
-}
+  }
+  

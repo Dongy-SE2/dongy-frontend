@@ -11,32 +11,47 @@ function LandingPage() {
     const [searchProducts, setSearchProducts] = useState<searchProduct[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchText, setSearchText] = useState('');
+    const [response, setResponse] = useState(null);
 
-    useEffect(() => {
-        async function loadSearchProducts() {
-            setLoading(true)
-            try{
-                const data = await searchProductAPI.get(currentPage);
+    // useEffect(() => {
+    //     async function loadSearchProducts() {
+    //         setLoading(true)
+    //         try{
+    //             const data = await searchProductAPI.get();
 
-                if(currentPage === 1){
-                    setSearchProducts(data);
-                } else {
-                    setSearchProducts((searchProducts) =>  [...searchProducts, ...data]);
-                }
-            } catch(e) {
-                if(e instanceof Error) {
-                    setError(e.message);
-                }
-            } finally {
-                setLoading(false);
-            }
+    //             if(currentPage === 1){
+    //                 setSearchProducts(data);
+    //             } else {
+    //                 setSearchProducts((searchProducts) =>  [...searchProducts, ...data]);
+    //             }
+    //         } catch(e) {
+    //             if(e instanceof Error) {
+    //                 setError(e.message);
+    //             }
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     }
+    //     loadSearchProducts();
+    // }, [currentPage])
+
+    const handleSearch = async (e: any) => {
+        e.preventDefault();
+        setLoading(true)
+        try{
+          const data = await searchProductAPI.get(searchText)
+          //setResponse(data);
+          setSearchProducts(data)
+        } catch(error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false)
         }
-        loadSearchProducts();
-    }, [currentPage])
+    }
 
   return (
     <>
-    <p>search</p>
 
     {error && (
         <div className="row">
@@ -50,6 +65,17 @@ function LandingPage() {
           </div>
        </div>
      )}
+     
+    <form onSubmit={handleSearch}>
+
+    <label> search </label>
+    <input type="text"
+    placeholder="ค้นหาสินค้า"
+    onChange={(e) => setSearchText(e.target.value)}></input>
+    <button>submit</button>
+
+    </form>
+     
 
     <SearchProductList searchProducts={searchProducts} />
 
