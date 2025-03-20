@@ -3,7 +3,7 @@ import { searchProduct } from "../api/searchProduct/searchProduct";
 import { useState, useEffect } from "react";
 import { searchProductAPI } from "../api/searchProduct/searchProductAPI";
 import { useParams } from "next/navigation";
-import SearchProductList from "../api/searchProduct/SearchProductList";
+import SearchProductList from "../../components/SearchProductList";
 
 
 function LandingPage() {

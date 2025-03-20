@@ -1,4 +1,4 @@
-import { searchProduct } from "./searchProduct"
+import { searchProduct } from "../app/api/searchProduct/searchProduct"
 import SearchProductCard from "./SearchProductCard";
 
 
@@ -8,7 +8,7 @@ interface searchProductListProps {
 
 function SearchProductList({searchProducts} : searchProductListProps){
     const items = searchProducts.map( searchProduct => (
-        <div key={searchProduct.product_name} className="cols-sm">
+        <div key={searchProduct.id} className="cols-sm">
             <SearchProductCard searchProduct={searchProduct}/>
         </div>
     ))

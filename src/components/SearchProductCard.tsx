@@ -1,4 +1,4 @@
-import { searchProduct } from "./searchProduct";
+import { searchProduct } from "../app/api/searchProduct/searchProduct";
 
 interface SearchProductCardProps {
     searchProduct: searchProduct;
@@ -14,6 +14,7 @@ function SearchProductCard(props: SearchProductCardProps) {
                     <strong>{searchProduct.product_name}</strong>
                 </h5>
                 <p>{searchProduct.price}</p>
+                <img src={searchProduct.product_image} alt="product_image"></img>
             </section>
         </div>
     );
