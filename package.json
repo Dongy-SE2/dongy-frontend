@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "api": "json-server src/app/api/searchProduct/db.json --port 4000"
+    "api": "json-server src/app/api/sellerReview/db.json --port 4000"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.1.6",

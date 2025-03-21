@@ -14,27 +14,23 @@ function LandingPage() {
     const [searchText, setSearchText] = useState('');
     const [response, setResponse] = useState(null);
 
-    // useEffect(() => {
-    //     async function loadSearchProducts() {
-    //         setLoading(true)
-    //         try{
-    //             const data = await searchProductAPI.get();
-
-    //             if(currentPage === 1){
-    //                 setSearchProducts(data);
-    //             } else {
-    //                 setSearchProducts((searchProducts) =>  [...searchProducts, ...data]);
-    //             }
-    //         } catch(e) {
-    //             if(e instanceof Error) {
-    //                 setError(e.message);
-    //             }
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     }
-    //     loadSearchProducts();
-    // }, [currentPage])
+    useEffect(() => {
+        async function loadSearchProducts() {
+            setLoading(true)
+            try{
+              const data = await searchProductAPI.get(searchText)
+              //setResponse(data);
+              setSearchProducts(data)
+            } catch(e) {
+                if(e instanceof Error) {
+                    setError(e.message);
+                }
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadSearchProducts();
+    }, [])
 
     const handleSearch = async (e: any) => {
         e.preventDefault();
