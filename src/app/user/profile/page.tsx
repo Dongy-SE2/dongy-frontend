@@ -8,7 +8,7 @@ import ProfileImageUploader from "@/components/ProfileImageUploader";
 
 export default function ProfilePage() {
   const [profilePic, setProfilePic] = useState<string>(
-    "/placeholder-profile.jpg",
+    "/placeholder-profile.jpg"
   );
   const router = useRouter();
 
@@ -72,4 +72,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-

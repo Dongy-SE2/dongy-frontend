@@ -1,84 +1,84 @@
 import OrderCard from "./OrderCard";
+import { Order } from "@/app/api/order/getOrderList";
 
-function OrderList() {
-  const orders = [
-    {
-      name: "รองเท้า",
-      date: "18 มีนาคม 2568 | 13.38 น.",
-      status: "อยู่ระหว่างจัดส่ง",
-    },
-    {
-      name: "รองเท้า",
-      date: "18 มีนาคม 2568 | 14.38 น.",
-      status: "อยู่ระหว่างจัดส่ง",
-    },
-    {
-      name: "รองเท้า",
-      date: "17 มีนาคม 2568 | 13.38 น.",
-      status: "รอการจัดส่ง",
-    },
-    {
-      name: "รองเท้า",
-      date: "17 มีนาคม 2568 | 14.38 น.",
-      status: "จัดส่งสำเร็จ",
-    },
-    {
-      name: "รองเท้า",
-      date: "19 มีนาคม 2568 | 15.38 น.",
-      status: "อยู่ระหว่างจัดส่ง",
-    },
-  ];
+function OrderList({
+  orders,
+  onSelectOrder,
+}: {
+  orders: any[];
+  onSelectOrder: (orderId: string) => void;
+}) {
+  if (!Array.isArray(orders)) {
+    console.error("Invalid orders data:", orders);
+    return <p className="text-center text-gray-500">ไม่พบข้อมูลคำสั่งซื้อ</p>;
+  }
 
-  // ฟังก์ชันแปลงวันที่ให้อยู่ในรูปแบบที่เปรียบเทียบได้
-  const parseDate = (dateStr: string) => {
-    const [day, monthText, year, time] = dateStr
-      .replace(" น.", "")
-      .split(/[\s|]/);
-    const monthMap: { [key: string]: number } = {
-      มกราคม: 0,
-      กุมภาพันธ์: 1,
-      มีนาคม: 2,
-      เมษายน: 3,
-      พฤษภาคม: 4,
-      มิถุนายน: 5,
-      กรกฎาคม: 6,
-      สิงหาคม: 7,
-      กันยายน: 8,
-      ตุลาคม: 9,
-      พฤศจิกายน: 10,
-      ธันวาคม: 11,
-    };
-    const [hour, minute] = time.split(".").map(Number);
-    return new Date(
-      Number(year) - 543,
-      monthMap[monthText],
-      Number(day),
-      hour,
-      minute
-    );
+  const parseDate = (dateStr: string): Date => {
+    if (!dateStr) return new Date(0);
+
+    try {
+      const parts = dateStr.replace(" น.", "").split(/[\s|]/);
+      if (parts.length < 4) return new Date(0);
+
+      const [day, monthText, year, time] = parts;
+      const monthMap: { [key: string]: number } = {
+        มกราคม: 0,
+        กุมภาพันธ์: 1,
+        มีนาคม: 2,
+        เมษายน: 3,
+        พฤษภาคม: 4,
+        มิถุนายน: 5,
+        กรกฎาคม: 6,
+        สิงหาคม: 7,
+        กันยายน: 8,
+        ตุลาคม: 9,
+        พฤศจิกายน: 10,
+        ธันวาคม: 11,
+      };
+
+      const [hour, minute] = time.split(".").map(Number);
+      return new Date(
+        Number(year) - 543,
+        monthMap[monthText] || 0,
+        Number(day),
+        hour || 0,
+        minute || 0
+      );
+    } catch (error) {
+      console.error("Invalid date format:", dateStr);
+      return new Date(0);
+    }
   };
 
-  // กำหนดลำดับความสำคัญของสถานะ
   const statusPriority: { [key: string]: number } = {
     รอการจัดส่ง: 1,
     อยู่ระหว่างจัดส่ง: 2,
     จัดส่งสำเร็จ: 3,
   };
 
-  // เรียงลำดับ orders ตามสถานะก่อน แล้วตามวันเวลาสั่งซื้อ
   const sortedOrders = [...orders].sort((a, b) => {
-    const statusA = statusPriority[a.status];
-    const statusB = statusPriority[b.status];
+    const statusA = statusPriority[a.state] || 99;
+    const statusB = statusPriority[b.state] || 99;
 
-    if (statusA !== statusB) return statusA - statusB; // เรียงตามสถานะ
-    return parseDate(a.date).getTime() - parseDate(b.date).getTime(); // ถ้าสถานะเท่ากัน ให้เรียงตามเวลา
+    if (statusA !== statusB) return statusA - statusB;
+    return parseDate(a.createdAt).getTime() - parseDate(b.createdAt).getTime();
   });
 
   return (
-    <div className="space-y-3 max-h-96 overflow-y-auto bg-white p-4 rounded-[10px] scrollbar-none">
-      {sortedOrders.map((order, index) => (
-        <OrderCard key={index} {...order} />
-      ))}
+    <div className="space-y-3 h-96 w-[272px] shadow-md overflow-y-auto bg-white p-4 rounded-[10px] scrollbar-none">
+      {sortedOrders.length > 0 ? (
+        sortedOrders.map((order, index) => (
+          <div
+            key={order.id}
+            onClick={() => onSelectOrder(order.id)}
+            className="cursor-pointer"
+          >
+            <OrderCard order={order} />
+          </div>
+        ))
+      ) : (
+        <p className="text-center text-gray-500">ไม่มีคำสั่งซื้อ</p>
+      )}
     </div>
   );
 }

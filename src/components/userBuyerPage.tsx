@@ -21,7 +21,7 @@ function BuyerHomePage() {
           key={2}
           ActionName={"สินค้าที่ประมูลได้"}
           Icon={<ShoppingCart />}
-          route={"/product/manage"}
+          route={"/payment"}
         />
         <ActionButton
           key={3}
@@ -29,12 +29,7 @@ function BuyerHomePage() {
           Icon={<Truck />}
           route={"/user/profile"}
         />
-        <ActionButton
-          key={4}
-          ActionName={""}
-          Icon={<div />}
-          route={"/user/manage"}
-        />
+        <ActionButton key={4} ActionName={""} Icon={<div />} route={"/user"} />
       </div>
     </div>
   );
