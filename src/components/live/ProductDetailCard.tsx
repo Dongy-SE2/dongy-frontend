@@ -16,7 +16,7 @@ export default function ProductDetailCard({
   productDescription,
 }: Props) {
   return (
-    <div className="w-[29rem] h-96 bg-white p-6 rounded-lg shadow-lg">
+    <div className="w-[29rem] h-96 bg-white p-6 rounded-lg shadow-lg overflow-y-auto">
       <h2 className="text-2xl font-semibold p-1">{productName}</h2>
       <p className="text-gray-400 text-sm flex items-center">
         <CircleUserRound className="w-[18px] h-[18px] mr-1" />
@@ -31,7 +31,9 @@ export default function ProductDetailCard({
         </p>
         <p className="text-lg font-medium">รายละเอียด</p>
       </div>
-      <p className="mt-3 text-gray-600 font-normal">{productDescription}</p>
+      <p className="mt-3 max-h-36 text-gray-600 font-normal">
+        {productDescription}
+      </p>
     </div>
   );
 }

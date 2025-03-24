@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export interface LiveInfo {
   id: number;
   title: string;
@@ -9,41 +11,28 @@ export interface LiveInfo {
   image: string;
 }
 
-const liveBiddingItems: LiveInfo[] = [
-  {
-    id: 1,
-    title: "ประมูลรองเท้าสนุกสุดคุ้ม x2",
-    product: "รองเท้า",
-    startDate: "21 กุมภาพันธ์ 2568 12.00 น.",
-    endDate: "21 กุมภาพันธ์ 2568 13.00 น.",
-    status: "สาธารณะ",
-    link: "https://youtu.be/SEzKyFVaIyU",
-    image: "/image/shoes.jpg",
-  },
-  {
-    id: 2,
-    title: "ประมูลรองเท้าสนุกสุดคุ้ม x3",
-    product: "รองเท้า",
-    startDate: "21 กุมภาพันธ์ 2568 14.00 น.",
-    endDate: "21 กุมภาพันธ์ 2568 15.00 น.",
-    status: "สาธารณะ",
-    link: "https://youtu.be/SEzKyFVaIyU",
-    image: "/image/shoes.jpg",
-  },
-  {
-    id: 3,
-    title: "ประมูลรองเท้าสนุกสุดคุ้ม x4",
-    product: "รองเท้า",
-    startDate: "21 กุมภาพันธ์ 2568 16.00 น.",
-    endDate: "21 กุมภาพันธ์ 2568 17.00 น.",
-    status: "สาธารณะ",
-    link: "https://youtu.be/SEzKyFVaIyU",
-    image: "/image/shoes.jpg",
-  },
-];
+const getLiveById = async (liveId: string, token: string): Promise<LiveInfo | null> => {
+  try {
+    const BACKEND_URL = process.env.BACKEND;
+    if (!BACKEND_URL) {
+      throw new Error("❌ BACKEND_URL is not set!");
+    }
 
-const getLive = (userId: string) => {
-  return liveBiddingItems;
+    const url = `${BACKEND_URL}/api/lives/${liveId}`;
+    console.log("🔹 Fetching live event from:", url);
+    console.log("🔹 Token being used:", token ? "✅ Present" : "❌ Missing");
+
+    const response = await axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+      timeout: 10000, // ✅ Prevents indefinite waiting
+    });
+
+    console.log("✅ Live event received:", response.data);
+    return response.data?.data || null;
+  } catch (error: any) {
+    console.error("❌ Error fetching live event:", error.response?.data || error.message);
+    return null;
+  }
 };
 
-export default getLive;
+export default getLiveById;

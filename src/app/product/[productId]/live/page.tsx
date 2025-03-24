@@ -33,6 +33,7 @@ const bidHistory: Bid[] = [
     time: "12:40 น.",
   },
 ];
+
 const currentBidding = "3000"; // Example current bid
 const timeLeft = "20 นาที";
 
