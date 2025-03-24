@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import RegistrationForm from "@/components/registrationForm";
 import RegistrationForm2 from "@/components/registrationForm2";
 import ProfileImageUploader from "@/components/ProfileImageUploader";
+import MovebackButton from "@/components/MovebackButton";
 
 export default function ProfilePage() {
   const [profilePic, setProfilePic] = useState<string>(
@@ -43,7 +44,10 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen w-full bg-[#F6F7F9] bg-auto">
       <div className="p-6 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4">แก้ไขข้อมูล</h2>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-semibold mb-4">แก้ไขข้อมูล</h2>
+          <MovebackButton href="/user" />
+        </div>
         <form className="grid grid-cols-2 gap-6" onSubmit={handleFormSubmit}>
           <div>
             <RegistrationForm />

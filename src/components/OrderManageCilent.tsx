@@ -5,6 +5,7 @@ import OrderList from "@/components/OrderList";
 import OrderDetails from "@/components/OrderDetail";
 import ShippingDetails from "@/components/OrderShippingDetail";
 import updateOrder from "@/app/api/order/updateOrder"; // ✅ Import update function
+import MovebackButton from "./MovebackButton";
 
 export default function OrderManageClient({
   orders,
@@ -48,6 +49,7 @@ export default function OrderManageClient({
       <div className="w-[832px] items-center justify-center">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-medium">สินค้ารอจัดส่ง</h1>
+          <MovebackButton href="/user" />
         </div>
 
         <div className="grid grid-cols-3 gap-6">
@@ -61,7 +63,6 @@ export default function OrderManageClient({
             <OrderDetails
               user={selectedOrder.buyer?.username || "ไม่ระบุ"}
               price={selectedOrder.total_amount || "ไม่ระบุ"}
-              method={"ไม่ระบุ"}
               date={selectedOrder.payment?.paymentDate || "ไม่ระบุ"}
               product={selectedOrder.product?.product_name || "ไม่ระบุ"}
               product_id={selectedOrder.product?.id || "ไม่ระบุ"}
