@@ -23,7 +23,7 @@ export default function User() {
           key={1}
           ActionName={"เพิ่มสินค้า"}
           Icon={<FolderPlus />}
-          route={"/product"}
+          route={"/product/manage/register"}
         />
         <ActionButton
           key={2}

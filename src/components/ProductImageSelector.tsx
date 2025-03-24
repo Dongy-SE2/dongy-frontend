@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import Image from "next/image";
 import { UploadIcon } from "lucide-react";
+import { uploadImageContext } from "./ProductEditor";
 
 interface UploadProps extends React.InputHTMLAttributes<HTMLInputElement> {
   image?: string[];
@@ -12,6 +13,7 @@ interface UploadProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const ImageUpload: React.FC<UploadProps> = (props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const uploadImageData = useContext(uploadImageContext);
   return (
     <>
       <button
@@ -48,16 +50,22 @@ const ImageUpload: React.FC<UploadProps> = (props) => {
       <input
         type="file"
         accept="image/*"
+        name="images"
         id="image"
         ref={fileInputRef}
         hidden
         onChange={(e) => {
           // TODO: Change most of this
           const fReader = new FileReader();
-          if (!e.currentTarget.files || !e.currentTarget.files[0]) {
+          if (
+            !e.currentTarget.files ||
+            !e.currentTarget.files[0] ||
+            !uploadImageData
+          ) {
             return;
           }
-
+          const { uploadImage, changeUploadImage } = uploadImageData;
+          changeUploadImage([...uploadImage, e.currentTarget.files[0]]);
           fReader.readAsDataURL(e.currentTarget.files[0]);
           fReader.onloadend = (n) => {
             if (
