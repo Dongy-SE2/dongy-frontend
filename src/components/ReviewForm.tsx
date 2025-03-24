@@ -5,6 +5,7 @@ import { Star } from "lucide-react";
 import { Button } from "./ui/button";
 import createSellerReview from "@/app/api/review/createSellerReview";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 interface ReviewFormProps {
   sellerDid: string;
@@ -12,6 +13,7 @@ interface ReviewFormProps {
 
 const ReviewForm: React.FC<ReviewFormProps> = ({ sellerDid }) => {
   const session = useSession();
+  const router = useRouter();
   const [rating, setRating] = useState<number>(0);  // State to track rating
   const [comment, setComment] = useState<string>(""); // State to track comment
 
@@ -33,9 +35,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ sellerDid }) => {
     });
 
     if (response) {
-      alert("Review submitted successfully!");
-      setRating(0);
-      setComment("");
+      alert("รีวิวสำเร็จ");
+      router.reload();
     }
   };
 

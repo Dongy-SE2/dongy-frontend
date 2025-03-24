@@ -34,7 +34,7 @@ const createSellerReview = async (token: string, reviewData: ReviewData): Promis
     );
 
     console.log("✅ Review submitted successfully:", response.data);
-    return response.data;
+    return response;
   } catch (error: any) {
     console.error("❌ Error submitting review:", error.response?.data || error.message);
     throw error;
