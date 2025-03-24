@@ -4,7 +4,7 @@ import { Card } from "./ui/card";
 import { Star } from "lucide-react";
 import { Button } from "./ui/button";
 import createSellerReview from "@/app/api/review/createSellerReview";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface ReviewFormProps {
   sellerDid: string;
@@ -13,7 +13,7 @@ interface ReviewFormProps {
 
 const ReviewForm: React.FC<ReviewFormProps> = ({ token, sellerDid }) => {
   const router = useRouter();
-  const [rating, setRating] = useState<number>(0);  // State to track rating
+  const [rating, setRating] = useState<number>(0); // State to track rating
   const [comment, setComment] = useState<string>(""); // State to track comment
 
   const handleRatingClick = (rate: number) => {
@@ -27,7 +27,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ token, sellerDid }) => {
       return;
     }
 
-    const response = await createSellerReview( token , {
+    const response = await createSellerReview(token, {
       rating,
       comment,
       seller: sellerDid,
@@ -35,7 +35,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ token, sellerDid }) => {
 
     if (response) {
       alert("รีวิวสำเร็จ");
-      router.reload();
+      router.refresh();
     }
   };
 
@@ -69,7 +69,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ token, sellerDid }) => {
             />
           </div>
           <div className="flex justify-center">
-            <Button type="submit" className="bg-gray-600 text-white mt-4 w-32 mb-5">
+            <Button
+              type="submit"
+              className="bg-gray-600 text-white mt-4 w-32 mb-5"
+            >
               ส่ง
             </Button>
           </div>
