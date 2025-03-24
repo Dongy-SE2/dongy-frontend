@@ -1,3 +1,4 @@
+"use server";
 import axios from "axios";
 
 export interface ReviewData {
@@ -6,7 +7,10 @@ export interface ReviewData {
   seller: string;
 }
 
-const createSellerReview = async (token: string, reviewData: ReviewData): Promise<any> => {
+const createSellerReview = async (
+  token: string,
+  reviewData: ReviewData,
+): Promise<any> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
     if (!BACKEND_URL) {
@@ -30,13 +34,16 @@ const createSellerReview = async (token: string, reviewData: ReviewData): Promis
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     console.log("✅ Review submitted successfully:", response.data);
     return response;
   } catch (error: any) {
-    console.error("❌ Error submitting review:", error.response?.data || error.message);
+    console.error(
+      "❌ Error submitting review:",
+      error.response?.data || error.message,
+    );
     throw error;
   }
 };
