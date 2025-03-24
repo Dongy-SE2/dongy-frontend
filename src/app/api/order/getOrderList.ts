@@ -1,11 +1,12 @@
+"use server";
 import axios from "axios";
 
 export interface Buyer {
   id: number;
   username: string;
-  title: "นาย";
-  firstname: "วสุธา";
-  lastname: "สุขกระสานติ";
+  title: string;
+  firstname: string;
+  lastname: string;
 }
 
 export interface Payment {
@@ -14,11 +15,20 @@ export interface Payment {
   paymentDate: string;
 }
 
+export interface ProductImage {
+  id: number;
+  url: string;
+  thumbnail: string;
+  small: string;
+}
+
 export interface Product {
   id: number;
   product_name: string;
-  categories: string;
+  categories: string | null;
+  images: ProductImage[]; // ✅ Array of images
 }
+
 export interface Order {
   id: number;
   documentId: string;

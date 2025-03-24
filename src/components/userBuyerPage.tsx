@@ -7,7 +7,7 @@ function BuyerHomePage() {
     <div className="">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-medium">จัดการบัญชี</h1>
-        <MovebackButton href={"/"} />
+        <MovebackButton href={"/product"} />
       </div>
 
       <div className="flex px-9 place-content-center">

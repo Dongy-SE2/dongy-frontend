@@ -16,7 +16,7 @@ export default async function SetLiveBiddingPage() {
   const lives = await getLiveList(session.user.id, session.user.jwt);
   return (
     <ProductWraper>
-      <ProductManageHeader name="จัดการไลฟ์" href="/product/manage" />
+      <ProductManageHeader name="จัดการไลฟ์" href="/user" />
       <div className="flex w-full justify-evenly mt-4">
         <LiveContext>
           <LiveList lives={lives} />

@@ -54,6 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             console.error("Login failed: Invalid response", res.data);
             return null;
           }
+          console.log(res.data.user)
 
           return {
             id: res.data.user.id,
@@ -63,7 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             firstname: res.data.user.firstname,
             lastname: res.data.user.lastname,
             jwt: res.data.jwt,
-            role: res.data.user.role, // FIXED: Getting role from user object
+            role: res.data.user.rolename,
           };
         } catch (error: any) {
           console.error("Login error:", error.response?.data || error.message);

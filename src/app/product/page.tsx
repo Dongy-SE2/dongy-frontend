@@ -15,7 +15,7 @@ export default async function ProductManagePage() {
     <ProductWraper>
       <ProductManageHeader
         name={`ยินดีต้อนรับ คุณ${session.user.username}`}
-        href="/product/"
+        href="/user"
       />
       <ProductListWithSearch products={product_list} />
     </ProductWraper>

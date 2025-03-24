@@ -41,7 +41,7 @@ function OrderList({
         Number(year) - 543,
         monthMap[monthText] || 0,
         Number(day),
-        hour || 0,
+        24 - hour || 0,
         minute || 0
       );
     } catch (error) {
@@ -60,8 +60,21 @@ function OrderList({
     const statusA = statusPriority[a.state] || 99;
     const statusB = statusPriority[b.state] || 99;
 
-    if (statusA !== statusB) return statusA - statusB;
-    return parseDate(a.createdAt).getTime() - parseDate(b.createdAt).getTime();
+    if (statusA !== statusB) return statusA - statusB; // ✅ Sort by status priority
+
+    const dateA = parseDate(a.createdAt);
+    const dateB = parseDate(b.createdAt);
+
+    if (dateA.toDateString() !== dateB.toDateString()) {
+      return dateB.getTime() - dateA.getTime(); // ✅ Sort by newest date first
+    }
+
+    // ✅ If the dates are the same, sort by closest time to now
+    const now = new Date().getTime();
+    const diffA = Math.abs(dateA.getTime() - now);
+    const diffB = Math.abs(dateB.getTime() - now);
+
+    return diffA - diffB; // ✅ Order closest to current time first
   });
 
   return (
