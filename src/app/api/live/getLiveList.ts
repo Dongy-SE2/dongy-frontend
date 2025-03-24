@@ -1,14 +1,23 @@
+"use server";
 import axios from "axios";
+
+export interface ProductImage {
+  id: number;
+  url: string;
+  thumbnail: string;
+  small: string;
+}
 
 export interface LiveInfo {
   id: number;
+  did: string;
   title: string; // Maps from `live_name`
   product: string; // Extract from `bidding_product.product_name`
   startDate: string; // Maps from `scheduled_live_start_time`
   endDate: string; // Maps from `scheduled_live_end_time`
   status: string; // Maps from `state`
   link: string; // Maps from `live_link`
-  image: string; // Extract from `bidding_product.image_url`
+  images: ProductImage[]; // Extract from `bidding_product.product_image`
 }
 
 const getLive = async (userId: string, token: string): Promise<LiveInfo[]> => {
@@ -32,34 +41,28 @@ const getLive = async (userId: string, token: string): Promise<LiveInfo[]> => {
       return [];
     }
 
-    // ✅ Mapping API response to `LiveInfo`
     const lives: LiveInfo[] = response.data.data.map((live: any) => ({
       id: live.id,
+      did: live.documentId,
       title: live.live_name,
       product: live.bidding_product?.product_name || "ไม่ระบุสินค้า",
       startDate: live.scheduled_live_start_time,
       endDate: live.scheduled_live_end_time,
       status: live.state,
       link: live.live_link || "#",
-      image: live.bidding_product?.image_url || "/default-image.jpg",
+      images: live.bidding_product?.product_image
+        ? live.bidding_product.product_image.map((img: any) => ({
+            id: img.id,
+            url: `${process.env.BACKEND}${img.url}`,
+            thumbnail: `${process.env.BACKEND}${img.formats?.thumbnail?.url || img.url}`,
+            small: `${process.env.BACKEND}${img.formats?.small?.url || img.url}`,
+          }))
+        : [{ id: 0, url: "/default-image.jpg", thumbnail: "/default-image.jpg", small: "/default-image.jpg" }], // ✅ Default if no images
     }));
 
-    console.log("✅ Live bidding data mapped successfully:", lives);
     return lives;
   } catch (error: any) {
     console.error("❌ Error fetching live bidding data:", error.code, error.response?.data || error.message);
-
-    if (error.code === "ECONNRESET") {
-      console.error("❌ Connection reset by server (Backend might be down or unstable)");
-    } else if (error.response?.status === 401) {
-      console.error("❌ Unauthorized - Invalid or expired token.");
-    } else if (error.response?.status === 403) {
-      console.error("❌ Access Denied (Check API permissions).");
-    } else if (error.response?.status === 404) {
-      console.error("❌ API Endpoint Not Found (Check `/api/lives/me`)");
-    } else if (error.response?.status === 500) {
-      console.error("❌ Server error - Try again later.");
-    }
 
     return [];
   }

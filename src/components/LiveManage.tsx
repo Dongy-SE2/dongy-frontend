@@ -4,26 +4,39 @@ import { Selection } from "./LiveContext";
 import Image from "next/image";
 import { LiveInfo } from "@/app/api/live/getLiveList";
 import { Clock, User } from "lucide-react";
-
+import deleteLive from "@/app/api/live/deleteLive";
 interface Props {
   lives: LiveInfo[];
+  token: string;
 }
-const LiveManage: React.FC<Props> = ({ lives }) => {
+
+const formatDateForInput = (isoDate: string) => {
+  if (!isoDate) return "";
+  return isoDate.slice(0, 16);
+};
+
+const LiveManage: React.FC<Props> = ({ lives, token }) => {
   const { selection } = useContext(Selection);
-  const live = lives[selection];
+  const live = lives[selection] || lives[0];
+
   const [liveName, setLiveName] = useState(live?.title || "");
   const [product, setProduct] = useState(live?.product || "");
-  const [startDate, setStartDate] = useState(live?.startDate || "");
-  const [endDate, setEndDate] = useState(live?.endDate || "");
-  const [status, setStatus] = useState(live?.status || "เสื้อผ้า");
+  const [startDate, setStartDate] = useState(
+    formatDateForInput(live?.startDate || "")
+  );
+  const [endDate, setEndDate] = useState(
+    formatDateForInput(live?.endDate || "")
+  );
+  const [status, setStatus] = useState(live?.status || "public");
   const [link, setLink] = useState(live?.link || "");
-  const [timeLeft, setTimeLeft] = useState(""); // ⏳ Time remaining text
+  const [timeLeft, setTimeLeft] = useState("");
+
   useEffect(() => {
     setLiveName(live?.title || "");
     setProduct(live?.product || "");
-    setStartDate(live?.startDate || "");
-    setEndDate(live?.endDate || "");
-    setStatus(live?.status || "เสื้อผ้า");
+    setStartDate(formatDateForInput(live?.startDate || ""));
+    setEndDate(formatDateForInput(live?.endDate || ""));
+    setStatus(live?.status || "public");
     setLink(live?.link || "");
   }, [live]);
 
@@ -53,8 +66,8 @@ const LiveManage: React.FC<Props> = ({ lives }) => {
     };
 
     updateTimeLeft();
-    const interval = setInterval(updateTimeLeft, 60000); // ⏳ Refresh every 1 min
-    return () => clearInterval(interval); // Cleanup on unmount
+    const interval = setInterval(updateTimeLeft, 60000); // Refresh every 1 min
+    return () => clearInterval(interval);
   }, [startDate]);
 
   return (
@@ -63,9 +76,10 @@ const LiveManage: React.FC<Props> = ({ lives }) => {
         e.preventDefault();
       }}
     >
+      {/* 🔹 Live Preview */}
       <div className="flex flex-row bg-white px-6 py-6 rounded-lg shadow-md w-[32rem]">
         <Image
-          src={live?.image || "/default-image.jpg"}
+          src={live?.images?.[0]?.url || "/default-image.jpg"}
           width={400}
           height={400}
           alt={live?.title || "Live Thumbnail"}
@@ -84,7 +98,10 @@ const LiveManage: React.FC<Props> = ({ lives }) => {
           </p>
         </div>
       </div>
-      <div className="text-base px-6 py-6 align-middle bg-white shadow-md mt-6 rounded-lg">
+
+      {/* 🔹 Live Management Form */}
+      <div className="text-base px-6 py-6 bg-white shadow-md mt-6 rounded-lg">
+        {/* Live Name */}
         <div className="flex flex-row mb-3">
           <p>
             ชื่อไลฟ์<span className="text-red-600 text-sm">*</span>
@@ -92,9 +109,11 @@ const LiveManage: React.FC<Props> = ({ lives }) => {
           <input
             className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-8 w-72"
             value={liveName}
-            onChange={(e) => setLiveName(e.currentTarget.value || "")}
+            onChange={(e) => setLiveName(e.currentTarget.value)}
           />
         </div>
+
+        {/* Product Name */}
         <div className="flex flex-row mb-3">
           <p>
             สินค้า<span className="text-red-600 text-sm">*</span>
@@ -105,6 +124,8 @@ const LiveManage: React.FC<Props> = ({ lives }) => {
             onChange={(e) => setProduct(e.currentTarget.value)}
           />
         </div>
+
+        {/* Start Date */}
         <div className="flex flex-row mb-3">
           <p>
             เริ่มต้น<span className="text-red-600 text-sm">*</span>
@@ -116,6 +137,8 @@ const LiveManage: React.FC<Props> = ({ lives }) => {
             onChange={(e) => setStartDate(e.currentTarget.value)}
           />
         </div>
+
+        {/* End Date */}
         <div className="flex flex-row mb-3">
           <p>
             สิ้นสุด<span className="text-red-600 text-sm">*</span>
@@ -127,19 +150,24 @@ const LiveManage: React.FC<Props> = ({ lives }) => {
             onChange={(e) => setEndDate(e.currentTarget.value)}
           />
         </div>
+
+        {/* Live Status */}
         <div className="flex flex-row mb-3">
           <p>
             สถานะ<span className="text-red-600 text-sm">*</span>
           </p>
-          <select className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-[2.125rem] w-28">
-            <option>เสื้อผ้า</option>
-            <option>เครื่องเรือน</option>
-            <option>อิเล็กทรอนิกส์</option>
-            <option>ของสะสม</option>
-            <option>หนังสือ</option>
-            <option>อื่นๆ</option>
+          <select
+            className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-[2.125rem] w-28"
+            value={status}
+            onChange={(e) => setStatus(e.currentTarget.value)}
+          >
+            <option>public</option>
+            <option>private</option>
+            <option>ongoing</option>
           </select>
         </div>
+
+        {/* Live Link */}
         <div className="flex flex-row">
           <p>
             ลิงค์<span className="text-red-600 text-sm">*</span>
@@ -151,23 +179,30 @@ const LiveManage: React.FC<Props> = ({ lives }) => {
           />
         </div>
       </div>
+
+      {/* Action Buttons */}
       <div className="mt-5 flex flex-row justify-evenly w-full px-16">
-        <input
-          type="button"
-          value="ลบ"
-          className="cursor-pointer rounded-lg bg-red-400 px-12 py-2 text-white"
-        />
-        <input
-          type="button"
-          value="เริ่มทันที"
-          className="cursor-pointer rounded-lg bg-green-500 px-7 py-2 text-white"
-        />
-        <input
-          type="button"
-          value="คัดลอกลิงค์"
-          className="cursor-pointer rounded-lg bg-gray-500 px-5 py-2 text-white"
+        <button
+          className="rounded-lg bg-red-400 px-12 py-2 text-white"
+          onClick={async (e) => {
+            e.preventDefault();
+            const res = await deleteLive(live.did, token || "");
+            if (res) {
+              alert("Success!");
+            }
+          }}
+        >
+          ลบ
+        </button>
+        <button className="rounded-lg bg-green-500 px-7 py-2 text-white">
+          เริ่มทันที
+        </button>
+        <button
+          className="rounded-lg bg-gray-500 px-5 py-2 text-white"
           onClick={() => navigator.clipboard.writeText(link)}
-        />
+        >
+          คัดลอกลิงค์
+        </button>
       </div>
     </form>
   );

@@ -1,7 +1,7 @@
+"use server"
 import axios from "axios";
 
-const deleteLive = async (liveId: string, token: string): Promise<boolean> => {
-  try {
+export default async function deleteLive(liveId: string, token: string){
     const BACKEND_URL = process.env.BACKEND;
     if (!BACKEND_URL) {
       throw new Error("❌ BACKEND_URL is not set!");
@@ -15,11 +15,5 @@ const deleteLive = async (liveId: string, token: string): Promise<boolean> => {
     });
 
     console.log("✅ Live bidding event deleted successfully:", response.data);
-    return true;
-  } catch (error: any) {
-    console.error("❌ Error deleting live bidding event:", error.response?.data || error.message);
-    return false;
-  }
+    return response.status;
 };
-
-export default deleteLive;

@@ -28,7 +28,7 @@ const LiveItem: React.FC<{
     >
       <div>
         <Image
-          src={live.image}
+          src={live.images[0]?.url}
           alt={live.title}
           width={400}
           height={400}

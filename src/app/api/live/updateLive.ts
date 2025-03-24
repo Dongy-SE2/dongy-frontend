@@ -5,7 +5,7 @@ export interface UpdateLiveData {
   product?: string;
   startDate?: string;
   endDate?: string;
-  status?: string; // "สาธารณะ" or "ส่วนตัว"
+  status?: string;
   link?: string;
   image?: string;
 }
