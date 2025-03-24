@@ -7,7 +7,7 @@ export default function TrackingInfo() {
   const { orders, idx } = useContext(orderProvider);
   return (
     <div
-      className="grid grid-cols-[auto_1fr] gap-x-5 grid-flow-row-dense bg-white shadow-md"
+      className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-[0.9rem] grid-flow-row-dense bg-white shadow-md rounded-xl px-8 py-6"
       style={{ gridAutoRows: "minmax(auto, max-content)" }}
     >
       {!orders[idx] ? (

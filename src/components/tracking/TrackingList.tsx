@@ -32,11 +32,13 @@ function OrderCard({
           className="w-16 h-16 inline-block object-cover rounded-xl mr-4"
         />
         <div className="inline-flex flex-col h-full align-middle justify-center">
-          <p className={!selection ? "text-gray-800" : "text-white"}>
+          <p
+            className={`${!selection ? "text-gray-800" : "text-white"} font-medium`}
+          >
             {order.name}
           </p>
           <p className={!selection ? "text-gray-500" : "text-white"}>
-            {order.price}
+            {order.price} บาท
           </p>
         </div>
       </div>
