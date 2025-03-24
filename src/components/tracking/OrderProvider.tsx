@@ -1,16 +1,17 @@
 "use client";
 
+import { type Order } from "@/app/api/order/getBuyerOrderList";
 import { createContext, useState } from "react";
 
 interface OrderSelection {
-  orders: any[];
+  orders: Order[];
   idx: number;
   changeIdx?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface Props {
   children: React.ReactNode;
-  value: any[];
+  value: Order[];
 }
 
 const orderProvider = createContext<OrderSelection>({

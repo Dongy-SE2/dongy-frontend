@@ -16,13 +16,13 @@ export default async function TrackingPage() {
     <>
       <ProductManageHeader name="สินค้ารอจัดส่ง" href="/user/" />
       <OrderProvider value={orders}>
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-evenly mt-8">
           <div>
-            <h2 className="text-xl font-medium">รายการสินค้า</h2>
+            <h2 className="text-xl font-medium mb-3">รายการสินค้า</h2>
             <TrackingList />
           </div>
           <div>
-            <h2 className="text-xl font-medium">สถานะการจัดส่ง</h2>
+            <h2 className="text-xl font-medium mb-3">สถานะการจัดส่ง</h2>
             <TrackingInfo />
           </div>
         </div>
