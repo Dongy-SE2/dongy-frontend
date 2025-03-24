@@ -1,5 +1,5 @@
 "use client";
-import { LiveInfo } from "@/app/api/live/getLive";
+import { LiveInfo } from "@/app/api/live/getLiveList";
 import LiveItem from "./LiveItem";
 
 const LiveList: React.FC<{

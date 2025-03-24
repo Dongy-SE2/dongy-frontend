@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SSEComponent = ({ liveDid }) => {
+const SSEComponent = ({ liveDid } : {liveDid:string}) => {
   useEffect(() => {
     const eventSource = new EventSource(`http://{{backend_url}}/api/sse/${liveDid}`);
 

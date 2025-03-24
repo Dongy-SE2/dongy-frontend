@@ -4,7 +4,7 @@ import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { Selection } from "./LiveContext";
-import { LiveInfo } from "@/app/api/live/getLive";
+import { LiveInfo } from "@/app/api/live/getLiveList";
 
 const LiveItem: React.FC<{
   live: LiveInfo;
@@ -17,6 +17,7 @@ const LiveItem: React.FC<{
     if (index !== selection) changeSelect(false);
     else changeSelect(true);
   }, [index, setSelect, selection]);
+  console.log(live);
   return (
     <button
       className={`flex flex-row justify-between ${!isSelect ? "bg-gray-200" : "bg-gray-600"} px-2 py-2 text-sm rounded-xl my-3 text-left w-full`}
