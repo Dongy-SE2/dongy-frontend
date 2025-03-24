@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useState } from "react";
 
 
-function SellerReviewPage() {
+function SellerPaymentPage() {
   const [image, setImage] = useState(null);
   const [account, setAccount] = useState("");
   const [bank, setBank] = useState("กสิกรไทย"); 
@@ -100,4 +100,4 @@ function SellerReviewPage() {
   );
 }
 
-export default SellerReviewPage
+export default SellerPaymentPage
