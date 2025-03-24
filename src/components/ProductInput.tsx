@@ -33,13 +33,20 @@ const ProductInput: React.FC<Props> = ({ data }) => {
         defaultValue={data.type}
         required
       >
-        <option value="">เลือกประเภท</option>
-        {/* ASK BACKEND FOR TYPE OPTION */}
+        <option value="" disabled>
+          เลือกประเภท
+        </option>
+        {["เสื้อผ้า", "เครื่องเรือน", "ของสะสม", "หนังสือ", "อื่นๆ"].map(
+          (val) => (
+            <option value={val} key={val}>
+              {val}
+            </option>
+          ),
+        )}
       </select>
       <p className="font-medium my-3">
         ราคาเริ่มต้น (บาท)<span className="text-red-600">*</span>
       </p>
-      {/* TODO: Calculate state */}
       <div className="my-3">
         <input
           type="range"

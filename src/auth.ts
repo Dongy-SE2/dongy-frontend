@@ -23,6 +23,11 @@ declare module "next-auth" {
   }
 }
 
+interface LoginData {
+  identifier: string;
+  password: string;
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -30,13 +35,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials) => {
-        if (!credentials) return null;
+      authorize: async ({ email, password }) => {
+        if (!email && !password) return null;
 
         try {
-          const payload = {
-            identifier: credentials.email,
-            password: credentials.password,
+          const payload: LoginData = {
+            identifier: email as string,
+            password: password as string,
           };
 
           const res = await axios.post(
@@ -60,7 +65,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             jwt: res.data.jwt,
             role: res.data.user.role, // FIXED: Getting role from user object
           };
-        } catch (error) {
+        } catch (error: any) {
           console.error("Login error:", error.response?.data || error.message);
           return null;
         }

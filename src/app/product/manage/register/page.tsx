@@ -7,7 +7,7 @@ export default async function ProductRegisterPage({}: {
 }) {
   return (
     <SessionProvider>
-      <ProductManageHeader name="เพิ่มสิ้นค้า" href="/product/manage" />
+      <ProductManageHeader name="เพิ่มสิ้นค้า" href="/user/" />
       <ProductEditor
         data={{
           name: "",
