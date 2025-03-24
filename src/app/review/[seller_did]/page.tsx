@@ -39,7 +39,7 @@ async function SellerReviewPage({
         {rating && <SellerInfo sellerRating={rating} />}
  
         {/* Review Form */}
-        <ReviewForm sellerDid={seller_did}/>
+        <ReviewForm token={session.user.jwt} sellerDid={seller_did}/>
         </div>
 
         <div className="w-1/2 items-center justify-center overflow-y-auto max-h-[527px]">
