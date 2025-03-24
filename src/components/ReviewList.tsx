@@ -1,25 +1,16 @@
 import { Card, CardContent } from "./ui/card";
 import { Star } from "lucide-react";
 import { Button } from "./ui/button";
+import { SellerReview } from "@/app/api/review/getSellerReview";
 
-interface Review{
-    name: string,
-    rating: number ,
-    comment: string
-}
-
-interface Reviews{
-    reviews: Review[]
-}
-
-function ReviewList({reviews}:  Reviews){
+function ReviewList({ reviews }: { reviews: SellerReview[] }){
 
     return(
         <Card className="p-4 h-full text-center ">
           {reviews.map((review, index) => (
             <CardContent key={index} className="relative leading-none overflow-y-auto h-32 mb-4 last:mb-0 shadow-md rounded-md border border-grey-500">
               <div className="flex">
-                <p className="font-medium">{review.name}</p>
+                <p className="font-medium">{review?.buyer ? `${review?.buyer.firstname} ${review?.buyer.lastname}` : "บุคคลนิรนาม"}</p>
                 <div className="flex items-center text-orange-500 text-sm mb-1 ml-auto">
                 {[...Array(5)].map((_, i) => (
                   <Star
