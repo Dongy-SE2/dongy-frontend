@@ -13,6 +13,7 @@ const createSellerReview = async (
 ): Promise<any> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
+    console.log(BACKEND_URL);
     if (!BACKEND_URL) {
       throw new Error("❌ BACKEND_URL is not set!");
     }
@@ -38,7 +39,7 @@ const createSellerReview = async (
     );
 
     console.log("✅ Review submitted successfully:", response.data);
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error(
       "❌ Error submitting review:",

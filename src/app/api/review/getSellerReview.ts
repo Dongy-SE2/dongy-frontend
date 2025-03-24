@@ -17,7 +17,10 @@ export interface SellerReview {
   };
 }
 
-const getSellerReview = async (seller_did: string, token: string): Promise<SellerReview[]> => {
+const getSellerReview = async (
+  seller_did: string,
+  token: string,
+): Promise<SellerReview[]> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
     if (!BACKEND_URL) {
@@ -48,16 +51,24 @@ const getSellerReview = async (seller_did: string, token: string): Promise<Selle
         username: review.buyer.username,
         email: review.buyer.email,
         role: review.buyer.rolename,
+        firstname: review.buyer.firstname,
+        lastname: review.buyer.lastname,
       },
     }));
 
     console.log("✅ Seller reviews mapped successfully:", reviews);
     return reviews;
   } catch (error: any) {
-    console.error("❌ Error fetching seller reviews:", error.code, error.response?.data || error.message);
+    console.error(
+      "❌ Error fetching seller reviews:",
+      error.code,
+      error.response?.data || error.message,
+    );
 
     if (error.code === "ECONNRESET") {
-      console.error("❌ Connection reset by server (Backend might be down or unstable)");
+      console.error(
+        "❌ Connection reset by server (Backend might be down or unstable)",
+      );
     } else if (error.response?.status === 401) {
       console.error("❌ Unauthorized - Invalid or expired token.");
     } else if (error.response?.status === 403) {
