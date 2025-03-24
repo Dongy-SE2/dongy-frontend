@@ -30,8 +30,8 @@ const ProductItem: React.FC<{
         <Image
           src={product.image}
           alt={product.name}
-          width={0}
-          height={0}
+          width={200}
+          height={200}
           className="w-16 h-16 inline-block object-cover rounded-xl mr-4"
         />
         <div className="inline-flex flex-col h-full align-middle justify-center">

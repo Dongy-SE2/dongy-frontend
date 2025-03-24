@@ -6,6 +6,12 @@ import { Selection } from "./PaymentContext";
 import Script from "next/script";
 import paymentSubmit from "@/app/api/payment/paymentSubmit";
 
+declare global {
+  interface Window {
+    Omise: any;
+  }
+}
+
 const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
   const discount = 0;
 
@@ -28,9 +34,8 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
     const kplus = data.get("kplus")?.toString();
 
     window.Omise.setPublicKey(process.env.NEXT_PUBLIC_OMISE_PUBLIC_KEY);
-    let res;
     if (promptpay === "on") {
-      res = await window.Omise.createSource(
+      await window.Omise.createSource(
         "promptpay",
         {
           amount: total * 100,
@@ -41,7 +46,7 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
     }
 
     if (scb === "on") {
-      res = await window.Omise.createSource(
+      window.Omise.createSource(
         "mobile_banking_scb",
         {
           amount: total * 100,
