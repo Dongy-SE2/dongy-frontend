@@ -26,7 +26,7 @@ const ProductCard: React.FC<Props> = ({ name, image, id, subId, minPrice }) => {
         height="400"
         className="w-full h-32 object-cover rounded-t-xl"
       />
-      <div className="py-2 px-4 inline-flex justify-between w-full">
+      <div className="py-2 px-4 inline-flex items-center justify-between w-full">
         <h3 className="font-medium">{name}</h3>
         <p className="text-gray-400 text-sm item-center text-right content-center">
           {minPrice} ฿

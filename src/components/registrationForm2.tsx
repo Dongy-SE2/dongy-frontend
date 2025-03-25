@@ -7,20 +7,20 @@ const RegistrationForm2 = () => {
   const [role, setRole] = useState<"buyer" | "seller">("seller");
 
   return (
-    <div className="bg-[#F6F7F9]">
-      <h2 className="font-semibold text-2xl mb-5">ข้อมูลทั่วไป</h2>
+    <div className="">
+      <h2 className="font-semibold text-xl mb-5">ข้อมูลทั่วไป</h2>
 
-      <Card className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg overflow-hidden">
+      <Card className="max-w-md mx-auto px-4 py-2 bg-white rounded-2xl border border-gray-200 overflow-hidden">
         <CardContent>
           <input type="hidden" value={role} name="role" />
-          <div className="mb-4 flex items-center gap-6">
-            <label className="block text-gray-700 font-medium mb-2">
+          <div className="grid grid-cols-3 gap-5 items-center">
+
+            <label className="block text-gray-700 max-w-16 text-sm">
               คุณคือ <span className="text-red-500">*</span>
             </label>
-            <div className="flex gap-4">
               <button
                 type="button"
-                className={`flex-1 py-2 rounded-lg border w-40 h-14 ${
+                className={`flex-1 py-2 rounded-lg border w-28 h-8 text-sm ${
                   role === "buyer"
                     ? "bg-gray-800 text-white border-gray-800"
                     : "bg-white border-gray-300"
@@ -31,7 +31,7 @@ const RegistrationForm2 = () => {
               </button>
               <button
                 type="button"
-                className={`flex-1 py-2 rounded-lg border ${
+                className={`flex-1 py-2 rounded-lg border w-28 h-8 text-sm ${
                   role === "seller"
                     ? "bg-gray-800 text-white border-gray-800"
                     : "bg-white border-gray-300"
@@ -40,55 +40,56 @@ const RegistrationForm2 = () => {
               >
                 ผู้ขาย
               </button>
-            </div>
-          </div>
-          <div className="mb-4 flex items-center gap-8">
-            <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
-              ชื่อบัญชีผู้ใช้ <span className="text-red-500">*</span>
+
+            <label className="block text-gray-700 whitespace-nowrap text-sm">
+              ชื่อบัญชีผู้ใช้<span className="text-red-500">*</span>
             </label>
             <Input
               type="text"
               name="username"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
+              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required
             />
-          </div>
-
-          <div className="mb-4 flex items-center gap-8">
-            <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
-              อีเมล <span className="text-red-500">*</span>
+            <label className="block text-gray-700 whitespace-nowrap text-sm">
+              อีเมล<span className="text-red-500">*</span>
             </label>
             <Input
               type="email"
               name="email"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
+              className="block bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required
             />
-          </div>
 
-          <div className="mb-4 flex items-center gap-3">
-            <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
+            <label className="block text-gray-700 whitespace-nowrap text-sm">
               รหัสผ่าน <span className="text-red-500">*</span>
             </label>
             <Input
               type="password"
               name="pwd"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
+              className="block bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required
             />
-          </div>
-
-          <div className="ml-20">
-            <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
-              กรอกรหัสผ่านอีกครั้ง <span className="text-red-500">*</span>
+            <label className="block text-gray-700 whitespace-nowrap text-sm">
+              ยืนยันรหัสผ่าน<span className="text-red-500">*</span>
             </label>
             <Input
               type="password"
               name="conPwd"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
+              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required
             />
+
+
+
+
           </div>
+
+          
+            
+
+            
+
+          
         </CardContent>
       </Card>
     </div>
