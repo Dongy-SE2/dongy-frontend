@@ -123,8 +123,8 @@ const ProductImageSelector: React.FC<Props> = ({ image }) => {
   const [currentImage, changeImage] = useState<string[]>(image);
   return (
     <div className="w-[386px] flex flex-col">
-      <h2 className="font-semibold text-2xl">ภาพสินค้า</h2>
-      <p className="text-gray-400 my-3 text-sm">อัพโหลดภาพสินค้า 1-6 ภาพ</p>
+      <h2 className="font-semibold text-xl">ภาพสินค้า</h2>
+      <p className="text-gray-400 mb-5 mt-1 text-xs font-light">อัพโหลดภาพสินค้า 1-6 ภาพ</p>
       <ImageUpload
         id="imageUpload"
         image={currentImage}

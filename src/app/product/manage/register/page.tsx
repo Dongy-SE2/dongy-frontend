@@ -7,7 +7,14 @@ export default async function ProductRegisterPage({}: {
 }) {
   return (
     <SessionProvider>
-      <ProductManageHeader name="เพิ่มสิ้นค้า" href="/user/" />
+
+
+    <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
+    
+
+      <div className="flex flex-col">
+
+      <ProductManageHeader name="เพิ่มสินค้า" href="/user/" />
       <ProductEditor
         data={{
           name: "",
@@ -21,6 +28,9 @@ export default async function ProductRegisterPage({}: {
           liveDId: "",
         }}
       />
+
     </SessionProvider>
+
+    
   );
 }

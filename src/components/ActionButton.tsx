@@ -21,7 +21,7 @@ const ActionButton: React.FC<NextPageButtonProps> = ({ActionName, Icon, route })
   return (
     <button
       onClick={() => router.push(route)}
-      className="w-[150px] h-[150px] px-[12.5px] py-3 m-3 rounded-md shadow bg-[#FFFFFF] hover:bg-gray-100 active:bg-gray-200 transition flex flex-col items-center justify-center gap-2 font-medium text-sm"
+      className="w-[150px] h-[150px] px-[12.5px] py-3 m-3 rounded-md shadow bg-[#FFFFFF] hover:bg-gray-100 active:bg-gray-200 bg-opacity-70 transition flex flex-col items-center justify-center gap-2 font-medium text-sm"
     >
       <div className="w-[75px] h-[75px] rounded-full bg-[#E5E7EB] flex items-center justify-center">
         {Icon && (
@@ -30,7 +30,7 @@ const ActionButton: React.FC<NextPageButtonProps> = ({ActionName, Icon, route })
           </div>
         )}
       </div>
-      <div className="text-black text-lg font-normal">{ActionName}</div>
+      <div className="text-black text-md font-normal mt-2">{ActionName}</div>
     </button>
   );
 };
