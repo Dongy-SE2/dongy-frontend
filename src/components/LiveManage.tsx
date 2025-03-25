@@ -7,17 +7,20 @@ import deleteLive from "@/app/api/live/deleteLive";
 import updateLive from "@/app/api/live/updateLive";
 import { Clock, User } from "lucide-react";
 import openLive from "@/app/api/live/openLive";
+import closeLive from "@/app/api/live/closeLive";
+import { Product } from "@/app/api/product/getProductList";
 
 interface Props {
   lives: LiveInfo[];
   token: string;
+  products: Product[];
 }
 
 const formatDateForInput = (isoDate: string) => {
   return isoDate ? isoDate.slice(0, 16) : "";
 };
 
-const LiveManage: React.FC<Props> = ({ lives, token }) => {
+const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
   const { selection } = useContext(Selection);
   const live = lives[selection] || lives[0];
 
@@ -48,32 +51,47 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
     const updateTimeLeft = () => {
       const now = new Date();
       const start = new Date(startDate);
-      const diffMs = start.getTime() - now.getTime();
+      const end = new Date(endDate);
+      const diffMs = start.getTime() - now.getTime(); // Time until start
+      const diffEndMs = end.getTime() - now.getTime(); // Time until end
 
-      if (diffMs <= 0) {
-        setTimeLeft("🔴 กำลังไลฟ์...");
-      } else {
-        const minutes = Math.floor(diffMs / 60000);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-
-        if (days > 0) {
-          setTimeLeft(`เริ่มในอีก ${days} วัน`);
-        } else if (hours > 0) {
-          setTimeLeft(`เริ่มในอีก ${hours} ชั่วโมง`);
+      if (status === "closed") {
+        setTimeLeft("ปิดการไลฟ์แล้ว");
+      } else if (status === "ongoing") {
+        if (diffEndMs <= 0) {
+          setTimeLeft("ไลฟ์สิ้นสุดแล้ว");
         } else {
-          setTimeLeft(`เริ่มในอีก ${minutes} นาที`);
+          setTimeLeft("กำลังไลฟ์...");
+        }
+      } else {
+        if (diffMs <= 0) {
+          setTimeLeft("กำลังไลฟ์...");
+        } else {
+          const minutes = Math.floor(diffMs / 60000) % 60;
+          const hours = Math.floor(diffMs / (1000 * 60 * 60)) % 24;
+          const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+          if (days > 0) {
+            setTimeLeft(`เริ่มในอีก ${days} วัน`);
+          } else if (hours > 0) {
+            setTimeLeft(`เริ่มในอีก ${hours} ชั่วโมง ${minutes} นาที`);
+          } else if (minutes > 0) {
+            setTimeLeft(`เริ่มในอีก ${minutes} นาที`);
+          } else {
+            setTimeLeft("เริ่มในไม่กี่วินาที...");
+          }
         }
       }
     };
 
     updateTimeLeft();
-    const interval = setInterval(updateTimeLeft, 60000);
+    const interval = setInterval(updateTimeLeft, 10000); // Update every 10s
     return () => clearInterval(interval);
-  }, [startDate]);
+  }, [startDate, endDate, status]);
 
   const handleUpdate = async (field: string, value: string) => {
     if (!token || !live.id) return;
+    console.log(field, value);
     try {
       await updateLive(live.did, token, { [field]: value });
       console.log(`✅ Updated ${field} successfully!`);
@@ -121,7 +139,7 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
               setLiveName(e.target.value);
               handleUpdate("title", e.target.value);
             }}
-            disabled={status === "ongoing"}
+            disabled={status === "ongoing" || status === "closed"}
           />
         </div>
 
@@ -130,15 +148,23 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
           <p>
             สินค้า<span className="text-red-600 text-sm">*</span>
           </p>
-          <input
+          <select
             className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-10 w-72"
             value={product}
             onChange={(e) => {
               setProduct(e.target.value);
-              handleUpdate("product", e.target.value);
+              handleUpdate("productDId", e.target.value);
             }}
-            disabled={status === "ongoing"}
-          />
+            disabled={status === "ongoing" || status === "closed"}
+          >
+            <option value="">เลือกผลิตภัณฑ์</option>
+            {/* Map through the list of products to create options */}
+            {products.map((productItem) => (
+              <option key={productItem.id} value={productItem.id}>
+                {productItem.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Start Date */}
@@ -154,7 +180,7 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
               setStartDate(e.target.value);
               handleUpdate("startDate", e.target.value);
             }}
-            disabled={status === "ongoing"}
+            disabled={status === "ongoing" || status === "closed"}
           />
         </div>
 
@@ -171,7 +197,7 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
               setEndDate(e.target.value);
               handleUpdate("endDate", e.target.value);
             }}
-            disabled={status === "ongoing"}
+            disabled={status === "ongoing" || status === "closed"}
           />
         </div>
 
@@ -187,10 +213,12 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
               setStatus(e.target.value);
               handleUpdate("status", e.target.value);
             }}
-            disabled={status === "ongoing"}
+            disabled={status === "ongoing" || status === "closed"}
           >
             <option>public</option>
             <option>private</option>
+            <option>ongoing</option>
+            <option>closed</option>
           </select>
         </div>
         {/* Live Link */}
@@ -211,7 +239,7 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
                 handleUpdate("link", newLink);
               }
             }}
-            disabled={status === "ongoing"}
+            disabled={status === "ongoing" || status === "closed"}
           />
         </div>
       </div>
@@ -228,16 +256,24 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
         >
           ลบ
         </button>
-        <button
-          className="rounded-lg bg-green-500 px-7 py-2 text-white"
-          onClick={async (e) => {
-            e.preventDefault();
-            const res = await openLive(live.did, token);
-            if (res) alert("Live Open!");
-          }}
-        >
-          เริ่มทันที
-        </button>
+        {live.status !== "closed" && (
+          <button
+            className="rounded-lg bg-green-500 px-7 py-2 text-white"
+            onClick={async (e) => {
+              e.preventDefault();
+              if (live.status === "ongoing") {
+                const res = await closeLive(live.did, token);
+                if (res) alert("Live Closed!");
+              } else {
+                const res = await openLive(live.did, token);
+                if (res) alert("Live Open!");
+              }
+            }}
+          >
+            {live.status === "ongoing" ? "จบไลฟ์" : "เริ่มไลฟ์"}
+          </button>
+        )}
+
         <button
           className="rounded-lg bg-gray-500 px-5 py-2 text-white"
           onClick={() => navigator.clipboard.writeText(link)}

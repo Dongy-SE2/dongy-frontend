@@ -28,8 +28,8 @@ const LiveItem: React.FC<{
     >
       <div>
         <Image
-          src={live.images[0]?.url}
-          alt={live.title}
+          src={live.images[0]?.url || "No image"}
+          alt={live.title || "No image"}
           width={400}
           height={400}
           className="w-16 h-16 inline-block object-cover rounded-xl mr-4"

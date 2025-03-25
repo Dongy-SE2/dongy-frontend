@@ -8,19 +8,6 @@ import getLiveById, { LiveInfo } from "@/app/api/live/getLive";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-interface Bid {
-  name: string;
-  amount: number;
-  date: string;
-  time: string;
-}
-
-const bidHistory: Bid[] = [
-  { name: "กอไผ่ กอไผ่", amount: 2500, date: "21 ก.พ. 2568", time: "12:15 น." },
-  { name: "กอไผ่ กอไผ่", amount: 3000, date: "21 ก.พ. 2568", time: "12:30 น." },
-  { name: "กอไผ่ กอไผ่", amount: 3500, date: "21 ก.พ. 2568", time: "12:40 น." },
-];
-
 export default async function LiveBidding({
   params,
 }: {
@@ -30,7 +17,6 @@ export default async function LiveBidding({
   const session = await auth();
   if (session === null || !session.user.id) redirect("/login");
   const liveInfo = (await getLiveById(liveDId, session.user.jwt)) || null;
-  const isLoading = false;
 
   function calculateTimeLeft(startDate): string {
     if (!startDate) return "ไม่มีกำหนดการ"; // No upcoming live
@@ -93,7 +79,11 @@ export default async function LiveBidding({
           ></iframe>
         </div>
         <div className="absolute right-96 top-14">
-          <MovebackButton href="/product/view" />
+          <MovebackButton
+            href={
+              liveInfo?.productDId ? `/product/${liveInfo.productDId}` : "#"
+            }
+          />
         </div>
       </div>
 
@@ -101,7 +91,10 @@ export default async function LiveBidding({
         <LiveProductInfo
           liveName={liveInfo?.title ?? "No live Name"}
           productName={liveInfo?.product ?? "No product Name"}
-          sellerName={liveInfo?.sellerName ?? "No Seller Name"}
+          sellerName={
+            `${liveInfo?.OwnerFirstName ?? ""} ${liveInfo?.OwnerLastName ?? ""}`.trim() ||
+            "No Seller Name"
+          }
           productType={liveInfo?.productType ?? "No Product Type"}
           productDescription={
             liveInfo?.productDescription ?? "No Product Description"
@@ -119,7 +112,9 @@ export default async function LiveBidding({
           <LiveBiddingHistory
             startTime={formatThaiDate(liveInfo?.startDate ?? "")}
             endTime={formatThaiDate(liveInfo?.endDate ?? "")}
-            biddingHistory={bidHistory ?? []}
+            biddingHistory={liveInfo?.bids ?? null}
+            liveDId={liveDId}
+            token={session.user.jwt}
           />
         </div>
       </div>

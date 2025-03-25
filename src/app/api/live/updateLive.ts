@@ -11,6 +11,7 @@ export interface UpdateLiveData {
   image?: string; // No direct mapping, optional
   present_price?: number; // ✅ Add present price
   documentId?: string; // ✅ Ensure documentId is included
+  productDId?: string;
 }
 
 const updateLive = async (liveDId: string, token: string, updateData: UpdateLiveData): Promise<any> => {
@@ -19,12 +20,13 @@ const updateLive = async (liveDId: string, token: string, updateData: UpdateLive
     const url = `${BACKEND_URL}/api/lives/${liveDId}`;
     const mappedData = {
       live_name: updateData.title, // ✅ Maps `title` to `live_name`
-      live_start_time: updateData.startDate, // ✅ Maps `startDate` to `live_start_time`
-      live_end_time: updateData.endDate, // ✅ Maps `endDate` to `live_end_time`
+      scheduled_live_start_time: updateData.startDate, // ✅ Maps `startDate` to `live_start_time`
+      scheduled_live_end_time: updateData.endDate, // ✅ Maps `endDate` to `live_end_time`
       state: updateData.status, // ✅ Maps `status` to `state`
       live_link: updateData.link, // ✅ Maps `link` to `live_link`
       present_price: updateData.present_price, // ✅ Maps `present_price`
       documentId: updateData.documentId, // ✅ Maps `documentId`
+      bidding_product: updateData.productDId
     };
     console.log(mappedData)
 

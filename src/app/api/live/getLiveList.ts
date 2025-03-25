@@ -18,6 +18,7 @@ export interface LiveInfo {
   status: string; // Maps from `state`
   link: string; // Maps from `live_link`
   images: ProductImage[]; // Extract from `bidding_product.product_image`
+  productDId: string;
 }
 
 const getLiveList = async (userId: string, token: string): Promise<LiveInfo[]> => {
@@ -58,6 +59,7 @@ const getLiveList = async (userId: string, token: string): Promise<LiveInfo[]> =
             small: `${process.env.BACKEND}${img.formats?.small?.url || img.url}`,
           }))
         : [{ id: 0, url: "/default-image.jpg", thumbnail: "/default-image.jpg", small: "/default-image.jpg" }], // ✅ Default if no images
+      productDId: live.bidding_product?.documentId
     }));
 
     return lives;

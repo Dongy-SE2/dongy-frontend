@@ -1,5 +1,15 @@
 import axios from "axios";
 
+export interface BidInfo {
+  id: number;
+  bidPlaced: number; // Maps to `bid_placed`
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  bidOwnerFirstName: string;
+  bidOwnerLastName: string;
+}
+
 export interface LiveInfo {
   id: number;
   title: string; // Maps to `live_name`
@@ -11,8 +21,12 @@ export interface LiveInfo {
   image: string; // Extract from `bidding_product.product_image`
   sellerName: string;
   productType: string;
-  productDescription: string
-  presentPrice: string
+  productDescription: string;
+  presentPrice: string;
+  bids: BidInfo[];
+  productDId: string;
+  OwnerFirstName: string;
+  OwnerLastName: string;
 }
 
 const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | null> => {
@@ -28,11 +42,10 @@ const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | n
 
     const response = await axios.get(url, {
       headers: { Authorization: `Bearer ${token}` },
-      timeout: 10000, // ✅ Prevents indefinite waiting
+      timeout: 10000,
     });
 
-    const data = response.data?.data; // ✅ Ensure correct data reference
-
+    const data = response.data?.data;
     if (!data) {
       console.error("⚠️ No live event found!");
       return null;
@@ -55,11 +68,23 @@ const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | n
       sellerName: data.sellerName || "unknown",
       productDescription: data.bidding_product?.product_description || "unknown",
       productType: data.bidding_product?.categories || "unknown",
-      presentPrice: data.present_price || "unknown"
+      presentPrice: data.present_price?.toString() || "unknown",
+      bids: data.bids?.map((bid: any) => ({
+        id: bid.id,
+        bidPlaced: bid?.bid_placed,
+        documentId: bid?.documentId,
+        createdAt: bid?.createdAt,
+        updatedAt: bid?.updatedAt,
+        bidOwnerFirstName: bid.bid_owner?.firstname,
+        bidOwnerLastName: bid.bid_owner?.lastname
+      })),
+      productDId: data.bidding_product.documentId,
+      OwnerFirstName: data.bidding_product.owner.firstname,
+      OwnerLastName: data.bidding_product.owner.lastname
+      || [],
     };
   } catch (error: any) {
     console.error("❌ Error fetching live event:", error.response?.data || error.message);
-
     return null;
   }
 };
