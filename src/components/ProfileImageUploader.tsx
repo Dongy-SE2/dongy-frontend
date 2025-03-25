@@ -1,31 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import uploadProfilePicture from "@/app/api/profile/updateProfilePicture";
 
-const ProfileImageUploader: React.FC = () => {
-  const [image, setImage] = useState<string | null>(null);
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+const ProfileImageUploader: React.FC<{
+  profilePic: string | null;
+  setProfilePic: (url: string) => void;
+  token: string;
+}> = ({ profilePic, setProfilePic, token }) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+
+      // ✅ Call API to upload the image
+      const imageUrl = await uploadProfilePicture(file, token);
+      if (!imageUrl) return; // Prevent setting if upload fails
+
+      // ✅ Prevent unnecessary updates
+      if (profilePic === imageUrl) return;
+
+      setProfilePic(imageUrl);
     }
   };
 
+  // ✅ Fix: Use `setProfilePic("")` instead of `setImage(null)`
   const handleImageDelete = () => {
-    setImage(null);
+    setProfilePic(""); // Reset profile picture
   };
 
   return (
     <div>
       <h2 className="font-semibold text-2xl ml-6">รูปโปรไฟล์</h2>
-      <div className="flex items-center p-4"> {/* Changed from flex-col to items-center */}
-        <div className="relative w-40 h-40 mr-4"> {/* Added margin-right for spacing */}
-          {image ? (
+      <div className="flex items-center p-4">
+        {/* Profile Image */}
+        <div className="relative w-40 h-40 mr-4">
+          {profilePic ? (
             <img
-              src={image}
+              src={profilePic || "/default-profile.jpg"} // ✅ Fallback Image
               alt="Profile"
               className="w-full h-full object-cover rounded-full border"
             />
@@ -35,11 +46,13 @@ const ProfileImageUploader: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="flex flex-col space-y-4"> {/* Changed to flex-col for vertical alignment */}
-          <label htmlFor="file-upload" className="cursor-pointer bg-blue-500 text-white p-2 rounded-full shadow">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v16h16V4H4zm8 8v4m0-4H8m4 0h4" />
-            </svg>
+        <div className="">
+          {/* Upload Button */}
+          <label
+            htmlFor="file-upload"
+            className="cursor-pointer bg-blue-500 text-white p-2 rounded-full shadow"
+          >
+            อัปโหลด
           </label>
           <input
             id="file-upload"
@@ -48,12 +61,25 @@ const ProfileImageUploader: React.FC = () => {
             onChange={handleImageUpload}
             className="hidden"
           />
+
+          {/* Delete Button */}
           <button
             onClick={handleImageDelete}
             className="bg-red-500 text-white p-2 rounded-full shadow"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>

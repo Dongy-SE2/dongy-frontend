@@ -1,9 +1,27 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { useEffect, useState } from "react";
 
-const RegistrationForm = () => {
-  // const isValidDate = (date: string) => !date.includes("30 กุมภาพันธ์");
+// ✅ Define TypeScript Interface
+interface ProfileData {
+  title: string;
+  firstname: string;
+  lastname: string;
+  dob: string;
+  phone: string;
+  SSN: string;
+  location: string;
+}
+
+const RegistrationForm = ({ profile }: { profile: ProfileData }) => {
+  const [formData, setFormData] = useState<ProfileData>({
+    ...profile, // ✅ Merge with profile data
+  });
+
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, ...profile }));
+  }, [profile]);
 
   return (
     <div>
@@ -11,93 +29,122 @@ const RegistrationForm = () => {
 
       <Card className="max-w-lg mx-auto px-4 py-2 rounded-2xl bg-opacity-70 border border-gray-200">
         <CardContent>
-          <div className="grid grid-cols-3 gap-7 items-center">
+          <div className="grid grid-cols-5 gap-7 items-center">
+            {/* Title Selection */}
+            <label className="block text-gray-700 whitespace-nowrap text-sm col-span-1">
+              คำนำหน้า<span className="text-red-500">*</span>
+            </label>
+            <select
+              className="block bg-gray-100 px-4 py-2 text-sm max-w-28 border rounded-lg col-span-2"
+              name="title"
+              value={formData.title || ""}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, title: e.target.value }))
+              }
+            >
+              <option value="">-- Select --</option>
+              <option>นาย</option>
+              <option>นาง</option>
+              <option>นางสาว</option>
+            </select>
+            <div className="col-span-2" />
 
-              <label className="block text-gray-700 whitespace-nowrap text-sm">
-                คำนำหน้า<span className="text-red-500">*</span>
-              </label>
-
-              <select
-                className="block bg-gray-100 px-4 py-2 text-sm max-w-28 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 col-span-2"
-                name="title"
-              >
-                <option>นาย</option>
-                <option>นาง</option>
-                <option>นางสาว</option>
-              </select>
-
-            <label className="block text-gray-700 whitespace-nowrap text-sm">
+            {/* First Name */}
+            <label className="block text-gray-700 whitespace-nowrap text-sm col-span-1">
               ชื่อ<span className="text-red-500">*</span>
             </label>
             <Input
               name="firstname"
               type="text"
-              className="block bg-gray-100 px-4 py-1 rounded-[8px] text-sm w-64 col-span-2"
+              value={formData.firstname || ""}
+              className="col-span-4"
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  firstname: e.target.value,
+                }))
+              }
               required
             />
-            <label className="block text-gray-700 whitespace-nowrap text-sm">
+
+            {/* Last Name */}
+            <label className="block text-gray-700 whitespace-nowrap text-sm col-span-1">
               สกุล<span className="text-red-500">*</span>
             </label>
             <Input
               name="lastname"
               type="text"
-              className="block bg-gray-100 px-4 py-1 rounded-[8px] text-sm w-64 col-span-2"
+              value={formData.lastname || ""}
+              className="col-span-4"
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  lastname: e.target.value,
+                }))
+              }
               required
             />
 
-            <label className="block text-gray-700 whitespace-nowrap text-sm">
+            {/* Date of Birth */}
+            <label className="block text-gray-700 whitespace-nowrap text-sm col-span-1">
               วันเกิด<span className="text-red-500">*</span>
             </label>
             <Input
               name="dob"
               type="date"
-              className="block bg-gray-100 px-4 py-0 rounded-[8px] text-sm w-50 col-span-2"
+              value={formData.dob ? formData.dob.slice(0, 10) : ""}
+              className="col-span-4"
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, dob: e.target.value }))
+              }
               required
             />
-            {/* {window.location.href.indexOf("error=invalidData") !== -1 && ( */}
-            {/*   <p className="text-red-500 text-sm mt-1">วันที่ไม่ถูกต้อง</p> */}
-            {/* )} */}
 
-            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm">
+            {/* Phone Number */}
+            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm col-span-2">
               เบอร์โทรศัพท์<span className="text-red-500">*</span>
             </label>
             <Input
-              name="tel"
+              name="phone"
               type="tel"
-              className="block bg-gray-100 px-4 py-1 rounded-[8px] text-sm w-50 col-span-2"
+              value={formData.phone || ""}
+              className="col-span-3"
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, phone: e.target.value }))
+              }
               required
             />
 
-            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm">
-              เลขบัตรประชาชน/
-              <br />
-              Passport ID<span className="text-red-500">*</span>
+            {/* SSN */}
+            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm col-span-2">
+              เลขบัตรประชาชน
+              <span className="text-red-500">*</span>
             </label>
             <Input
               name="SSN"
               type="text"
-              className="block bg-gray-100 px-4 py-1 rounded-[8px] text-sm w-50 col-span-2"
+              value={formData.SSN || ""}
+              className="col-span-3"
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, SSN: e.target.value }))
+              }
               required
             />
 
-            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm">
+            {/* Address */}
+            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm col-span-1">
               ที่อยู่<span className="text-red-500">*</span>
             </label>
             <textarea
-              name="address"
-              className="block bg-gray-100 px-4 py-1 text-sm w-50 h-24 resize-none border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 col-span-2"
+              name="location"
+              value={formData.location || ""}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, location: e.target.value }))
+              }
+              className="block bg-gray-100 px-4 py-1 text-sm w-50 h-24 resize-none border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 col-span-4"
               required
             />
-
-
-
-
           </div>
-          
-
-          
-
-          
         </CardContent>
       </Card>
     </div>
