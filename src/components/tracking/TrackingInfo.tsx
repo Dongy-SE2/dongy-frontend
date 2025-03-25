@@ -46,22 +46,22 @@ export default function TrackingInfo() {
   return (
     <>
       <div
-        className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-[0.9rem] grid-flow-row-dense bg-white shadow-md rounded-xl px-8 py-6 w-[35rem] h-72"
+        className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-[0.9rem] grid-flow-row-dense bg-white shadow-md rounded-xl px-8 py-6 w-[35rem] h-72 text-gray-600"
         style={{ gridAutoRows: "minmax(auto, max-content)" }}
       >
         {!orders[idx] ? (
           <p>ไม่พบสินค้า</p>
         ) : (
           <>
-            <p>ชื่อผู้รับ</p>
+            <p className="font-medium">ชื่อผู้รับ</p>
             <p>{orders[idx].receiver}</p>
-            <p>เบอร์โทรศัพท์</p>
+            <p className="font-medium">เบอร์โทรศัพท์</p>
             <p>{orders[idx].tel}</p>
-            <p>ที่อยู่จัดส่ง</p>
+            <p className="font-medium">ที่อยู่จัดส่ง</p>
             <p className="w-96">{orders[idx].location}</p>
-            <p>จัดส่งโดย</p>
+            <p className="font-medium">จัดส่งโดย</p>
             <p>{orders[idx].courier}</p>
-            <p>Tracking No</p>
+            <p className="font-medium">Tracking No</p>
             {!orders[idx].trackingId ? (
               <p>-</p>
             ) : !orders[idx].trackingUrl ? (
@@ -71,7 +71,7 @@ export default function TrackingInfo() {
                 {orders[idx].trackingId}
               </Link>
             )}
-            <p>สถานะ</p>
+            <p className="font-medium">สถานะ</p>
             {statusMap[orders[idx].state]}
           </>
         )}
