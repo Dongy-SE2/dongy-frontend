@@ -3,16 +3,18 @@ import { useContext, useEffect, useState } from "react";
 import { Selection } from "./LiveContext";
 import Image from "next/image";
 import { LiveInfo } from "@/app/api/live/getLiveList";
-import { Clock, User } from "lucide-react";
 import deleteLive from "@/app/api/live/deleteLive";
+import updateLive from "@/app/api/live/updateLive";
+import { Clock, User } from "lucide-react";
+import openLive from "@/app/api/live/openLive";
+
 interface Props {
   lives: LiveInfo[];
   token: string;
 }
 
 const formatDateForInput = (isoDate: string) => {
-  if (!isoDate) return "";
-  return isoDate.slice(0, 16);
+  return isoDate ? isoDate.slice(0, 16) : "";
 };
 
 const LiveManage: React.FC<Props> = ({ lives, token }) => {
@@ -66,16 +68,22 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
     };
 
     updateTimeLeft();
-    const interval = setInterval(updateTimeLeft, 60000); // Refresh every 1 min
+    const interval = setInterval(updateTimeLeft, 60000);
     return () => clearInterval(interval);
   }, [startDate]);
 
+  const handleUpdate = async (field: string, value: string) => {
+    if (!token || !live.id) return;
+    try {
+      await updateLive(live.did, token, { [field]: value });
+      console.log(`✅ Updated ${field} successfully!`);
+    } catch (error) {
+      console.error(`❌ Failed to update ${field}:`, error);
+    }
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
+    <form onSubmit={(e) => e.preventDefault()}>
       {/* 🔹 Live Preview */}
       <div className="flex flex-row bg-white px-6 py-6 rounded-lg shadow-md w-[32rem]">
         <Image
@@ -109,7 +117,11 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
           <input
             className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-8 w-72"
             value={liveName}
-            onChange={(e) => setLiveName(e.currentTarget.value)}
+            onChange={(e) => {
+              setLiveName(e.target.value);
+              handleUpdate("title", e.target.value);
+            }}
+            disabled={status === "ongoing"}
           />
         </div>
 
@@ -121,7 +133,11 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
           <input
             className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-10 w-72"
             value={product}
-            onChange={(e) => setProduct(e.currentTarget.value)}
+            onChange={(e) => {
+              setProduct(e.target.value);
+              handleUpdate("product", e.target.value);
+            }}
+            disabled={status === "ongoing"}
           />
         </div>
 
@@ -134,7 +150,11 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
             className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-8 w-52"
             type="datetime-local"
             value={startDate}
-            onChange={(e) => setStartDate(e.currentTarget.value)}
+            onChange={(e) => {
+              setStartDate(e.target.value);
+              handleUpdate("startDate", e.target.value);
+            }}
+            disabled={status === "ongoing"}
           />
         </div>
 
@@ -147,7 +167,11 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
             className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-9 w-52"
             type="datetime-local"
             value={endDate}
-            onChange={(e) => setEndDate(e.currentTarget.value)}
+            onChange={(e) => {
+              setEndDate(e.target.value);
+              handleUpdate("endDate", e.target.value);
+            }}
+            disabled={status === "ongoing"}
           />
         </div>
 
@@ -159,23 +183,35 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
           <select
             className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-sm ml-[2.125rem] w-28"
             value={status}
-            onChange={(e) => setStatus(e.currentTarget.value)}
+            onChange={(e) => {
+              setStatus(e.target.value);
+              handleUpdate("status", e.target.value);
+            }}
+            disabled={status === "ongoing"}
           >
             <option>public</option>
             <option>private</option>
-            <option>ongoing</option>
           </select>
         </div>
-
         {/* Live Link */}
         <div className="flex flex-row">
           <p>
             ลิงค์<span className="text-red-600 text-sm">*</span>
           </p>
           <input
-            className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-base ml-12 w-72"
+            type="text"
+            className="bg-gray-100 px-2 py-1 rounded-lg text-gray-800 text-base ml-12 w-72 disabled:bg-gray-300 disabled:text-gray-500"
             value={link}
-            onChange={(e) => setLink(e.currentTarget.value)}
+            onChange={(e) => {
+              const newLink = e.target.value;
+              setLink(newLink);
+              console.log(newLink);
+
+              if (newLink.trim() !== "") {
+                handleUpdate("link", newLink);
+              }
+            }}
+            disabled={status === "ongoing"}
           />
         </div>
       </div>
@@ -186,15 +222,20 @@ const LiveManage: React.FC<Props> = ({ lives, token }) => {
           className="rounded-lg bg-red-400 px-12 py-2 text-white"
           onClick={async (e) => {
             e.preventDefault();
-            const res = await deleteLive(live.did, token || "");
-            if (res) {
-              alert("Success!");
-            }
+            const res = await deleteLive(live.did, token);
+            if (res) alert("Live Deleted!");
           }}
         >
           ลบ
         </button>
-        <button className="rounded-lg bg-green-500 px-7 py-2 text-white">
+        <button
+          className="rounded-lg bg-green-500 px-7 py-2 text-white"
+          onClick={async (e) => {
+            e.preventDefault();
+            const res = await openLive(live.did, token);
+            if (res) alert("Live Open!");
+          }}
+        >
           เริ่มทันที
         </button>
         <button
