@@ -10,7 +10,7 @@ function SearchProductCard(props: SearchProductCardProps) {
 
     return(
         <Link
-        href={`/product/${searchProduct.id}`}
+        href={`/product/${searchProduct.documentId}`}
         className="relative w-60 h-44 rounded-xl bg-white shadow-sm"
       >
         <div className="rounded-md overflow-hidden border shadow-sm w-[250px] h-[180px] bg-white">
