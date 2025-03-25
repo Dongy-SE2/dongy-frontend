@@ -18,7 +18,7 @@ export default function LiveProductInfo({
   productDescription,
 }: Props) {
   return (
-    <div className="w-[340px] h-[400px] bg-white p-7 rounded-lg shadow-md">
+    <div className="w-[340px] h-[400px] bg-white p-7 rounded-lg shadow-md overflow-y-auto">
       <h2 className="text-2xl font-semibold">{liveName}</h2>
       <div className="grid grid-cols-2 grid-rows-4 mt-6">
         <p className="text-lg font-medium pb-3">สินค้า</p>

@@ -16,19 +16,19 @@ export default async function ProductRegisterPage({}: {
 
       <ProductManageHeader name="เพิ่มสินค้า" href="/user/" />
       <ProductEditor
-          data={{
-            name: "",
-            subId: "",
-            seller: "",
-            id: "",
-            minPrice: 0,
-            description: "",
-            image: [],
-            type: 0,
-          }}/>
+        data={{
+          name: "",
+          subId: "",
+          seller: "",
+          id: "",
+          minPrice: 0,
+          description: "",
+          image: [],
+          type: "",
+          liveDId: "",
+        }}
+      />
 
-      </div>
-    </div>
     </SessionProvider>
 
     
