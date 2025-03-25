@@ -7,6 +7,7 @@ import SearchProductList from "../../components/SearchProductList";
 
 
 function LandingPage() {
+  
     const [loading, setLoading] = useState(false);
     const [searchProducts, setSearchProducts] = useState<searchProduct[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -19,6 +20,7 @@ function LandingPage() {
             setLoading(true)
             try{
               const data = await searchProductAPI.get(searchText)
+              console.log(`this is your data: ${data}`)
               //setResponse(data);
               setSearchProducts(data)
             } catch(e) {
