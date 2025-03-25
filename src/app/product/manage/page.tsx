@@ -13,9 +13,15 @@ export default async function ProductManagePage() {
     redirect("/login", RedirectType.replace);
   const product_list = await getProductList(session.user.jwt, session.user.id);
   return (
+
     <SessionProvider>
-      <ProductManageHeader name="จัดการสินค้า" href="/user/" />
-      <ProductList products={product_list} />
+        <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
+          <div className="flex flex-col">
+            <ProductManageHeader name="จัดการสินค้า" href="/user/" />
+            <ProductList products={product_list} />
+          </div>
+
+        </div>
     </SessionProvider>
   );
 }

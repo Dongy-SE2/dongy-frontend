@@ -5,7 +5,7 @@ function SellerHomePage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-medium">จัดการบัญชี</h1>
+        <h1 className="text-2xl font-semibold">จัดการบัญชี</h1>
         <div></div>
       </div>
 

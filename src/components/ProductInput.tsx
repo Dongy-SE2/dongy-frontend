@@ -12,10 +12,10 @@ const ProductInput: React.FC<Props> = ({ data }) => {
   const [sliderValue, changeSliderValue] = useState<number>(data.minPrice);
   return (
     <div>
-      <h2 className="font-semibold text-2xl">ข้อมูลสินค้า</h2>
-      <p className="text-gray-400 my-3 text-sm">กรอกข้อมูลสินค้าให้ครบถ้วน</p>
-      <p className="font-medium my-3">
-        ชื้อสินค้า<span className="text-red-600">*</span>
+      <h2 className="font-semibold text-xl">ข้อมูลสินค้า</h2>
+      <p className="text-gray-400 mt-1 mb-5 text-xs font-light">กรอกข้อมูลสินค้าให้ครบถ้วน</p>
+      <p className="font-medium my-3 text-sm">
+        ชื่อสินค้า<span className="text-red-600">*</span>
       </p>
       <input
         type="text"
@@ -24,7 +24,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
         defaultValue={data.name}
         required
       />
-      <p className="font-medium my-3">
+      <p className="font-medium my-3 text-sm">
         ประเภท<span className="text-red-600">*</span>
       </p>
       <select
@@ -36,7 +36,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
         <option value="" disabled>
           เลือกประเภท
         </option>
-        {["เสื้อผ้า", "เครื่องเรือน", "ของสะสม", "หนังสือ", "อื่นๆ"].map(
+        {["เสื้อผ้า", "เครื่องเรือน", "ของสะสม", "หนังสือ", "อื่น ๆ"].map(
           (val) => (
             <option value={val} key={val}>
               {val}
@@ -44,7 +44,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
           ),
         )}
       </select>
-      <p className="font-medium my-3">
+      <p className="font-medium mb-3 mt-5 text-sm">
         ราคาเริ่มต้น (บาท)<span className="text-red-600">*</span>
       </p>
       <div className="my-3">
@@ -64,18 +64,18 @@ const ProductInput: React.FC<Props> = ({ data }) => {
           value={sliderValue}
         />
       </div>
-      <p className="font-medium mt-3">รายละเอียด</p>
-      <p className="text-gray-400 mt-1 mb-3 text-sm">ไม่เกิน 200 อักขระ</p>
+      <p className="font-medium mt-3 text-sm">รายละเอียด</p>
+      <p className="text-gray-400 mt-1 mb-3 text-xs font-light">ไม่เกิน 200 อักขระ</p>
       <textarea
         maxLength={200}
         name="product_description"
-        className="resize-none text-sm bg-gray-100 w-full h-36 mb-7 px-4 py-2"
+        className="resize-none text-sm bg-gray-100 w-full h-24 mb-7 px-4 py-2"
         defaultValue={data.description}
       />
       <div className="flex justify-center w-full">
         <input
           type="submit"
-          className="pointer py-2 px-9 bg-green-500 text-white rounded-lg cursor-pointer"
+          className="pointer py-2 px-9 bg-emerald-500 text-white rounded-lg cursor-pointer"
           value="บันทึก"
         />
       </div>

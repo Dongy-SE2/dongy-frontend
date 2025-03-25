@@ -23,13 +23,13 @@ export default function Register() {
   };
 
   return (
-    <div className="mx-auto flex flex-col items-center min-h-screen bg-[#F6F7F9] bg-auto">
+    <div className="mx-auto flex flex-col items-center min-h-screen bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100%">
       <form
         className="max-w-5xl w-full p-8 flex justify-between space-x-8"
         action={formAction}
       >
         <div className="w-1/2">
-          <h1 className="text-left font-semibold text-black text-3xl mb-4">
+          <h1 className="text-left font-semibold text-black text-2xl mb-4">
             สร้างบัญชีใหม่
           </h1>
           <div className="p-4">
@@ -39,11 +39,11 @@ export default function Register() {
         </div>
 
         <div className="w-1/2 p-4 mt-14">
-          <div className="mb-16">
+          <div className="mb-6">
             <RegistrationForm2 />
           </div>
 
-          <Card className="max-w-md mx-auto p-4 bg-white rounded-2xl shadow-lg">
+          <Card className="max-w-md mx-auto px-4 py-2 bg-white rounded-2xl bg-opacity-50 border border-gray-200">
             <CardContent>
               <div className="flex items-start gap-3">
                 <input
@@ -53,7 +53,7 @@ export default function Register() {
                   className="mt-1 w-5 h-5 cursor-pointer"
                   required
                 />
-                <label className="text-gray-700">
+                <label className="text-gray-700 text-sm">
                   ข้าพเจ้าได้อ่านและยอมรับ
                   <a href="#" className="underline text-black font-medium">
                     ข้อตกลงการใช้งานและนโยบายความเป็นส่วนบุคคล
@@ -61,13 +61,17 @@ export default function Register() {
                 </label>
               </div>
 
-              <Button
-                type="submit"
-                className="w-full bg-[#10B981] text-white py-2 rounded-lg mt-4"
-                disabled={!isChecked}
-              >
-                สมัครใช้งาน
-              </Button>
+              <div className="flex flex-row w-full items-center justify-center">
+                <Button
+                  type="submit"
+                  className="w-36 bg-emerald-500 text-white py-2 rounded-lg mt-6 text-sm"
+                  disabled={!isChecked}
+                >
+                  สมัครใช้งาน
+                </Button>
+              </div>
+
+              
             </CardContent>
           </Card>
         </div>
