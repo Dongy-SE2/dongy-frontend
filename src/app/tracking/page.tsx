@@ -7,6 +7,7 @@ import getBuyerOrder from "../api/order/getBuyerOrderList";
 import OrderProvider from "@/components/tracking/OrderProvider";
 import TrackingInfo from "@/components/tracking/TrackingInfo";
 import TrackingList from "@/components/tracking/TrackingList";
+import { SessionProvider } from "next-auth/react";
 
 export default async function TrackingPage() {
   const session = await auth();
@@ -21,10 +22,12 @@ export default async function TrackingPage() {
             <h2 className="text-xl font-medium mb-3">รายการสินค้า</h2>
             <TrackingList />
           </div>
-          <div>
-            <h2 className="text-xl font-medium mb-3">สถานะการจัดส่ง</h2>
-            <TrackingInfo />
-          </div>
+          <SessionProvider>
+            <div>
+              <h2 className="text-xl font-medium mb-3">สถานะการจัดส่ง</h2>
+              <TrackingInfo />
+            </div>
+          </SessionProvider>
         </div>
       </OrderProvider>
     </>

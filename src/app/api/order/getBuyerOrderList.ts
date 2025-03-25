@@ -3,6 +3,7 @@
 import axios from "axios";
 
 export interface Order {
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -12,6 +13,7 @@ export interface Order {
   courier: string;
   trackingId: string;
   trackingUrl: string;
+  state: string;
 }
 
 async function getBuyerOrder(token: string): Promise<Order[]> {
@@ -22,6 +24,7 @@ async function getBuyerOrder(token: string): Promise<Order[]> {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data: Order[] = res.data.data?.map((val: any) => ({
+    id: val.documentId,
     name: val.product.product_name,
     price: val.total_amount,
     image: `${process.env.BACKEND}${val.product?.product_image[0].url}`,
@@ -31,6 +34,7 @@ async function getBuyerOrder(token: string): Promise<Order[]> {
     courier: val.courier,
     trackingId: val.tracking_no,
     trackingUrl: val.tracking_url,
+    state: val.state,
   }));
   return data;
 }
