@@ -19,9 +19,9 @@ const Total: React.FC = () => {
   const { selection } = useContext(Selection);
   const router = useRouter();
 
-  let price: number = Number(selection?.price) || 300
+  let price: number = Number(selection?.price) || 300;
   if (price < 300) {
-    price = 300
+    price = 300;
   }
 
   const tax = parseFloat((price * 0.07).toFixed(2));
@@ -35,7 +35,7 @@ const Total: React.FC = () => {
 
     window.Omise.setPublicKey(process.env.NEXT_PUBLIC_OMISE_PUBLIC_KEY);
     if (promptpay === "on") {
-       await window.Omise.createSource(
+      await window.Omise.createSource(
         "promptpay",
         {
           amount: total * 100,
@@ -43,13 +43,15 @@ const Total: React.FC = () => {
         },
         async (status: any, res: any) => {
           if (status === 200 && selection) {
-            res.name = selection.name
-            res.order = selection.id 
-            if (await paymentSubmit(res, session?.data?.user.jwt || "") === 200) {
-              router.replace("/payment/success")
+            res.name = selection.name;
+            res.order = selection.id;
+            if (
+              (await paymentSubmit(res, session?.data?.user.jwt || "")) === 200
+            ) {
+              router.replace("/payment/success");
             }
           }
-        },
+        }
       );
     }
 
@@ -62,13 +64,15 @@ const Total: React.FC = () => {
         },
         async (status: any, res: any) => {
           if (status === 200 && selection) {
-            res.name = selection.name
-            res.order = selection.id 
-            if (await paymentSubmit(res, session?.data?.user.jwt || "") === 200) {
-              router.replace("/payment/success")
+            res.name = selection.name;
+            res.order = selection.id;
+            if (
+              (await paymentSubmit(res, session?.data?.user.jwt || "")) === 200
+            ) {
+              router.replace("/payment/success");
             }
           }
-        },
+        }
       );
     }
 
@@ -81,23 +85,22 @@ const Total: React.FC = () => {
         },
         async (status: any, res: any) => {
           if (status === 200 && selection) {
-            res.name = selection.name
-            res.order = selection.id 
-            if (await paymentSubmit(res, session?.data?.user.jwt || "") === 200) {
-              router.replace("/payment/success")
+            res.name = selection.name;
+            res.order = selection.id;
+            if (
+              (await paymentSubmit(res, session?.data?.user.jwt || "")) === 200
+            ) {
+              router.replace("/payment/success");
             }
           }
-        },
+        }
       );
     }
   };
 
   return (
     <form action={TransanctionProcess}>
-      <Script
-        type="text/javascript"
-        src="https://cdn.omise.co/omise.js"
-      />
+      <Script type="text/javascript" src="https://cdn.omise.co/omise.js" />
       <h2 className="text-xl font-medium mb-2">ยอดที่ต้องชำระ</h2>
       <div className="flex flex-row justify-evenly bg-white px-7 py-5 rounded-xl shadow-md text-gray-600 text-sm mb-4">
         <div className="mr-14">

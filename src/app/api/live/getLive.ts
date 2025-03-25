@@ -60,7 +60,7 @@ const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | n
       startDate: data.scheduled_live_start_time || "",
       endDate: data.scheduled_live_end_time || "",
       status: data.state || "unknown",
-      link: data.live_link || "#",
+      link: data.live_link || null,
       image:
         data.bidding_product?.product_image?.[0]?.url
           ? `${BACKEND_URL}${data.bidding_product.product_image[0].url}`

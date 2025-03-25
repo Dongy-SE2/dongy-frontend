@@ -17,7 +17,8 @@ export default async function ProductRegisterPage({}: {
           minPrice: 0,
           description: "",
           image: [],
-          type: 0,
+          type: "",
+          liveDId: "",
         }}
       />
     </SessionProvider>

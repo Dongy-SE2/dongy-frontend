@@ -47,7 +47,7 @@ const ProductCard: React.FC<Props> = ({ name, image, id, subId, minPrice }) => {
           <Trash2 width="16" height="16" />
         </button>
         <Link
-          href={`/product/manage/${subId}`}
+          href={`/product/manage/${id}`}
           className="p-1.5 bg-white rounded-full mr-1 mt-2"
         >
           <Pen width="16" height="16" />
