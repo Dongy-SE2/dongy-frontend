@@ -54,7 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             console.error("Login failed: Invalid response", res.data);
             return null;
           }
-          console.log(res.data.user)
+          console.log(res.data.user);
 
           return {
             id: res.data.user.id,
@@ -75,6 +75,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   pages: {
     signIn: "/login",
+    signOut: "/login",
   },
   callbacks: {
     jwt: async ({ token, user }) => {

@@ -19,10 +19,8 @@ const Total: React.FC = () => {
   const { selection } = useContext(Selection);
   const router = useRouter();
 
-  let price: number = Number(selection?.price) || 300;
-  if (price < 300) {
-    price = 300;
-  }
+  let price: number | null = Number(selection?.price);
+  price = price ? (price < 300 ? 300 : price) : 0;
 
   const tax = parseFloat((price * 0.07).toFixed(2));
   const total = parseFloat((price + tax).toFixed(2));
@@ -51,7 +49,7 @@ const Total: React.FC = () => {
               router.replace("/payment/success");
             }
           }
-        }
+        },
       );
     }
 
@@ -72,7 +70,7 @@ const Total: React.FC = () => {
               router.replace("/payment/success");
             }
           }
-        }
+        },
       );
     }
 
@@ -93,7 +91,7 @@ const Total: React.FC = () => {
               router.replace("/payment/success");
             }
           }
-        }
+        },
       );
     }
   };

@@ -10,14 +10,16 @@ import { SessionProvider } from "next-auth/react";
 export default async function Payment() {
   const session = await auth();
   if (!session || !session.user) redirect("/login");
-  const products: Array<Order> = (await getBuyerOrder(session.user.jwt)).filter((val) => val.state === "รอดำเนินการ");
+  const products: Array<Order> = (await getBuyerOrder(session.user.jwt)).filter(
+    (val) => val.state === "รอดำเนินการ",
+  );
   return (
     <PaymentContext>
       <ProductManageHeader href="/" name="ชำระเงิน" />
       <div className="flex flex-row justify-evenly mt-7">
         <PaymentList products={products} />
         <SessionProvider>
-          <Total/>
+          <Total />
         </SessionProvider>
       </div>
     </PaymentContext>
