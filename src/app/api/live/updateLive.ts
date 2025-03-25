@@ -1,28 +1,38 @@
+"use server"
 import axios from "axios";
 
 export interface UpdateLiveData {
-  title?: string;
-  product?: string;
-  startDate?: string;
-  endDate?: string;
-  status?: string; // "สาธารณะ" or "ส่วนตัว"
-  link?: string;
-  image?: string;
+  title?: string; // Maps to `live_name`
+  product?: string; // No direct mapping, included for clarity
+  startDate?: string; // Maps to `live_start_time`
+  endDate?: string; // Maps to `live_end_time`
+  status?: string; // Maps to `state`
+  link?: string; // Maps to `live_link`
+  image?: string; // No direct mapping, optional
+  present_price?: number; // ✅ Add present price
+  documentId?: string; // ✅ Ensure documentId is included
+  productDId?: string;
 }
 
-const updateLive = async (liveId: string, token: string, updateData: UpdateLiveData): Promise<any> => {
+const updateLive = async (liveDId: string, token: string, updateData: UpdateLiveData): Promise<any> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
-    if (!BACKEND_URL) {
-      throw new Error("❌ BACKEND_URL is not set!");
-    }
-
-    const url = `${BACKEND_URL}/api/lives/${liveId}`;
-    console.log("📝 Updating live bidding event at:", url);
+    const url = `${BACKEND_URL}/api/lives/${liveDId}`;
+    const mappedData = {
+      live_name: updateData.title, // ✅ Maps `title` to `live_name`
+      scheduled_live_start_time: updateData.startDate, // ✅ Maps `startDate` to `live_start_time`
+      scheduled_live_end_time: updateData.endDate, // ✅ Maps `endDate` to `live_end_time`
+      state: updateData.status, // ✅ Maps `status` to `state`
+      live_link: updateData.link, // ✅ Maps `link` to `live_link`
+      present_price: updateData.present_price, // ✅ Maps `present_price`
+      documentId: updateData.documentId, // ✅ Maps `documentId`
+      bidding_product: updateData.productDId
+    };
+    console.log(mappedData)
 
     const response = await axios.put(
       url,
-      { data: updateData },
+      { data: mappedData },
       {
         headers: {
           Authorization: `Bearer ${token}`,

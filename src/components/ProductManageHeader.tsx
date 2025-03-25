@@ -11,7 +11,7 @@ const ProductManageHeader: React.FC<Props> = ({ name, href }) => {
       <h1 className="text-2xl font-semibold item-center content-center">
         {name}
       </h1>
-      <MovebackButton href={href} />
+   <MovebackButton href={"/user"}></MovebackButton>
     </div>
   );
 };

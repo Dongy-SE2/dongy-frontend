@@ -15,7 +15,7 @@ function BuyerHomePage() {
           key={1}
           ActionName={"แก้ไขข้อมูล"}
           Icon={<IdCard />}
-          route={"/product"}
+          route={"/user/profile"}
         />
         <ActionButton
           key={2}
@@ -27,7 +27,7 @@ function BuyerHomePage() {
           key={3}
           ActionName={"สินค้ารอจัดส่ง"}
           Icon={<Truck />}
-          route={"/user/profile"}
+          route={"/tracking"}
         />
         <ActionButton key={4} ActionName={""} Icon={<div />} route={"/user"} />
       </div>

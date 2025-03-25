@@ -25,7 +25,9 @@ function SetLiveBidding_Form({ LiveName }: SetLiveBiddingFormProps) {
           </div>
 
           <div className="mb-4 flex items-center gap-8">
-          <label className="block text-gray-700 font-medium mb-1 whitespace-nowrap">
+          <label className="block text-gray-700 
+          
+          321font-medium mb-1 whitespace-nowrap">
             สินค้า <span className="text-red-500">*</span>
           </label>
           <input

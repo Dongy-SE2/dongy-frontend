@@ -1,12 +1,13 @@
+"use server"
 import axios from "axios";
 
 export interface BidData {
-  liveId: string;
+  liveDId: string;
   userId: string;
   amount: number;
 }
 
-const createBid = async (token: string, bidData: BidData): Promise<any> => {
+const createBid = async (token: string, liveDId:string, userId:string, amount:string): Promise<any> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
     if (!BACKEND_URL) {
@@ -20,9 +21,9 @@ const createBid = async (token: string, bidData: BidData): Promise<any> => {
       url,
       {
         data: {
-          live: bidData.liveId,
-          user: bidData.userId,
-          amount: bidData.amount,
+          bidding_live: liveDId,
+          bid_owner: userId,
+          bid_placed: amount,
         },
       },
       {
