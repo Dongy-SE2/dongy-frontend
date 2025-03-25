@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 
 const RegistrationForm2 = () => {
-  const [role, setRole] = useState<"buyer" | "seller">("seller");
+  const [role, setRole] = useState<"buyer" | "seller">("buyer");
 
   return (
     <div className="bg-[#F6F7F9]">
