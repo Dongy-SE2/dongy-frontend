@@ -2,38 +2,43 @@
 
 import { useState, useEffect } from "react";
 import { CircleUserRound, Clock } from "lucide-react";
+import { BidInfo } from "@/app/api/live/getLive";
 
-type Bid = {
-  name: string;
-  amount: number;
-  date: string;
-  time: string;
-};
-
-export default function BidHistoryPopup() {
+export default function BidHistoryPopup({
+  bidHistory,
+}: {
+  bidHistory: BidInfo[] | null;
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [bidHistory, setBidHistory] = useState<Bid[]>([
-    { name: "กอเอ๋ย กอไก่", amount: 2500, date: "21 กุมภาพันธ์ 2568", time: "12:15 น." },
-    { name: "กอเอ๋ย กอไก่", amount: 3000, date: "21 กุมภาพันธ์ 2568", time: "12:30 น." },
-    { name: "กอเอ๋ย กอไก่", amount: 3500, date: "21 กุมภาพันธ์ 2568", time: "12:40 น." },
-  ]);
 
-  // จำลองการอัปเดตแบบเรียลไทม์ทุก 5 วินาที
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBidHistory((prevHistory) => [
-        ...prevHistory,
-        {
-          name: "ผู้ประมูลใหม่",
-          amount: Math.floor(Math.random() * 5000) + 1000,
-          date: "21 กุมภาพันธ์ 2568",
-          time: new Date().toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit" }) + " น.",
-        },
-      ]);
-    }, 5000);
+  function formatThaiDate(isoString: string): string {
+    const date = new Date(isoString);
 
-    return () => clearInterval(interval);
-  }, []);
+    const day = date.getDate();
+    const monthIndex = date.getMonth(); // 0-based index (Jan = 0)
+    const yearBE = date.getFullYear() + 543; // Convert to Buddhist Era
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0"); // Ensure two digits
+
+    // Map month index to Thai month name
+    const thaiMonths = [
+      "มกราคม",
+      "กุมภาพันธ์",
+      "มีนาคม",
+      "เมษายน",
+      "พฤษภาคม",
+      "มิถุนายน",
+      "กรกฎาคม",
+      "สิงหาคม",
+      "กันยายน",
+      "ตุลาคม",
+      "พฤศจิกายน",
+      "ธันวาคม",
+    ];
+    const monthThai = thaiMonths[monthIndex];
+
+    return `${day} ${monthThai} ${yearBE} ${hours}.${minutes} น.`;
+  }
 
   return (
     <div>
@@ -45,24 +50,35 @@ export default function BidHistoryPopup() {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[426px] h-[543px] flex flex-col">
-
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+          onClick={() => setIsOpen(false)} // ✅ ปิด popup เมื่อกดที่พื้นหลัง
+        >
+          <div
+            className="bg-white p-6 rounded-lg shadow-lg w-[426px] h-[543px] flex flex-col"
+            onClick={(e) => e.stopPropagation()} // ✅ ป้องกันการปิดเมื่อกดใน popup
+          >
             <h2 className="text-xl font-bold mb-4">ประวัติการประมูล</h2>
 
             <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2 flex-1">
-              {bidHistory.map((bid, index) => (
-                <div key={index} className="flex items-center bg-gray-200 p-3 rounded-lg shadow-sm">
+              {bidHistory?.map((bid) => (
+                <div
+                  key={bid.id} // ✅ ใช้ `bid.id` แทน `index`
+                  className="flex items-center bg-gray-200 p-3 rounded-lg shadow-sm"
+                >
                   <CircleUserRound className="size-16 text-[#0F172A] mr-3" />
                   <div className="flex-1 text-start">
-                    <p className="font-normal text-lg">{bid.name}</p>
-                    <p className="font-semibold text-lg">{bid.amount.toLocaleString()} บาท</p>
+                    <p className="font-normal text-lg">
+                      {bid.bidOwnerFirstName} {bid.bidOwnerLastName}
+                    </p>
+                    <p className="font-semibold text-lg">
+                      {bid.bidPlaced.toLocaleString()} บาท
+                    </p>
                   </div>
                   <div className="text-sm font-light text-gray-500 flex items-center">
                     <Clock className="size-7 mr-1" />
                     <div className="text-start">
-                      <p>{bid.date}</p>
-                      <p>{bid.time}</p>
+                      <p>{formatThaiDate(bid.createdAt)}</p>
                     </div>
                   </div>
                 </div>

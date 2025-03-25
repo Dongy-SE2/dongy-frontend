@@ -1,16 +1,7 @@
+"use server"
 import axios from "axios";
 
-export interface CreateLiveData {
-  title: string;
-  product: string;
-  startDate: string;
-  endDate: string;
-  status: string; // Example: "สาธารณะ" or "ส่วนตัว"
-  link: string;
-  image: string; // URL of the image
-}
-
-const createLive = async (token: string, liveData: CreateLiveData): Promise<any> => {
+const createLive = async (token: string, sellerId: string): Promise<any> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
     if (!BACKEND_URL) {
@@ -23,7 +14,9 @@ const createLive = async (token: string, liveData: CreateLiveData): Promise<any>
     const response = await axios.post(
       url,
       {
-        data: liveData, // ✅ Must be wrapped inside "data"
+        data:{
+          owner: sellerId
+        }
       },
       {
         headers: {
@@ -34,7 +27,7 @@ const createLive = async (token: string, liveData: CreateLiveData): Promise<any>
     );
 
     console.log("✅ Live bidding event created successfully:", response.data);
-    return response.data;
+    return response.status;
   } catch (error: any) {
     console.error("❌ Error creating live bidding event:", error.response?.data || error.message);
     throw error;

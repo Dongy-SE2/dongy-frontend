@@ -1,17 +1,27 @@
 "use client";
 
+import createBid from "@/app/api/bid/createBid";
 import { useState } from "react";
 
 type Props = {
   currentBidding: string;
   timeLeft: string;
+  liveDId: string;
+  userId: string;
+  token: string;
 };
 
-export default function BiddingInfoCard({ currentBidding, timeLeft }: Props) {
+export default function BiddingInfoCard({
+  currentBidding,
+  timeLeft,
+  liveDId,
+  userId,
+  token,
+}: Props) {
   const [biddingPrice, setBiddingPrice] = useState("");
   const [showErrorPopup, setShowErrorPopup] = useState(false);
 
-  const placeBidding = () => {
+  const placeBidding = async () => {
     const biddingValue = Number(biddingPrice);
     const currentBiddingValue = Number(currentBidding);
 
@@ -20,7 +30,20 @@ export default function BiddingInfoCard({ currentBidding, timeLeft }: Props) {
       return;
     }
 
-    console.log("Bid placed successfully:", biddingValue);
+    try {
+      const res = await createBid(
+        token,
+        liveDId,
+        userId,
+        biddingPrice // Send bid amount correctly
+      );
+
+      console.log("✅ Bid placed successfully:", res);
+      setBiddingPrice(""); // Reset input after successful bid
+      window.location.reload();
+    } catch (error) {
+      console.error("❌ Error placing bid:", error);
+    }
   };
 
   return (
@@ -34,9 +57,12 @@ export default function BiddingInfoCard({ currentBidding, timeLeft }: Props) {
         <p className="text-xl font-normal text-gray-900 text-left px-5 pb-3">
           {timeLeft}
         </p>
-        <p className="text-base font-medium text-left col-span-2">ราคาที่ต้องการประมูล (บาท)</p>
+        <p className="text-base font-medium text-left col-span-2">
+          ราคาที่ต้องการประมูล (บาท)
+        </p>
       </div>
 
+      {/* Input & Submit Button */}
       <div className="flex space-x-3 items-center">
         <input
           type="number"
@@ -53,10 +79,13 @@ export default function BiddingInfoCard({ currentBidding, timeLeft }: Props) {
         </button>
       </div>
 
+      {/* Error Popup */}
       {showErrorPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-[426px] h-[130px] text-center">
-            <p className="text-base font-normal">ราคาที่ท่านเลือกต่ำกว่าราคาปัจจุบัน</p>
+            <p className="text-base font-normal">
+              ราคาที่ท่านเลือกต่ำกว่าราคาปัจจุบัน
+            </p>
             <p className="text-base font-normal">กรุณากรอกราคาใหม่</p>
 
             <div className="flex justify-end mt-4">
