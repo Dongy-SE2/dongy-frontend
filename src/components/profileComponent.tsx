@@ -1,4 +1,4 @@
-"use client"; // ✅ Mark this as a Client Component
+"use client";
 
 import { useState } from "react";
 import ProfileImageUploader from "@/components/ProfileImageUploader";
@@ -6,24 +6,17 @@ import MovebackButton from "@/components/MovebackButton";
 import RegistrationForm from "@/components/registrationForm";
 import RegistrationForm2 from "@/components/registrationForm2";
 import { Button } from "@/components/ui/button";
+import updateProfile from "@/app/api/profile/updateProfile";
+import { User } from "@/app/api/profile/getProfile";
 
 interface ProfileProps {
-  profile: {
-    title: string;
-    firstname: string;
-    lastname: string;
-    dob: string;
-    phone: string;
-    SSN: string;
-    location: string;
-    rolename: string;
-    pictureUrl?: string;
-  };
+  profile: User;
+  token: string;
 }
 
-export default function ProfileClient({ profile }: ProfileProps) {
-  const [profilePic, setProfilePic] = useState<string>(
-    profile.pictureUrl || "/placeholder-profile.jpg"
+export default function ProfileClient({ profile, token }: ProfileProps) {
+  const [profilePic, setProfilePic] = useState<string | undefined>(
+    profile.pictureUrl,
   );
 
   return (
@@ -33,7 +26,12 @@ export default function ProfileClient({ profile }: ProfileProps) {
           <h2 className="text-2xl font-semibold mb-4">แก้ไขข้อมูล</h2>
           <MovebackButton href="/user" />
         </div>
-        <form className="grid grid-cols-2 gap-6">
+        <form
+          className="grid grid-cols-2 gap-6"
+          action={(e) => {
+            updateProfile(e, profile.documentId, token);
+          }}
+        >
           <div>
             <RegistrationForm profile={profile} />
           </div>
@@ -42,7 +40,6 @@ export default function ProfileClient({ profile }: ProfileProps) {
               <ProfileImageUploader
                 profilePic={profilePic}
                 setProfilePic={setProfilePic}
-                token={""}
               />
             </div>
             <RegistrationForm2 profile={profile} />

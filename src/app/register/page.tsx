@@ -70,8 +70,6 @@ export default function Register() {
                   สมัครใช้งาน
                 </Button>
               </div>
-
-              
             </CardContent>
           </Card>
         </div>

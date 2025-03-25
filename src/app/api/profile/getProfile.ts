@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-interface User {
+export interface User {
   title: string;
   firstname: string;
   lastname: string;
@@ -11,6 +11,7 @@ interface User {
   SSN: string;
   location: string;
   rolename: string;
+  documentId: string;
   pictureUrl?: string;
 }
 
