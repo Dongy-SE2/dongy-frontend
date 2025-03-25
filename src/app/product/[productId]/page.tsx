@@ -5,6 +5,7 @@ import LiveStatusCard from "@/components/live/LiveStatusCard";
 import ProductImageCard from "@/components/live/ProductImageCard";
 import ProductWraper from "@/components/ProductWraper";
 import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function ProductDetail({
   params,

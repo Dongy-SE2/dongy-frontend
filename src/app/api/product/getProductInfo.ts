@@ -1,20 +1,11 @@
 import axios from "axios";
 
-enum ProductType {
-  // TODO: Talk with backend
-  เสื้อผ้า,
-  เครื่องเรือน,
-  ของสะสม,
-  หนังสือ,
-  อื่นๆ,
-}
-
 export interface ProductInfo {
   name: string;
   seller: string;
   id: string;
   subId: string;
-  type: ProductType;
+  type: string;
   minPrice: number;
   description: string;
   image: string[];
@@ -32,14 +23,16 @@ const getProductInfo = async (
   const data = res.data.data[0];
   return {
     name: data.product_name,
-    image: data.product_image.map(
-      (img: any) => `${process.env.BACKEND}${img.formats.small.url}`,
-    ),
+    image: data.product_image
+      .map((img: any) => {
+        return `${process.env.BACKEND}${img.url}`;
+      })
+      .reverse(),
     id: data.documentId,
     subId: data.id,
     minPrice: data.price,
-    type: 3,
-    seller: "manima",
+    type: data.categories,
+    seller: data.owner.username,
     description: data.product_description,
   };
 };

@@ -4,6 +4,7 @@ import { Pen, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
   name: string;
@@ -15,8 +16,9 @@ interface Props {
 
 const ProductCard: React.FC<Props> = ({ name, image, id, subId, minPrice }) => {
   const { data: session } = useSession();
+  const router = useRouter();
   return (
-    <div className="relative w-60 h-44 rounded-xl bg-white shadow-sm">
+    <div className="relative w-60 h-44 rounded-xl bg-white shadow-sm mt-5">
       <Image
         alt="product_image"
         src={image}
@@ -33,9 +35,13 @@ const ProductCard: React.FC<Props> = ({ name, image, id, subId, minPrice }) => {
       <div className="inline-flex absolute right-1 top-0">
         <button
           className="p-1.5 bg-white rounded-full mr-1 mt-2"
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
-            deleteProduct(id, session?.user.jwt || "");
+            const res = await deleteProduct(id, session?.user.jwt || "");
+            if (res === 204) {
+              alert("Success!");
+              router.refresh();
+            }
           }}
         >
           <Trash2 width="16" height="16" />

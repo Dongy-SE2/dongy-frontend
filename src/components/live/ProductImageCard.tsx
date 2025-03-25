@@ -9,13 +9,13 @@ type Props = {
 
 export default function ProductImageCard({ src, isLive }: Props) {
   return (
-    <div className="relative w-[385px] h-[221px]">
+    <div className="relative ">
       <Image
         src={src}
         alt="Product Image"
         width={385}
         height={221}
-        className="rounded-lg object-cover w-full"
+        className="w-96 h-56 rounded-lg object-cover "
       />
 
       {/* Live condition */}

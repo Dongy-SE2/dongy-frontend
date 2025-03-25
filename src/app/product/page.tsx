@@ -10,12 +10,12 @@ import { redirect } from "next/navigation";
 export default async function ProductManagePage() {
   const session = await auth();
   if (session === null || !session.user.id) redirect("/login");
-  const product_list = await getProductList();
+  const product_list = await getProductList(session.user.jwt);
   return (
     <ProductWraper>
       <ProductManageHeader
         name={`ยินดีต้อนรับ คุณ${session.user.username}`}
-        href="/product/"
+        href="/user"
       />
       <ProductListWithSearch products={product_list} />
     </ProductWraper>

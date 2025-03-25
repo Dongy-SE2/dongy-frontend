@@ -1,49 +1,20 @@
-import ActionButton from "@/components/ActionButton";
-import ProfileCard from "@/components/ProfileCard";
+"use server";
 
-import { FolderPlus, Grid2X2, IdCard, BoomBox } from "lucide-react";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function User() {
+import SellerHomePage from "@/components/userSellerPage";
+import BuyerHomePage from "@/components/userBuyerPage";
+
+export default async function User() {
+  const session = await auth();
+  if (session === null || !session.user.id) redirect("/login");
+
+  const isSeller = session.user.role === "seller";
+
   return (
-    <div className="min-h-screen w-full justify-center items-center bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9]">
-      <h1 className="flex place-content-evenly">
-        <div className="w-[300px] h-[80px] font-semibold text-black text-3xl px-6 py-16">
-          ข้อมูลส่วนบุคคล
-        </div>
-        <ProfileCard
-          key={0}
-          Username={"วสุพล ดิสสานนท์"}
-          UserType={"ผู้ชาย"}
-          ImageSrc={"/image/ProfilePicture.jpg"}
-        />
-      </h1>
-
-      <div className="flex px-9 place-content-center">
-        <ActionButton
-          key={1}
-          ActionName={"เพิ่มสินค้า"}
-          Icon={<FolderPlus />}
-          route={"/product"}
-        />
-        <ActionButton
-          key={2}
-          ActionName={"จัดการสินค้า"}
-          Icon={<Grid2X2 />}
-          route={"/product/manage"}
-        />
-        <ActionButton
-          key={3}
-          ActionName={"ข้อมูลส่วนตัว"}
-          Icon={<IdCard />}
-          route={"/user/profile"}
-        />
-        <ActionButton
-          key={4}
-          ActionName={"จัดการไลฟ์"}
-          Icon={<BoomBox />}
-          route={"/user/manage"}
-        />
-      </div>
+    <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] p-16">
+      {isSeller ? <SellerHomePage /> : <BuyerHomePage />}
     </div>
   );
 }

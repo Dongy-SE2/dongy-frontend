@@ -30,7 +30,8 @@ export default function LoginForm() {
       setErrorMessage("การเข้าสู่ระบบล้มเหลว");
     } else {
       // Redirect to the appropriate page after successful login
-      window.location.href = "/product"; // Example redirect
+      if (role === "buyer") window.location.href = "/product"; // Example redirect
+      if (role === "seller") window.location.href = "/user"; // Example redirect
     }
   };
 
