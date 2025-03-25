@@ -9,6 +9,10 @@ export interface LiveInfo {
   status: string; // Maps to `state`
   link: string; // Maps to `live_link`
   image: string; // Extract from `bidding_product.product_image`
+  sellerName: string;
+  productType: string;
+  productDescription: string
+  presentPrice: string
 }
 
 const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | null> => {
@@ -48,6 +52,10 @@ const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | n
         data.bidding_product?.product_image?.[0]?.url
           ? `${BACKEND_URL}${data.bidding_product.product_image[0].url}`
           : "/default-image.jpg",
+      sellerName: data.sellerName || "unknown",
+      productDescription: data.bidding_product?.product_description || "unknown",
+      productType: data.bidding_product?.categories || "unknown",
+      presentPrice: data.present_price || "unknown"
     };
   } catch (error: any) {
     console.error("❌ Error fetching live event:", error.response?.data || error.message);

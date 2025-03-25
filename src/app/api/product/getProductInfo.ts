@@ -13,11 +13,11 @@ export interface ProductInfo {
 }
 
 const getProductInfo = async (
-  productId: string,
+  productDId: string,
   token: string,
 ): Promise<ProductInfo> => {
   // TODO: Fetch productId
-  const url = `${process.env.BACKEND}/api/products/${productId}`;
+  const url = `${process.env.BACKEND}/api/products/${productDId}`;
   console.log(url)
   const res = await axios.get(
     url,
@@ -38,7 +38,7 @@ const getProductInfo = async (
     type: data.categories,
     seller: data.owner.username,
     description: data.product_description,
-    liveDId: data.lives[0].documentId
+    liveDId: data.lives[0]?.documentId || null
   };
 };
 

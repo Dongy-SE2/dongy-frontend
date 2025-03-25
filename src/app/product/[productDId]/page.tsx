@@ -17,11 +17,31 @@ export default async function ProductDetail({
   const session = await auth();
   if (session === null || !session.user.id) redirect("/login");
   const productInfo = await getProductInfo(productDId, session.user.jwt);
+  let isLive = false;
+  let timeLeft = "";
+  if (productInfo.liveDId !== null) {
+    const liveInfo = await getLiveById(productInfo.liveDId, session.user.jwt);
+    isLive = liveInfo?.status === "ongoing"; // Check if live is currently streaming
+    if (isLive) timeLeft = calculateTimeLeft(liveInfo?.endDate);
+    else timeLeft = calculateTimeLeft(liveInfo?.startDate);
+  }
 
-  const liveInfo = await getLiveById(productInfo.liveDId, session.user.jwt);
-  console.log(liveInfo);
-  const isLive = true; // get api about live status
-  const timeLeft = "120"; // need to connect api about time(null = not going to live soon)
+  // ✅ Function to calculate time left before the live session starts
+  function calculateTimeLeft(startDate): string {
+    if (!startDate) return "ไม่มีกำหนดการ"; // No upcoming live
+
+    const now = new Date();
+    const start = new Date(startDate);
+    const diffMs = Math.abs(start.getTime() - now.getTime());
+
+    const minutes = Math.floor(diffMs / 60000);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) return `เริ่มในอีก ${days} วัน`;
+    if (hours > 0) return `เริ่มในอีก ${hours} ชั่วโมง`;
+    return `เริ่มในอีก ${minutes} นาที`;
+  }
 
   return (
     <ProductWraper>
@@ -34,14 +54,18 @@ export default async function ProductDetail({
           {/* Top Left: Image Card */}
           <ProductImageCard src={productInfo.image[0]} isLive={isLive} />
           {/* product status condition*/}
-          <LiveStatusCard isLive={isLive} timeLeft={timeLeft} />
+          <LiveStatusCard
+            isLive={isLive}
+            timeLeft={timeLeft}
+            liveDId={productInfo.liveDId}
+          />
         </div>
 
         {/* Right: Product Detail Card */}
         <ProductDetailCard
           productName={productInfo.name}
           sellerName={productInfo.seller}
-          productType={"รองเท้า"}
+          productType={productInfo.type}
           productPrice={String(productInfo.minPrice)}
           productDescription={productInfo.description}
         />
