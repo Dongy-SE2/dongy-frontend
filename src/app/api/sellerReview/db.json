@@ -1,0 +1,117 @@
+{
+    "sellerReviews":[
+        
+            {
+              "id": 1,
+              "documentId": "rev-001",
+              "reviewer_name": "Alice Smith",
+              "seller_name": "วสุพล ดิสสานนท์",
+              "star_rating": "5",
+              "review_text": "Great products and quick shipping. Will buy again!",
+              "createAt": "2025-03-20T09:00:00.000Z",
+              "updatedAt": "2025-03-20T09:00:00.000Z",
+              "publishedAt": "2025-03-20T10:00:00.000Z"
+            },
+            {
+              "id": 2,
+              "documentId": "rev-002",
+              "reviewer_name": "Brian Lee",
+              "seller_name": "วสุพล ดิสสานนท์",
+              "star_rating": "4",
+              "review_text": "Item was as described, though delivery was a bit slow.",
+              "createAt": "2025-03-18T14:30:00.000Z",
+              "updatedAt": "2025-03-18T14:30:00.000Z",
+              "publishedAt": "2025-03-18T15:00:00.000Z"
+            },
+            {
+              "id": 3,
+              "documentId": "rev-003",
+              "reviewer_name": "Charlie Kim",
+              "seller_name": "วสุพล ดิสสานนท์",
+              "star_rating": "3",
+              "review_text": "Average experience. Product quality could be better.",
+              "createAt": "2025-03-17T12:45:00.000Z",
+              "updatedAt": "2025-03-17T12:45:00.000Z",
+              "publishedAt": "2025-03-17T13:30:00.000Z"
+            },
+            {
+              "id": 4,
+              "documentId": "rev-004",
+              "reviewer_name": "Dana Zhou",
+              "seller_name": "วสุพล ดิสสานนท์",
+              "star_rating": "5",
+              "review_text": "Perfect condition books, fast delivery, 10/10!",
+              "createAt": "2025-03-15T08:00:00.000Z",
+              "updatedAt": "2025-03-15T08:00:00.000Z",
+              "publishedAt": "2025-03-15T08:30:00.000Z"
+            },
+            {
+              "id": 5,
+              "documentId": "rev-005",
+              "reviewer_name": "Ethan Wong",
+              "seller_name": "วสุพล ดิสสานนท์",
+              "star_rating": "2",
+              "review_text": "Received wrong item. Still waiting for a response.",
+              "createAt": "2025-03-14T16:20:00.000Z",
+              "updatedAt": "2025-03-14T16:20:00.000Z",
+              "publishedAt": "2025-03-14T17:00:00.000Z"
+            },
+            {
+              "id": 6,
+              "documentId": "rev-006",
+              "reviewer_name": "Fiona Patel",
+              "seller_name": "OrganicMart",
+              "star_rating": "4",
+              "review_text": "Great variety of products. Packaging could improve.",
+              "createAt": "2025-03-13T11:10:00.000Z",
+              "updatedAt": "2025-03-13T11:10:00.000Z",
+              "publishedAt": "2025-03-13T12:00:00.000Z"
+            },
+            {
+              "id": 7,
+              "documentId": "rev-007",
+              "reviewer_name": "George Lin",
+              "seller_name": "QuickTech",
+              "star_rating": "1",
+              "review_text": "Product never arrived. No refund yet.",
+              "createAt": "2025-03-12T10:00:00.000Z",
+              "updatedAt": "2025-03-12T10:00:00.000Z",
+              "publishedAt": "2025-03-12T11:00:00.000Z"
+            },
+            {
+              "id": 8,
+              "documentId": "rev-008",
+              "reviewer_name": "Hannah Park",
+              "seller_name": "HandmadeHeaven",
+              "star_rating": "5",
+              "review_text": "Beautiful handcrafted items. Loved the packaging!",
+              "createAt": "2025-03-10T13:40:00.000Z",
+              "updatedAt": "2025-03-10T13:40:00.000Z",
+              "publishedAt": "2025-03-10T14:00:00.000Z"
+            },
+            {
+              "id": 9,
+              "documentId": "rev-009",
+              "reviewer_name": "Ivan Chen",
+              "seller_name": "TechieToys",
+              "star_rating": "3",
+              "review_text": "Fun gadget, but battery life is shorter than expected.",
+              "createAt": "2025-03-09T09:15:00.000Z",
+              "updatedAt": "2025-03-09T09:15:00.000Z",
+              "publishedAt": "2025-03-09T10:00:00.000Z"
+            },
+            {
+              "id": 10,
+              "documentId": "rev-010",
+              "reviewer_name": "Julia Nguyen",
+              "seller_name": "PetParadise",
+              "star_rating": "4",
+              "review_text": "My cat loved the toys! Fast delivery too.",
+              "createAt": "2025-03-08T15:25:00.000Z",
+              "updatedAt": "2025-03-08T15:25:00.000Z",
+              "publishedAt": "2025-03-08T16:00:00.000Z"
+            }
+          ]
+          
+    
+}
