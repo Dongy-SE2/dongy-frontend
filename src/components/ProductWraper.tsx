@@ -3,7 +3,7 @@ interface Props {
 }
 
 const ProductWraper: React.FC<Props> = ({ children }) => {
-  return <div className="mt-14 px-[28rem]">{children}</div>;
+  return <div className="mt-6 w-3/5 mx-auto">{children}</div>;
 };
 
 export default ProductWraper;

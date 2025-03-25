@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import axios from "axios";
 
 export interface Buyer {
@@ -41,9 +41,9 @@ export interface Order {
   tracking_no: string | null;
   courier: string | null;
   tracking_url: string | null;
-  buyer: Buyer | null;
-  payment: Payment | null;
-  product: Product | null;
+  buyer: Buyer; // ✅ Buyer info
+  payment: Payment; // ✅ Payment info
+  product: Product;
 }
   
   const getSellerOrders = async (sellerId: string, token: string): Promise<Order[]> => {
@@ -109,6 +109,5 @@ export interface Order {
       return [];
     }
   };
-  
 
 export default getSellerOrders;

@@ -19,7 +19,7 @@
     "eventsource-polyfill": "^0.9.6",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.474.0",
-    "next": "15.1.6",
+    "next": "^15.2.3",
     "next-auth": "^5.0.0-beta.25",
     "omise": "^0.12.1",
     "openapi-fetch": "^0.13.5",
