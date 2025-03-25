@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export interface BidData {
-  liveId: string;
+  liveDId: string;
   userId: string;
   amount: number;
 }
@@ -20,9 +20,9 @@ const createBid = async (token: string, bidData: BidData): Promise<any> => {
       url,
       {
         data: {
-          live: bidData.liveId,
-          user: bidData.userId,
-          amount: bidData.amount,
+          bidding_live: bidData.liveDId,
+          bid_owner: bidData.userId,
+          bid_placed: bidData.amount,
         },
       },
       {

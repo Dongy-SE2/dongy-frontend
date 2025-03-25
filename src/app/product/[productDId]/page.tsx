@@ -6,16 +6,20 @@ import ProductImageCard from "@/components/live/ProductImageCard";
 import ProductWraper from "@/components/ProductWraper";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import getLiveById from "@/app/api/live/getLive";
 
 export default async function ProductDetail({
   params,
 }: {
-  params: Promise<{ productId: string }>;
+  params: Promise<{ productDId: string }>;
 }) {
-  const productId = (await params).productId;
+  const productDId = (await params).productDId;
   const session = await auth();
   if (session === null || !session.user.id) redirect("/login");
-  const productInfo = await getProductInfo(productId, session.user.jwt);
+  const productInfo = await getProductInfo(productDId, session.user.jwt);
+
+  const liveInfo = await getLiveById(productInfo.liveDId, session.user.jwt);
+  console.log(liveInfo);
   const isLive = true; // get api about live status
   const timeLeft = "120"; // need to connect api about time(null = not going to live soon)
 

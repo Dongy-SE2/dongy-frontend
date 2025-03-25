@@ -20,7 +20,7 @@ export interface LiveInfo {
   images: ProductImage[]; // Extract from `bidding_product.product_image`
 }
 
-const getLive = async (userId: string, token: string): Promise<LiveInfo[]> => {
+const getLiveList = async (userId: string, token: string): Promise<LiveInfo[]> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
     if (!BACKEND_URL) {
@@ -68,4 +68,4 @@ const getLive = async (userId: string, token: string): Promise<LiveInfo[]> => {
   }
 };
 
-export default getLive;
+export default getLiveList;

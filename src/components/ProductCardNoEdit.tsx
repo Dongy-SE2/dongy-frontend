@@ -15,10 +15,11 @@ const ProductCardNoEdit: React.FC<Props> = ({
   subId,
   image,
   minPrice,
+  id,
 }) => {
   return (
     <Link
-      href={`/product/${subId}`}
+      href={`/product/${id}`}
       className="relative w-60 h-44 rounded-xl bg-white shadow-sm"
     >
       <Image
