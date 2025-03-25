@@ -1,30 +1,25 @@
 "use client";
 
-import { Product } from "@/app/api/product/getProductList";
 import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { Selection } from "./PaymentContext";
+import { Order } from "@/app/api/order/getBuyerOrderList";
 
 const ProductItem: React.FC<{
-  product: Product;
+  product: Order;
 }> = ({ product }) => {
   const [isSelect, changeSelect] = useState(false);
-  const { selection, setSelect } = useContext(Selection);
+  const {selection, setSelect } = useContext(Selection);
   useEffect(() => {
-    if (!setSelect) return;
-    if (!isSelect) {
-      const filter = selection.filter((value) => value !== product.id);
-      if (filter.length !== selection.length) setSelect(filter);
-    } else {
-      const filter = selection.filter((value) => value === product.id);
-      if (filter.length === 0) setSelect([...selection, product.id]);
+    if (selection && selection.id !== product.id) {
+      changeSelect(false)
     }
-  }, [product, isSelect, selection, setSelect]);
+  },[selection, product, isSelect])
   return (
     <button
       className={`flex flex-row justify-between ${!isSelect ? "bg-gray-200" : "bg-gray-600"} px-2 py-2 text-sm rounded-xl my-3 text-left w-full`}
-      onClick={() => changeSelect(!isSelect)}
+      onClick={() => {changeSelect(!isSelect); if (setSelect) setSelect(product)}}
     >
       <div>
         <Image
@@ -39,7 +34,7 @@ const ProductItem: React.FC<{
             {product.name}
           </p>
           <p className={!isSelect ? "text-gray-500" : "text-white"}>
-            {product.maxPrice}
+            {product.price}
           </p>
         </div>
       </div>

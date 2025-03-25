@@ -1,10 +1,11 @@
 "use client";
-import { Product } from "@/app/api/product/getProductList";
 import PaymentMethod from "./PaymentMethod";
 import { useContext } from "react";
 import { Selection } from "./PaymentContext";
 import Script from "next/script";
 import paymentSubmit from "@/app/api/payment/paymentSubmit";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 declare global {
   interface Window {
@@ -12,21 +13,20 @@ declare global {
   }
 }
 
-const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
+const Total: React.FC = () => {
   const discount = 0;
 
   const { selection } = useContext(Selection);
+  const router = useRouter();
 
-  const selected: Product[] = products.filter(
-    (value) => selection.findIndex((val) => val === value.id) !== -1,
-  );
-
-  const price: number = selected
-    .map((prod) => prod.maxPrice)
-    .reduce((a, b) => a + b, 0);
+  let price: number = Number(selection?.price) || 300
+  if (price < 300) {
+    price = 300
+  }
 
   const tax = parseFloat((price * 0.07).toFixed(2));
-  const total = parseFloat((price + tax - price).toFixed(2));
+  const total = parseFloat((price + tax).toFixed(2));
+  const session = useSession();
 
   const TransanctionProcess = async (data: FormData) => {
     const promptpay = data.get("promptpay")?.toString();
@@ -35,13 +35,21 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
 
     window.Omise.setPublicKey(process.env.NEXT_PUBLIC_OMISE_PUBLIC_KEY);
     if (promptpay === "on") {
-      await window.Omise.createSource(
+       await window.Omise.createSource(
         "promptpay",
         {
           amount: total * 100,
           currency: "THB",
         },
-        (status: any, res: any) => console.log(res),
+        async (status: any, res: any) => {
+          if (status === 200 && selection) {
+            res.name = selection.name
+            res.order = selection.id 
+            if (await paymentSubmit(res, session?.data?.user.jwt || "") === 200) {
+              router.replace("/payment/success")
+            }
+          }
+        },
       );
     }
 
@@ -52,7 +60,15 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
           amount: total * 100,
           currency: "THB",
         },
-        (status: any, res: any) => console.log(res),
+        async (status: any, res: any) => {
+          if (status === 200 && selection) {
+            res.name = selection.name
+            res.order = selection.id 
+            if (await paymentSubmit(res, session?.data?.user.jwt || "") === 200) {
+              router.replace("/payment/success")
+            }
+          }
+        },
       );
     }
 
@@ -63,7 +79,15 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
           amount: total * 100,
           currency: "THB",
         },
-        (status: any, res: any) => console.log(res),
+        async (status: any, res: any) => {
+          if (status === 200 && selection) {
+            res.name = selection.name
+            res.order = selection.id 
+            if (await paymentSubmit(res, session?.data?.user.jwt || "") === 200) {
+              router.replace("/payment/success")
+            }
+          }
+        },
       );
     }
   };
@@ -73,10 +97,6 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
       <Script
         type="text/javascript"
         src="https://cdn.omise.co/omise.js"
-        data-key={process.env.NEXT_PUBLIC_OMISE_PUBLIC_KEY}
-        data-amount="12345"
-        data-currency="THB"
-        deta-default-payment-methods="mobile_banking_kbank"
       />
       <h2 className="text-xl font-medium mb-2">ยอดที่ต้องชำระ</h2>
       <div className="flex flex-row justify-evenly bg-white px-7 py-5 rounded-xl shadow-md text-gray-600 text-sm mb-4">
@@ -140,12 +160,11 @@ const Total: React.FC<{ products: Array<Product> }> = ({ products }) => {
       <h2 className="text-xl font-medium mb-2">วิธีการชำระเงิน</h2>
       <PaymentMethod />
       <div className="w-full flex justify-end mt-3">
-        <button
+        <input
           type="submit"
           className="cursor-pointer bg-green-500 rounded-lg px-11 py-2 text-white font-medium"
-        >
-          ต่อไป
-        </button>
+          value="ต่อไป"
+        />
       </div>
     </form>
   );
