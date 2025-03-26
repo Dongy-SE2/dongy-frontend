@@ -5,6 +5,7 @@ import { orderProvider } from "./OrderProvider";
 import { type Order } from "@/app/api/order/getBuyerOrderList";
 import Image from "next/image";
 import { ShoppingBag } from "lucide-react";
+import Link from "next/link";
 
 interface OrderCardProps {
   order: Order;
@@ -42,11 +43,11 @@ function OrderCard({
           </p>
         </div>
       </div>
-      <div>
+      <Link href={`/product/${order.product.documentId}`}>
         <ShoppingBag
-          className={`inline-flex flex-col h-full align-middle justify-center ${!selection ? "text-gray-500" : "text-white"}`}
+          className={`inline-flex flex-col h-full align-middle justify-center ${!selection ? "text-gray-500" : "text-white"} z-50`}
         />
-      </div>
+      </Link>
     </button>
   );
 }

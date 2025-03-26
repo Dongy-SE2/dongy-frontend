@@ -22,12 +22,12 @@ export default async function SetLiveBiddingPage() {
       <div className="flex w-full justify-evenly mt-4">
         <LiveContext>
           <LiveList
-            lives={lives}
+            lives={lives || []}
             token={session.user.jwt}
             sellerId={session.user.id}
           />
           <LiveManage
-            lives={lives}
+            lives={lives || []}
             token={session.user.jwt}
             products={products}
             sellerName={`${session.user.firstname} ${session.user.lastname}`}

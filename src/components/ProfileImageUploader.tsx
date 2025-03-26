@@ -30,12 +30,14 @@ const ProfileImageUploader: React.FC<{
         </div>
         <div>
           <button
+            type="button"
             className="block rounded-full bg-white p-2.5 my-2"
             onClick={() => uploadRef.current?.click()}
           >
             <UploadIcon width={18} height={18} />
           </button>
           <button
+            type="button"
             className="block rounded-full bg-white p-2.5"
             onClick={() => {
               setProfilePic(null);
@@ -48,11 +50,10 @@ const ProfileImageUploader: React.FC<{
           </button>
         </div>
         <input
-          id="file-upload"
           name="image"
           type="file"
           accept="image/*"
-          className="hidden"
+          hidden
           ref={uploadRef}
           onChange={(e) => {
             if (!e.currentTarget.files) return;

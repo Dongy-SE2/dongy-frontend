@@ -33,10 +33,10 @@ const LiveManage: React.FC<Props> = ({
   const [liveName, setLiveName] = useState(live?.title || "");
   const [product, setProduct] = useState(live?.product || "");
   const [startDate, setStartDate] = useState(
-    formatDateForInput(live?.startDate || "")
+    formatDateForInput(live?.startDate || ""),
   );
   const [endDate, setEndDate] = useState(
-    formatDateForInput(live?.endDate || "")
+    formatDateForInput(live?.endDate || ""),
   );
   const [status, setStatus] = useState(live?.status || "public");
   const [link, setLink] = useState(live?.link || "");

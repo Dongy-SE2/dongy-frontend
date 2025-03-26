@@ -1,12 +1,10 @@
 "use server";
 
-import { client } from "@/lib/utils";
 import axios from "axios";
-import { profile } from "console";
 
 export default async function updateProfile(
   data: FormData,
-  userId: string,
+  _userId: string,
   token: string,
 ) {
   const title = data.get("title")?.toString();
@@ -23,33 +21,33 @@ export default async function updateProfile(
     const res = await axios.put(
       `${process.env.BACKEND}/api/users`,
       {
-          email: email,
-          title: title,
-          firstname: firstname,
-          lastname: lastname,
-          dob: dob,
-          phone: phone,
-          SSN:SSN,
-          location: location,
-        
+        email: email,
+        title: title,
+        firstname: firstname,
+        lastname: lastname,
+        dob: dob,
+        phone: phone,
+        SSN: SSN,
+        location: location,
       },
       {
         headers: { Authorization: `Bearer ${token}` },
       },
     );
 
-    if((profileImage as any).size > 0){
-
+    if ((profileImage as any).size > 0) {
       const formData = new FormData();
       formData.append("profile_picture", profileImage as any);
       const upload = await axios.put(
         `${process.env.BACKEND}/api/users`,
         formData as any,
         {
-        headers: {Authorization: `Bearer ${token}`,},
+          headers: { Authorization: `Bearer ${token}` },
         },
       );
+      return upload.status;
     }
+    return res.status;
   } catch (e) {
     console.error(e);
   }
