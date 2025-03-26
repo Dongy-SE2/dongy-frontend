@@ -126,38 +126,35 @@ const Total: React.FC = () => {
       <h2 className="text-xl font-medium mt-5 mb-2">ข้อมูลจัดส่ง</h2>
 
       <div className="grid grid-cols-3 gap-4 items-center bg-white px-7 py-5 rounded-xl border bg-opacity-70 border-gray-100">
-          <p className="mr-16 text-sm">
-              ชื่อผู้รับ<span className="text-red-500">*</span>
-          </p>
-          <input
-              className="bg-white border rounded-md px-3 py-1 w-[18rem] text-sm col-span-2"
-              id="name"
-              type="text"
-              placeholder="ชื่อผู้รับ"
-          />
-          <p className="mr-[1.85rem] text-sm">
-              เบอร์โทรศัพท์<span className="text-red-500">*</span>
-          </p>
-          <input
-              className="bg-white border rounded-md px-3 py-1 w-[18rem] text-sm col-span-2"
-              id="telephone"
-              type="tel"
-              placeholder="เบอร์โทรศัพท์"
-
-          />
-          <p className="mr-[3.0rem] text-sm">
-              ที่อยู่จัดส่ง<span className="text-red-500">*</span>
-          </p>
-          <textarea
-              id="address"
-              className="bg-white border rounded-md px-3 py-2 w-[19rem] h-[3rem] resize-none text-sm col-span-2"
-              spellCheck="false"
-              placeholder="ที่อยู่จัดส่ง"
-
-          />
-
+        <p className="mr-16 text-sm">
+          ชื่อผู้รับ<span className="text-red-500">*</span>
+        </p>
+        <input
+          className="bg-white border rounded-md px-3 py-1 w-[18rem] text-sm col-span-2"
+          id="name"
+          type="text"
+          placeholder="ชื่อผู้รับ"
+        />
+        <p className="mr-[1.85rem] text-sm">
+          เบอร์โทรศัพท์<span className="text-red-500">*</span>
+        </p>
+        <input
+          className="bg-white border rounded-md px-3 py-1 w-[18rem] text-sm col-span-2"
+          id="telephone"
+          type="tel"
+          placeholder="เบอร์โทรศัพท์"
+        />
+        <p className="mr-[3.0rem] text-sm">
+          ที่อยู่จัดส่ง<span className="text-red-500">*</span>
+        </p>
+        <textarea
+          id="address"
+          className="bg-white border rounded-md px-3 py-2 w-[19rem] h-[3rem] resize-none text-sm col-span-2"
+          spellCheck="false"
+          placeholder="ที่อยู่จัดส่ง"
+        />
       </div>
-      
+
       <h2 className="text-xl font-medium mt-5 mb-2">วิธีการชำระเงิน</h2>
       <PaymentMethod />
       <div className="w-full flex justify-end mt-5">
