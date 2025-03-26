@@ -23,7 +23,7 @@ export default async function updateProduct(
     },
   });
 
-  if (res.response.status === 200 && res.data) {
+  if (res.response.status === 200 && res.data && images.length > 0) {
     const formData = new FormData();
     for (const image of images as any) {
       formData.append("files", image);

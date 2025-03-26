@@ -45,14 +45,13 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
             data.id,
             uploadImage,
           );
-          if (res === 201) {
+          if (res === 201 || res === 200) {
             alert("Success!");
             router.refresh();
           }
         }
       }}
     >
-
       <div className="py-8 px-6">
         <uploadImageContext.Provider value={{ uploadImage, changeUploadImage }}>
           <ProductImageSelector image={data.image} />
