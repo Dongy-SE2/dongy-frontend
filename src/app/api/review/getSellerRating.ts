@@ -23,7 +23,7 @@ export interface SellerRating {
   } | null;
 }
 
-const getSellerRating = async (sellerDid: string, token: string): Promise<SellerRating | null> => {
+const   getSellerRating = async (sellerDid: string, token: string): Promise<SellerRating | null> => {
   try {
     const url = `${process.env.BACKEND}/api/reviews/seller/${sellerDid}/rating`;
     console.log("Fetching seller rating from:", url);
@@ -60,7 +60,7 @@ const getSellerRating = async (sellerDid: string, token: string): Promise<Seller
         : { id: 0, url: "/default-product.jpg", thumbnail: "/default-product.jpg" },
     };
   } catch (error: any) {
-    console.error("Error fetching seller rating:", error.response?.data || error.message);
+    console.log("Error fetching seller rating:", error.response?.data || error.message);
     return null;
   }
 };

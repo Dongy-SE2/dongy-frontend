@@ -88,7 +88,7 @@ export interface Order {
           : null,
         product: order.product
           ? {
-              id: order.product.id,
+              id: order.product.documentId,
               product_name: order.product.product_name,
               categories: order.product.categories,
               images: order.product.product_image
@@ -102,6 +102,7 @@ export interface Order {
             }
           : null,
       })) || [];
+      console.log(orders)
   
       return orders;
     } catch (error: any) {

@@ -30,6 +30,7 @@ export default async function SetLiveBiddingPage() {
             lives={lives}
             token={session.user.jwt}
             products={products}
+            sellerName={`${session.user.firstname} ${session.user.lastname}`}
           />
         </LiveContext>
       </div>

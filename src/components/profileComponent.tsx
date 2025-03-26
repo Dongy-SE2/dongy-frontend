@@ -15,8 +15,8 @@ interface ProfileProps {
 }
 
 export default function ProfileClient({ profile, token }: ProfileProps) {
-  const [profilePic, setProfilePic] = useState<string | undefined>(
-    profile.pictureUrl,
+  const [profilePic, setProfilePic] = useState<string | null>(
+    profile.pictureUrl || null
   );
 
   return (
@@ -42,8 +42,8 @@ export default function ProfileClient({ profile, token }: ProfileProps) {
                 setProfilePic={setProfilePic}
               />
             </div>
-            <RegistrationForm2 profile={profile} />
-            <div className="flex justify-end mt-4">
+            {/* <RegistrationForm2 profile={profile} /> */}
+            <div className="flex justify-start mt-4">
               <Button
                 type="submit"
                 className="bg-[#10B981] text-white py-2 rounded-lg mt-4 w-36"

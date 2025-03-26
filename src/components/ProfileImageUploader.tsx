@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useRef } from "react";
 
 const ProfileImageUploader: React.FC<{
-  profilePic?: string;
-  setProfilePic: (url: string | undefined) => void;
+  profilePic: string | null;
+  setProfilePic: (url: string | null) => void;
 }> = ({ profilePic, setProfilePic }) => {
   const uploadRef = useRef<HTMLInputElement>(null);
   return (
@@ -38,7 +38,7 @@ const ProfileImageUploader: React.FC<{
           <button
             className="block rounded-full bg-white p-2.5"
             onClick={() => {
-              setProfilePic(undefined);
+              setProfilePic(null);
               if (uploadRef && uploadRef.current) {
                 uploadRef.current.files = null;
               }

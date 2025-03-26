@@ -23,7 +23,6 @@ export default async function updateProfile(
     const res = await axios.put(
       `${process.env.BACKEND}/api/users`,
       {
-        
           email: email,
           title: title,
           firstname: firstname,
@@ -38,20 +37,19 @@ export default async function updateProfile(
         headers: { Authorization: `Bearer ${token}` },
       },
     );
-    console.log(res);
-    const formData = new FormData();
-    formData.append("profile_picture", profileImage as any);
 
-    if(!profileImage){
-        const upload = await axios.put(
-          `${process.env.BACKEND}/api/users`,
-          formData as any,
-          {
-          headers: {Authorization: `Bearer ${token}`,},
+    if((profileImage as any).size > 0){
+
+      const formData = new FormData();
+      formData.append("profile_picture", profileImage as any);
+      const upload = await axios.put(
+        `${process.env.BACKEND}/api/users`,
+        formData as any,
+        {
+        headers: {Authorization: `Bearer ${token}`,},
         },
       );
     }
-    // console.log(upload);
   } catch (e) {
     console.error(e);
   }
