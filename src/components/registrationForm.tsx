@@ -2,100 +2,108 @@
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 
-const RegistrationForm = () => {
-  // const isValidDate = (date: string) => !date.includes("30 กุมภาพันธ์");
+// ✅ Define TypeScript Interface
+interface ProfileData {
+  title: string;
+  firstname: string;
+  lastname: string;
+  dob: string;
+  phone: string;
+  SSN: string;
+  location: string;
+}
+
+const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
+  const [date, month, year] = profile?.dob.split("/") || "--/--/----";
+  const formatDate = `${year}-${month}-${date}`;
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl mb-5">ข้อมูลส่วนบุคคล</h2>
-      <Card className="max-w-lg mx-auto p-6 bg-white rounded-2xl shadow-lg">
+      <h2 className="font-semibold text-xl mb-5">ข้อมูลส่วนบุคคล</h2>
+
+      <Card className="max-w-lg mx-auto px-4 py-2 rounded-2xl bg-opacity-70 border border-gray-200">
         <CardContent>
-          <div className="mb-4 flex items-center gap-3">
-            <label className="block text-gray-700 mb-1 whitespace-nowrap">
-              คำนำหน้า <span className="text-red-500">*</span>
+          <div className="grid grid-cols-5 gap-7 items-center">
+            <label className="block text-gray-700 whitespace-nowrap text-sm col-span-1">
+              คำนำหน้า<span className="text-red-500">*</span>
             </label>
             <select
-              className="block my-3 bg-gray-100 px-4 py-2 text-sm w-26 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="block bg-gray-100 px-4 py-2 text-sm max-w-28 border rounded-lg col-span-2"
               name="title"
+              defaultValue={profile?.title || ""}
             >
-              <option>นาย</option>
-              <option>นาง</option>
-              <option>นางสาว</option>
+              <option value="" disabled>
+                -- Select --
+              </option>
+              <option value="Mr.">นาย</option>
+              <option value="Mrs.">นาง</option>
+              <option value="Ms.">นางสาว</option>
             </select>
-          </div>
+            <div className="col-span-2" />
 
-          <div className="mb-4 flex items-center gap-14">
-            <label className="block text-gray-700 mb-1 whitespace-nowrap">
-              ชื่อ <span className="text-red-500">*</span>
+            <label className="block text-gray-700 whitespace-nowrap text-sm col-span-1">
+              ชื่อ<span className="text-red-500">*</span>
             </label>
             <Input
               name="firstname"
               type="text"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
+              defaultValue={profile?.firstname || ""}
+              className="col-span-4"
               required
             />
-          </div>
 
-          <div className="mb-4 flex items-center gap-11">
-            <label className="block text-gray-700 mb-1 whitespace-nowrap">
-              สกุล <span className="text-red-500">*</span>
+            <label className="block text-gray-700 whitespace-nowrap text-sm col-span-1">
+              สกุล<span className="text-red-500">*</span>
             </label>
             <Input
               name="lastname"
               type="text"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64"
+              defaultValue={profile?.lastname || ""}
+              className="col-span-4"
               required
             />
-          </div>
 
-          <div className="mb-4 flex items-center gap-8">
-            <label className="block text-gray-700 mb-1 whitespace-nowrap">
-              วันเกิด <span className="text-red-500">*</span>
+            <label className="block text-gray-700 whitespace-nowrap text-sm col-span-1">
+              วันเกิด<span className="text-red-500">*</span>
             </label>
             <Input
               name="dob"
               type="date"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-50"
+              defaultValue={formatDate}
+              className="col-span-4"
               required
             />
-            {/* {window.location.href.indexOf("error=invalidData") !== -1 && ( */}
-            {/*   <p className="text-red-500 text-sm mt-1">วันที่ไม่ถูกต้อง</p> */}
-            {/* )} */}
-          </div>
 
-          <div className="mb-4 flex items-center gap-6">
-            <label className="block text-gray-700 mb-1 whitespace-nowrap">
-              เบอร์โทรศัพท์ <span className="text-red-500">*</span>
+            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm col-span-2">
+              เบอร์โทรศัพท์<span className="text-red-500">*</span>
             </label>
             <Input
-              name="tel"
+              name="phone"
               type="tel"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-50"
+              defaultValue={profile?.phone || ""}
+              className="col-span-3"
               required
             />
-          </div>
 
-          <div className="mb-4 flex items-center gap-3">
-            <label className="block text-gray-700 mb-1 whitespace-nowrap">
-              เลขบัตรประชาชน/
-              <br />
-              Passport ID <span className="text-red-500">*</span>
+            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm col-span-2">
+              เลขบัตรประชาชน
+              <span className="text-red-500">*</span>
             </label>
             <Input
               name="SSN"
               type="text"
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-50"
+              defaultValue={profile?.SSN || ""}
+              className="col-span-3"
               required
             />
-          </div>
 
-          <div className="mb-4 flex items-center gap-12">
-            <label className="block text-gray-700 mb-1 whitespace-nowrap">
-              ที่อยู่ <span className="text-red-500">*</span>
+            <label className="block text-gray-700 mb-1 whitespace-nowrap text-sm col-span-1">
+              ที่อยู่<span className="text-red-500">*</span>
             </label>
             <textarea
-              name="address"
-              className="block my-3 bg-gray-100 px-4 py-2 text-sm w-64 h-24 resize-none border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              name="location"
+              defaultValue={profile?.location || ""}
+              className="block bg-gray-100 px-4 py-1 text-sm w-50 h-24 resize-none border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 col-span-4"
               required
             />
           </div>

@@ -31,7 +31,7 @@ export default function OrderManageClient({
   };
 
   const handleSave = async () => {
-    if (selectedOrder.state === "รอการจัดส่ง") {
+    if (selectedOrder.state === "รอดำเนินการ") {
       try {
         await updateOrder(selectedOrder.documentId, token, carrier, tracking);
         alert("อัปเดตข้อมูลการจัดส่งเรียบร้อย!");
@@ -42,7 +42,7 @@ export default function OrderManageClient({
       alert("สถานะนี้ไม่สามารถอัปเดตได้");
     }
   };
-  console.log(selectedOrder);
+  // console.log(selectedOrder);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] flex justify-center p-6">

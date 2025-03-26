@@ -16,7 +16,7 @@ function ShippingDetails({
   onCarrierChange: (newCarrier: string) => void;
   onTrackingChange: (newTracking: string) => void;
 }) {
-  const isEditable = status === "รอการจัดส่ง";
+  const isEditable = status === "รอดำเนินการ";
 
   return (
     <div className="w-[410px] h-[150px] p-4 border rounded-xl bg-white shadow space-y-2 grid grid-cols-3 grid-rows-3 align-top text-left">

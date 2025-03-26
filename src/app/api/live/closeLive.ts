@@ -1,3 +1,4 @@
+"use server"
 import axios from "axios";
 
 const closeLive = async (liveId: string, token: string): Promise<any> => {
@@ -7,12 +8,14 @@ const closeLive = async (liveId: string, token: string): Promise<any> => {
       throw new Error("❌ BACKEND_URL is not set!");
     }
 
-    const url = `${BACKEND_URL}/api/lives/${liveId}/close`;
+    const url = `${BACKEND_URL}/api/lives/${liveId}`;
     console.log("🚫 Closing live bidding event at:", url);
 
     const response = await axios.put(
       url,
-      {},
+      {"data" : {
+        "state": "closed"
+    }},
       {
         headers: {
           Authorization: `Bearer ${token}`,

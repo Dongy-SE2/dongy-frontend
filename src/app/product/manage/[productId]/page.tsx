@@ -17,8 +17,14 @@ export default async function ProductIDPage({
   const productInfo = await getProductInfo(productId, session.user.jwt);
   return (
     <SessionProvider>
-      <ProductManageHeader name="จัดการสินค้า" href="/product/manage" />
-      <ProductEditor data={productInfo} />
+          <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
+            <div className="flex flex-col">
+              <ProductManageHeader name="จัดการสินค้า" href="/product/manage" />
+              <ProductEditor data={productInfo} />
+            </div>
+
+          </div>
+
     </SessionProvider>
   );
 }

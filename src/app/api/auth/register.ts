@@ -9,11 +9,11 @@ export default async function register(data: FormData) {
   const dob = data.get("dob")?.toString();
   const phone = data.get("tel")?.toString();
   const SSN = data.get("SSN")?.toString();
-  const location = data.get("address")?.toString();
+  const location = data.get("location")?.toString();
   const username = data.get("username")?.toString();
   const email = data.get("email")?.toString();
-  const password = data.get("pwd")?.toString();
-  const conPwd = data.get("conPwd")?.toString();
+  const password = data.get("password")?.toString();
+  const conPwd = data.get("confirmPassword")?.toString();
   const rolename = data.get("role")?.toString();
 
   // Validate password match

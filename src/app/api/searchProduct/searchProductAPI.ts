@@ -1,6 +1,7 @@
 import { searchProduct } from "./searchProduct";
 const baseUrl = "http://localhost:4000";
-const url = `${baseUrl}/searchProducts`
+const BACKEND_URL = "http://34.135.145.173:1337"
+const url = `${BACKEND_URL}/api/products`
 
 function translateStatusToErrorMessage(status: number){
     switch(status){
@@ -29,14 +30,21 @@ function checkStatus(response: any){
     }
 }
 
-function parseJSON(response: Response){
-    return response.json()
+function parseJSON(response: Response) {
+    return response.json().then(json => {
+        console.log("Parsed JSON:", json);
+        return json;
+    });
 }
 
-function convertToSearchProductModels(data: any[]): searchProduct[] {
-    let searchProducts: searchProduct[] = data.map(convertToSearchProductModel)
+function convertToSearchProductModels(data: any): searchProduct[] {
+    console.log(`this is you data: `, data )
+
+    let searchProducts: searchProduct[] = data.data.map(convertToSearchProductModel)
     return searchProducts
 }
+
+
 
 function convertToSearchProductModel(item: any): searchProduct {
     return new searchProduct(item);
@@ -44,8 +52,31 @@ function convertToSearchProductModel(item: any): searchProduct {
 
 const searchProductAPI = {
 
+ 
+
     get(searchText: string) {
-        return fetch(`${url}/?_sort=product_name&product_name_like=${searchText}`)
+        console.log(`this is url: ${url}`)
+        console.log(`BACKEND_URL: ${BACKEND_URL}`)
+        return fetch(`${url}?filters[product_name][$containsi]=${searchText}&sort=product_name`)
+        //return fetch(`${url}?filters[product_name][$containsi]=${searchText}&sort=product_name&filters[categories][$containsi]=เสื้อผ้า`)
+
+        
+          .then(checkStatus)
+          .then(parseJSON)
+          .then(convertToSearchProductModels)
+          .catch((error: TypeError) => {
+            console.log("log client error " + error);
+            throw new Error("There was an error retrieving the projects. Please try again.");
+          });
+      },
+
+      getWithFilter(searchText: string, filter: string) {
+        console.log(`this is url: ${url}?filters[product_name][$containsi]=${searchText}&sort=product_name&filters[categories][$containsi]=${filter}}`)
+        console.log(`BACKEND_URL: ${BACKEND_URL}`)
+        //return fetch(`${url}?filters[product_name][$containsi]=${searchText}&sort=product_name`)
+        return fetch(`${url}?filters[product_name][$containsi]=${searchText}&sort=product_name&filters[categories][$containsi]=${filter}`)
+
+        
           .then(checkStatus)
           .then(parseJSON)
           .then(convertToSearchProductModels)

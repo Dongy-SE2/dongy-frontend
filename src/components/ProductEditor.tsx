@@ -52,12 +52,13 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
         }
       }}
     >
+
       <div className="py-8 px-6">
         <uploadImageContext.Provider value={{ uploadImage, changeUploadImage }}>
           <ProductImageSelector image={data.image} />
         </uploadImageContext.Provider>
       </div>
-      <div className="py-8 px-6 w-[428px] bg-white rounded-[10px] mr-5">
+      <div className="py-8 px-6 w-[428px] bg-white bg-opacity-70 border border-gray-100 rounded-[10px] mr-5">
         <ProductInput data={data} />
       </div>
     </form>
