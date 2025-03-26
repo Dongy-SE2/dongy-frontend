@@ -3,16 +3,13 @@ import { Star } from "lucide-react";
 import { Button } from "./ui/button";
 import { sellerReview } from "@/app/api/sellerReview/sellerReview";
 
-
-
-interface Reviews{
-    reviews: sellerReview[]
+interface Reviews {
+  reviews: sellerReview[];
 }
 
-function ReviewList({reviews}:  Reviews){
-
-    return(
-      <Card className="p-4 text-center">
+function ReviewList({ reviews }: Reviews) {
+  return (
+    <Card className="p-4 text-center">
       {reviews.map((review, index) => (
         <CardContent
           key={index}
@@ -28,12 +25,18 @@ function ReviewList({reviews}:  Reviews){
                     key={i}
                     size={16}
                     fill="currentColor"
-                    className={i < +review.star_rating ? "text-orange-500" : "text-gray-300"}
+                    className={
+                      i < +review.star_rating
+                        ? "text-orange-500"
+                        : "text-gray-300"
+                    }
                   />
                 ))}
               </div>
             </div>
-            <p className="leading-tight text-sm text-gray-600 mt-3">{review.review_text}</p>
+            <p className="leading-tight text-sm text-gray-600 mt-3">
+              {review.review_text}
+            </p>
             <Button className="">
               <img
                 src="/image/delete.png"
@@ -45,7 +48,7 @@ function ReviewList({reviews}:  Reviews){
         </CardContent>
       ))}
     </Card>
-    
-    );
+  );
 }
-export default ReviewList
+export default ReviewList;
+
