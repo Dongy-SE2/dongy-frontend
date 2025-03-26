@@ -102,68 +102,68 @@ const Total: React.FC = () => {
       <h2 className="text-xl font-medium mb-2">ยอดที่ต้องชำระ</h2>
       <div className="flex flex-row justify-evenly bg-white px-7 py-5 rounded-xl shadow-md text-gray-600 text-sm mb-4">
         <div className="mr-14">
-          <p>รวมยอดสินค้าสุทธิ</p>
+          <p>ยอดสินค้าสุทธิ</p>
           <p>ภาษีมูลค่าเพิ่ม 7%</p>
           <p>รวมภาษีมูลค่าเพิ่ม</p>
         </div>
-        <div className="mr-5 text-right w-24">
+        <div className="mr-5 text-right w-28">
           <p>{price} บาท</p>
           <p>{tax} บาท</p>
           <p>{price + tax} บาท</p>
         </div>{" "}
         <div className="w-[1px] bg-gray-200 mr-5" />
-        <div className="mr-24 mt-1">
+        <div className="mr-8 mt-1">
           <p className="mb-1">ส่วนลด</p>
           <p>ยอดที่ต้องชำระ</p>
         </div>
         <div className="text-right mt-1">
           <p>{discount} บาท</p>
-          <p className="text-green-600 font-semibold text-lg mt-[-0.075rem] w-20">
+          <p className="text-green-600 font-semibold text-lg mt-[-0.075rem] w-36">
             {total} บาท
           </p>
         </div>
       </div>
-      <h2 className="text-xl font-medium mb-2">ข้อมูลจัดส่ง</h2>
-      <div className="flex flex-row bg-white text-gray-600 text-sm px-7 py-5 rounded-xl shadow-md mb-4">
-        <div className="mr-8">
-          <div className="flex flex-row mb-2">
-            <p className="mr-16 font-medium">
+      <h2 className="text-xl font-medium mt-5 mb-2">ข้อมูลจัดส่ง</h2>
+
+      <div className="grid grid-cols-3 gap-4 items-center bg-white px-7 py-5 rounded-xl border bg-opacity-70 border-gray-100">
+          <p className="mr-16 text-sm">
               ชื่อผู้รับ<span className="text-red-500">*</span>
-            </p>
-            <input
-              className="bg-gray-100 rounded-md px-[5px] py-[3px] w-[18rem]"
+          </p>
+          <input
+              className="bg-white border rounded-md px-3 py-1 w-[18rem] text-sm col-span-2"
               id="name"
               type="text"
-            />
-          </div>
-          <div className="flex flex-row mb-2">
-            <p className="mr-[1.85rem] font-medium">
+              placeholder="ชื่อผู้รับ"
+          />
+          <p className="mr-[1.85rem] text-sm">
               เบอร์โทรศัพท์<span className="text-red-500">*</span>
-            </p>
-            <input
-              className="bg-gray-100 rounded-md px-[5px] py-[3px] w-[18rem]"
+          </p>
+          <input
+              className="bg-white border rounded-md px-3 py-1 w-[18rem] text-sm col-span-2"
               id="telephone"
               type="tel"
-            />
-          </div>
-          <div className="flex flex-row">
-            <p className="mr-[3.0rem] font-medium">
+              placeholder="เบอร์โทรศัพท์"
+
+          />
+          <p className="mr-[3.0rem] text-sm">
               ที่อยู่จัดส่ง<span className="text-red-500">*</span>
-            </p>
-            <textarea
+          </p>
+          <textarea
               id="address"
-              className="bg-gray-100 rounded-md px-[5px] py-[3px] w-[19rem] h-[3rem] resize-none"
+              className="bg-white border rounded-md px-3 py-2 w-[19rem] h-[3rem] resize-none text-sm col-span-2"
               spellCheck="false"
-            />
-          </div>
-        </div>
+              placeholder="ที่อยู่จัดส่ง"
+
+          />
+
       </div>
-      <h2 className="text-xl font-medium mb-2">วิธีการชำระเงิน</h2>
+      
+      <h2 className="text-xl font-medium mt-5 mb-2">วิธีการชำระเงิน</h2>
       <PaymentMethod />
-      <div className="w-full flex justify-end mt-3">
+      <div className="w-full flex justify-end mt-5">
         <input
           type="submit"
-          className="cursor-pointer bg-green-500 rounded-lg px-11 py-2 text-white font-medium"
+          className="cursor-pointer bg-emerald-500 rounded-lg px-11 py-2 text-white font-medium"
           value="ต่อไป"
         />
       </div>

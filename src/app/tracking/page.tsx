@@ -14,8 +14,9 @@ export default async function TrackingPage() {
   if (!session || !session.user) redirect("/login");
   const orders = await getBuyerOrder(session.user.jwt);
   return (
-    <>
-      <ProductManageHeader name="สินค้ารอจัดส่ง" href="/user/" />
+    <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
+    <div className="flex flex-col">
+    <ProductManageHeader name="สินค้ารอจัดส่ง" href="/user/" />
       <OrderProvider value={orders}>
         <div className="flex flex-row justify-evenly mt-8">
           <div>
@@ -30,6 +31,13 @@ export default async function TrackingPage() {
           </SessionProvider>
         </div>
       </OrderProvider>
-    </>
+
+
+
+    </div>
+    
+    
+    
+    </div>
   );
 }

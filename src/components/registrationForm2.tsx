@@ -84,7 +84,7 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
               type="email"
               name="email"
               defaultValue={profile?.email || ""}
-              className="block bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
+              className="block bg-white px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required
             />
 

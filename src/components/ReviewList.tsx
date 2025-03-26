@@ -9,11 +9,11 @@ interface Reviews {
 
 function ReviewList({ reviews }: Reviews) {
   return (
-    <Card className="p-4 text-center">
+    <Card className="p-4 text-center bg-white">
       {reviews.map((review, index) => (
         <CardContent
           key={index}
-          className="relative overflow-y-auto h-32 mb-4 last:mb-0 shadow-md rounded-md border border-grey-500"
+          className="relative overflow-y-auto h-32 mb-4 last:mb-0 shadow-sm rounded-md border border-grey-500"
         >
           {/* ⬇️ Add this extra wrapper div to make sure background covers scroll area */}
           <div className="bg-white min-h-full p-3 flex flex-col">
@@ -32,7 +32,7 @@ function ReviewList({ reviews }: Reviews) {
                 ))}
               </div>
             </div>
-            <p className="leading-tight text-sm text-gray-600 mt-3">
+            <p className="leading-tight text-sm text-gray-600 mt-5">
               {review.comment}
             </p>
             {/* <Button className="">

@@ -29,8 +29,9 @@ export default function ProductDetailCard({
         <Link href={`/review/${sellerDId}`} className="underline">
           {sellerName}
         </Link>
+
         <span
-          className={`flex px-3 py-1 text-xs font-medium rounded-xl bg-yellow-100 text-yellow-600 space-x-1`}
+          className={`flex px-3 py-1 text-xs font-medium gap-1 rounded-xl bg-yellow-100 text-yellow-600 space-x-1`}
         >
           <Star className="text-yellow-600 size-3"></Star>
           {reviewScore}

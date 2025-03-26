@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+
 interface Props {
   href?: string;
   back?: boolean;
@@ -26,7 +27,7 @@ const MovebackButton: React.FC<Props> = ({ back, href }) => {
         duration-200
         hover:bg-gray-200"
     >
-      <ArrowLeft />
+            <ArrowLeft />
     </Link>
   ) : (
     <button
