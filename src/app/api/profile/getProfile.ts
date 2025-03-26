@@ -13,6 +13,8 @@ export interface User {
   rolename: string;
   documentId: string;
   pictureUrl?: string;
+  bank: string;
+  account_number: string;
 }
 
 export default async function getProfile(token: string): Promise<User> {
