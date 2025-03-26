@@ -7,6 +7,7 @@ import ProductWraper from "@/components/ProductWraper";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import getLiveById from "@/app/api/live/getLive";
+import getSellerRating from "@/app/api/review/getSellerRating";
 
 export default async function ProductDetail({
   params,
@@ -25,6 +26,10 @@ export default async function ProductDetail({
     if (isLive) timeLeft = calculateTimeLeft(liveInfo?.endDate);
     else timeLeft = calculateTimeLeft(liveInfo?.startDate);
   }
+  const reviewInfo = await getSellerRating(
+    productInfo.sellerDId,
+    session.user.jwt
+  );
 
   // ✅ Function to calculate time left before the live session starts
   function calculateTimeLeft(startDate): string {
@@ -60,7 +65,6 @@ export default async function ProductDetail({
             liveDId={productInfo.liveDId}
           />
         </div>
-
         {/* Right: Product Detail Card */}
         <ProductDetailCard
           productName={productInfo.name}
@@ -68,6 +72,8 @@ export default async function ProductDetail({
           productType={productInfo.type}
           productPrice={String(productInfo.minPrice)}
           productDescription={productInfo.description}
+          sellerDId={productInfo.sellerDId}
+          reviewScore={reviewInfo?.total_reviews}
         />
       </div>
     </ProductWraper>

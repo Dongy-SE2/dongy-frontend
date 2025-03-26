@@ -10,6 +10,7 @@ export interface ProductInfo {
   description: string;
   image: string[];
   liveDId: string;
+  sellerDId: string;
 }
 
 const getProductInfo = async (
@@ -38,7 +39,8 @@ const getProductInfo = async (
     type: data.categories,
     seller: data.owner.username,
     description: data.product_description,
-    liveDId: data.lives[0]?.documentId || null
+    liveDId: data.lives[0]?.documentId || null,
+    sellerDId: data.owner.documentId,
   };
 };
 

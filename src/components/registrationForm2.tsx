@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 const RegistrationForm2 = ({ profile }: { profile?: any }) => {
   const [role, setRole] = useState<"buyer" | "seller">(
-    profile?.rolename || "buyer",
+    profile?.rolename || "buyer"
   );
   const location = usePathname();
   return (
@@ -14,7 +14,7 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
       <h2 className="font-semibold text-xl mb-5">ข้อมูลทั่วไป</h2>
 
       <Card
-        className={`${location.includes("/profile") ? "h-[21rem]" : ""} max-w-md mx-auto px-4 py-2 bg-white rounded-2xl border border-gray-200 overflow-hidden`}
+        className={`max-w-md mx-auto px-4 py-2 bg-white rounded-2xl border border-gray-200 overflow-hidden`}
       >
         <CardContent>
           <input type="hidden" value={role} name="role" />
@@ -89,7 +89,7 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
             />
 
             {/* ✅ Password Fields */}
-            <label className="block text-gray-700 whitespace-nowrap text-sm">
+            {/* <label className="block text-gray-700 whitespace-nowrap text-sm">
               รหัสผ่าน{" "}
               {!location.includes("/profile") ? (
                 <span className="text-red-500">*</span>
@@ -118,7 +118,7 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
               defaultValue={""}
               className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required={!location.includes("/profile")}
-            />
+            /> */}
           </div>
         </CardContent>
       </Card>

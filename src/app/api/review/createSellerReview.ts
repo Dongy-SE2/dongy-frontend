@@ -20,7 +20,13 @@ const createSellerReview = async (
 
     const url = `${BACKEND_URL}/api/reviews`;
     console.log("🆕 Creating a new seller review at:", url);
-
+    console.log(
+      {data: {
+        rating: reviewData.rating,
+        comment: reviewData.comment,
+        seller: reviewData.seller,
+      },}
+    )
     const response = await axios.post(
       url,
       {
