@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 
 interface AvatarProps {
   className?: string;
@@ -7,7 +8,9 @@ interface AvatarProps {
 
 export function Avatar({ className = "", children }: AvatarProps) {
   return (
-    <div className={`rounded-full overflow-hidden ${className}`}>{children}</div>
+    <div className={`rounded-full overflow-hidden ${className}`}>
+      {children}
+    </div>
   );
 }
 
@@ -17,5 +20,13 @@ interface AvatarImageProps {
 }
 
 export function AvatarImage({ src, alt }: AvatarImageProps) {
-  return <img src={src} alt={alt} className="w-full h-full object-cover" />;
+  return (
+    <Image
+      width={200}
+      height={200}
+      src={src}
+      alt={alt}
+      className="w-full h-full object-cover"
+    />
+  );
 }

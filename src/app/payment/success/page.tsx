@@ -14,7 +14,10 @@ export default function SuccessPage() {
       <h1 className="my-10 font-bold text-medium text-2xl">
         การชำระเงินเสร็จสมบูรณ์
       </h1>
-      <Link href="/" className="py-2 px-10 bg-gray-700 text-white rounded-lg">
+      <Link
+        href="/user"
+        className="py-2 px-10 bg-gray-700 text-white rounded-lg"
+      >
         กลับหน้าหลัก
       </Link>
     </div>
