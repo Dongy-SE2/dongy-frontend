@@ -24,7 +24,7 @@ async function SellerReviewPage({
         <div className="flex">
           <h1 className="text-2xl font-bold mb-4">รีวิวผู้ขาย</h1>
           <span className="ml-auto">
-            <MovebackButton href="/product" />
+            <MovebackButton back />
           </span>
         </div>
 

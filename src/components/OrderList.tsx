@@ -51,9 +51,9 @@ function OrderList({
   };
 
   const statusPriority: { [key: string]: number } = {
-    รอการจัดส่ง: 1,
+    อยู่ระหว่างดำเนินการ: 1,
     อยู่ระหว่างจัดส่ง: 2,
-    จัดส่งสำเร็จ: 3,
+    ได้รับสินค้าแล้ว: 3,
   };
 
   const sortedOrders = [...orders].sort((a, b) => {

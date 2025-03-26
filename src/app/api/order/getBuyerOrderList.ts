@@ -14,15 +14,20 @@ export interface Order {
   trackingId: string;
   trackingUrl: string;
   state: string;
+  product: any;
 }
 
 async function getBuyerOrder(token: string): Promise<Order[]> {
-  const res = await axios.get(`${process.env.BACKEND}/api/orders/me`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await axios.get(
+    `${process.env.BACKEND}/api/orders/me?populate=product`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
   const profile = await axios.get(`${process.env.BACKEND}/api/users/me`, {
     headers: { Authorization: `Bearer ${token}` },
   });
+  console.log(res.data.data);
   const data: Order[] = res.data.data?.map((val: any) => ({
     id: val.documentId,
     name: val.product.product_name,
@@ -35,6 +40,7 @@ async function getBuyerOrder(token: string): Promise<Order[]> {
     trackingId: val.tracking_no,
     trackingUrl: val.tracking_url,
     state: val.state,
+    product: val.product,
   }));
   return data;
 }

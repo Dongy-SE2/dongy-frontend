@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useRef } from "react";
 
 const ProfileImageUploader: React.FC<{
-  profilePic?: string;
-  setProfilePic: (url: string | undefined) => void;
+  profilePic: string | null;
+  setProfilePic: (url: string | null) => void;
 }> = ({ profilePic, setProfilePic }) => {
   const uploadRef = useRef<HTMLInputElement>(null);
   return (
@@ -30,15 +30,17 @@ const ProfileImageUploader: React.FC<{
         </div>
         <div>
           <button
+            type="button"
             className="block rounded-full bg-white p-2.5 my-2"
             onClick={() => uploadRef.current?.click()}
           >
             <UploadIcon width={18} height={18} />
           </button>
           <button
+            type="button"
             className="block rounded-full bg-white p-2.5"
             onClick={() => {
-              setProfilePic(undefined);
+              setProfilePic(null);
               if (uploadRef && uploadRef.current) {
                 uploadRef.current.files = null;
               }
@@ -48,11 +50,10 @@ const ProfileImageUploader: React.FC<{
           </button>
         </div>
         <input
-          id="file-upload"
           name="image"
           type="file"
           accept="image/*"
-          className="hidden"
+          hidden
           ref={uploadRef}
           onChange={(e) => {
             if (!e.currentTarget.files) return;

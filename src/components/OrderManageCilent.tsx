@@ -31,7 +31,7 @@ export default function OrderManageClient({
   };
 
   const handleSave = async () => {
-    if (selectedOrder.state === "รอดำเนินการ") {
+    if (selectedOrder.state === "อยู่ระหว่างดำเนินการ") {
       try {
         await updateOrder(selectedOrder.documentId, token, carrier, tracking);
         alert("อัปเดตข้อมูลการจัดส่งเรียบร้อย!");

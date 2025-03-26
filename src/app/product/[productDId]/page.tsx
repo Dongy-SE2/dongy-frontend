@@ -74,7 +74,7 @@ export default async function ProductDetail({
           productPrice={String(productInfo.minPrice)}
           productDescription={productInfo.description}
           sellerDId={productInfo.sellerDId}
-          reviewScore={reviewInfo?.total_reviews}
+          reviewScore={reviewInfo?.average_rating || "No Review"}
         />
       </div>
     </ProductWraper>

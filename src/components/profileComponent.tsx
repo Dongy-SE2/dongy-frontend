@@ -4,10 +4,10 @@ import { useState } from "react";
 import ProfileImageUploader from "@/components/ProfileImageUploader";
 import MovebackButton from "@/components/MovebackButton";
 import RegistrationForm from "@/components/registrationForm";
-import RegistrationForm2 from "@/components/registrationForm2";
 import { Button } from "@/components/ui/button";
 import updateProfile from "@/app/api/profile/updateProfile";
 import { User } from "@/app/api/profile/getProfile";
+import { useRouter } from "next/navigation";
 
 interface ProfileProps {
   profile: User;
@@ -15,8 +15,9 @@ interface ProfileProps {
 }
 
 export default function ProfileClient({ profile, token }: ProfileProps) {
-  const [profilePic, setProfilePic] = useState<string | undefined>(
-    profile.pictureUrl,
+  const router = useRouter();
+  const [profilePic, setProfilePic] = useState<string | null>(
+    profile.pictureUrl || null,
   );
 
   return (
@@ -29,8 +30,12 @@ export default function ProfileClient({ profile, token }: ProfileProps) {
         </div>
         <form
           className="grid grid-cols-2 gap-6"
-          action={(e) => {
-            updateProfile(e, profile.documentId, token);
+          action={async (e) => {
+            const res = await updateProfile(e, profile.documentId, token);
+            if (res === 200 || res === 201) {
+              alert("แก้ไขข้อมูลสำเร็จ");
+              router.refresh();
+            }
           }}
         >
           <div>
@@ -43,8 +48,8 @@ export default function ProfileClient({ profile, token }: ProfileProps) {
                 setProfilePic={setProfilePic}
               />
             </div>
-            <RegistrationForm2 profile={profile} />
-            <div className="flex justify-end mt-4">
+            {/* <RegistrationForm2 profile={profile} /> */}
+            <div className="flex justify-start mt-4">
               <Button
                 type="submit"
                 className="bg-emerald-500 text-white py-2 rounded-lg mt-4 w-36"

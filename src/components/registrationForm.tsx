@@ -14,9 +14,10 @@ interface ProfileData {
 }
 
 const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
+  console.log(profile);
   const formatDateForInput = (isoDate: string | null) => {
     if (!isoDate) return ""; // Handle null or undefined values
-    return isoDate.split("T")[0]; // Extract YYYY-MM-DD
+    return isoDate;
   };
 
   return (

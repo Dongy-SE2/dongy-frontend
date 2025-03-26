@@ -7,7 +7,7 @@ export default async function register(data: FormData) {
   const firstname = data.get("firstname")?.toString();
   const lastname = data.get("lastname")?.toString();
   const dob = data.get("dob")?.toString();
-  const phone = data.get("tel")?.toString();
+  const phone = data.get("phone")?.toString();
   const SSN = data.get("SSN")?.toString();
   const location = data.get("location")?.toString();
   const username = data.get("username")?.toString();
