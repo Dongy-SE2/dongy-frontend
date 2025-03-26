@@ -10,5 +10,5 @@ export default async function ProfilePage() {
 
   const profile = await getProfile(session.user.jwt); // Fetch user profile on the server
 
-  return <ProfileClient profile={profile} />;
+  return <ProfileClient profile={profile} token={session.user.jwt} />;
 }
