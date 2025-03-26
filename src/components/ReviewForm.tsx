@@ -41,10 +41,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ token, sellerDid }) => {
 
   return (
     <div className="mb-8">
-      <h2 className="font-bold mb-6 text-2xl">แสดงความคิดเห็น</h2>
+      <h2 className="font-bold mb-6 text-xl">แสดงความคิดเห็น</h2>
       <form onSubmit={handleSubmit}>
         <Card className="p-4 mb-6 h-full">
-          <p className="mb-2">
+          <p className="mb-2 text-md">
             คะแนน
             <span className="text-red-500">*</span>
           </p>
@@ -65,7 +65,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ token, sellerDid }) => {
               value={comment}
               onChange={(e) => setComment(e.target.value)} // Track comment input
               placeholder="กรุณากรอกความคิดเห็นของคุณ"
-              className="mt-4 mb-2 bg-gray-100 w-full h-24 rounded-md shadow-sm resize-none p-2"
+              className="mt-4 mb-2 bg-white border border-gray-200 w-full h-24 rounded-md shadow-sm resize-none p-2"
             />
           </div>
           <div className="flex justify-center">

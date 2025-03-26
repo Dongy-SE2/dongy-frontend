@@ -7,7 +7,7 @@ interface Props {
 
 const ProductManageHeader: React.FC<Props> = ({ name, href }) => {
   return (
-    <div className="w-[923px] flex justify-between">
+    <div className="w-[923px] flex items-center justify-between">
       <h1 className="text-2xl font-semibold item-center content-center">
         {name}
       </h1>

@@ -13,7 +13,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
   return (
     <div>
       <h2 className="font-semibold text-xl">ข้อมูลสินค้า</h2>
-      <p className="text-gray-400 mt-1 mb-5 text-xs font-light">กรอกข้อมูลสินค้าให้ครบถ้วน</p>
+      <p className="text-gray-400 mt-1 mb-5 text-sm font-normal">กรอกข้อมูลสินค้าให้ครบถ้วน</p>
       <p className="font-medium my-3 text-sm">
         ชื่อสินค้า<span className="text-red-600">*</span>
       </p>
@@ -69,7 +69,7 @@ const ProductInput: React.FC<Props> = ({ data }) => {
       <textarea
         maxLength={200}
         name="product_description"
-        className="resize-none text-sm bg-gray-100 w-full h-24 mb-7 px-4 py-2"
+        className="resize-none text-sm bg-gray-100 w-full h-24 mb-7 px-4 py-2 rounded-md"
         defaultValue={data.description}
       />
       <div className="flex justify-center w-full">

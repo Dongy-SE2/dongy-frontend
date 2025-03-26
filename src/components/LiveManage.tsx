@@ -128,7 +128,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
       {/* 🔹 Live Management Form */}
       <div className="text-base px-6 py-6 bg-white shadow-md mt-6 rounded-lg">
         {/* Live Name */}
-        <div className="flex flex-row mb-3">
+        <div className="flex flex-row mb-3 items-center">
           <p>
             ชื่อไลฟ์<span className="text-red-600 text-sm">*</span>
           </p>
@@ -144,7 +144,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
         </div>
 
         {/* Product Name */}
-        <div className="flex flex-row mb-3">
+        <div className="flex flex-row mb-3 items-center">
           <p>
             สินค้า<span className="text-red-600 text-sm">*</span>
           </p>
@@ -168,7 +168,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
         </div>
 
         {/* Start Date */}
-        <div className="flex flex-row mb-3">
+        <div className="flex flex-row mb-3 items-center">
           <p>
             เริ่มต้น<span className="text-red-600 text-sm">*</span>
           </p>
@@ -185,7 +185,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
         </div>
 
         {/* End Date */}
-        <div className="flex flex-row mb-3">
+        <div className="flex flex-row mb-3 items-center">
           <p>
             สิ้นสุด<span className="text-red-600 text-sm">*</span>
           </p>
@@ -202,7 +202,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
         </div>
 
         {/* Live Status */}
-        <div className="flex flex-row mb-3">
+        <div className="flex flex-row mb-3 items-center">
           <p>
             สถานะ<span className="text-red-600 text-sm">*</span>
           </p>
@@ -222,7 +222,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
           </select>
         </div>
         {/* Live Link */}
-        <div className="flex flex-row">
+        <div className="flex flex-row ">
           <p>
             ลิงค์<span className="text-red-600 text-sm">*</span>
           </p>

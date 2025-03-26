@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
+
 interface Props {
   href: string;
 }
@@ -22,7 +23,7 @@ const MovebackButton: React.FC<Props> = ({ href }) => {
         duration-200
         hover:bg-gray-200"
     >
-      <ArrowLeft />
+            <ArrowLeft />
     </Link>
   );
 };

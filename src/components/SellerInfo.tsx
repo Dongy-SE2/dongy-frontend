@@ -9,7 +9,7 @@ interface SellerName {
 
 function SellerInfo({ sellerRating }: { sellerRating: SellerRating }) {
   return (
-    <Card className="flex items-center p-4 mb-6 h-24">
+    <Card className="flex items-center p-4 mb-6 h-24 bg-white bg-opacity-70 border border-gray-100">
       <Avatar className="w-12 h-12 mr-4">
         <AvatarImage
           src={sellerRating?.profile_picture?.url || "/default-avatar.png"}

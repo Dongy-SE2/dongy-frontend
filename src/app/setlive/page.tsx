@@ -17,7 +17,8 @@ export default async function SetLiveBiddingPage() {
   const lives = await getLiveList(session.user.id, session.user.jwt);
   const products = await getProductList(session.user.jwt, session.user.id);
   return (
-    <ProductWraper>
+    <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
+<ProductWraper>
       <ProductManageHeader name="จัดการไลฟ์" href="/user" />
       <div className="flex w-full justify-evenly mt-4">
         <LiveContext>
@@ -34,5 +35,7 @@ export default async function SetLiveBiddingPage() {
         </LiveContext>
       </div>
     </ProductWraper>
+    </div>
+    
   );
 }

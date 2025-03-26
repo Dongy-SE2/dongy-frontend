@@ -128,7 +128,7 @@ const ProductListWithSearch: React.FC = () => {
     }`}
     onClick={(e) => handleFilter(e, "อื่นๆ")}
   >
-    อื่นๆ
+    อื่น ๆ
   </Button>
 
         </div>

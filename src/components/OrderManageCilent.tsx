@@ -45,6 +45,7 @@ export default function OrderManageClient({
   // console.log(selectedOrder);
 
   return (
+    
     <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] flex justify-center p-6">
       <div className="w-[832px] items-center justify-center">
         <div className="flex justify-between items-center mb-6">
