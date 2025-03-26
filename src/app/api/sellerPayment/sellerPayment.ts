@@ -1,22 +1,33 @@
 "use server";
 
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 export default async function sellerPayment(data: FormData) {
-    const account = data.get("account")?.toString();
-    const bank = data.get("bank")?.toString();
-    const image = data.get("image")?.toString();
+    const account = data.get("account")?.toString() || "";
+    const bank = data.get("bank")?.toString() || "";
+    const image = data.get("image") as File;
+
+    if (!image) {
+        console.error("Image is undefined or not provided.");
+        return {
+            success: 0,
+            message: "Image is required.",
+        };
+    }
 
     // Prepare the data for seller payment
-    const sellerPaymentData = {
+    const sellerPaymentData = new FormData();
+    sellerPaymentData.append("account", account);
+    sellerPaymentData.append("bank", bank);
+    sellerPaymentData.append("image", image);
+
+    // Log the seller payment data to debug
+    console.log("Seller Payment Data:", {
         account,
         bank,
         image,
-    };
-
-    // Log the seller payment data to debug
-    console.log("Seller Payment Data:", sellerPaymentData);
+    });
 
     try {
         console.log(
@@ -35,7 +46,7 @@ export default async function sellerPayment(data: FormData) {
         const response = await axios.post(
             `${process.env.BACKEND}/api/sellerpayment`,
             sellerPaymentData,
-            { headers: { "Content-Type": "application/json" } },
+            { headers: { "Content-Type": "multipart/form-data" } },
         );
 
         // Cookies.set("paymentInfo", JSON.stringify(sellerPaymentData), { expires: 1 / 24 })
@@ -63,7 +74,7 @@ export default async function sellerPayment(data: FormData) {
     }
 }
 
-export async function getSellerPayment() {
+export async function getSellerPayment(): Promise<boolean> {
     try {
         const response = await axios.get(
             `${process.env.BACKEND}/api/sellerpayment`,
@@ -72,24 +83,14 @@ export async function getSellerPayment() {
 
         if (response.status === 200) {
             console.log("Get SellerPayment Successful:", response.data);
-            return {
-                success: 1,
-                message: "Success",
-                data: response.data,
-            }
+            return true;
         }
         else {
             console.error("Get SellerPayment Error:", response.data);
-            return {
-                success: 0,
-                message: "Failed",
-            };
+            return false;
         }
     } catch (error) {
         console.error("Get Seller Payment Error:", error);
-        return {
-            success: 0,
-            message: "Server failed",
-        };
+        return false;
     }
 }

@@ -1,18 +1,35 @@
 "use client";
+import { useState } from "react";
 import { LiveInfo } from "@/app/api/live/getLiveList";
 import LiveItem from "./LiveItem";
+import createLive from "@/app/api/live/createLive";
+import { useRouter } from "next/navigation";
 
 const LiveList: React.FC<{
   lives: Array<LiveInfo>;
-}> = ({ lives }) => {
+  token: string;
+  sellerId: string;
+}> = ({ lives, token, sellerId }) => {
+  const [liveList, setLiveList] = useState(lives);
+  const router = useRouter();
+
+  const addNewLive = async () => {
+    const res = await createLive(token, sellerId);
+    // router.refresh();
+    window.location.reload(); // ❌ Alternative if refresh() fails
+  };
+  console.log(token);
+
   return (
     <div className="mb-6">
-      {/* <h2 className="text-xl font-medium mb-2">รายการสินค้าที่ประมูลได้</h2> */}
       <div className="w-80 h-[40rem] bg-white shadow-md rounded-xl px-4 py-1">
-        {lives.map((live, index) => (
+        {liveList.map((live, index) => (
           <LiveItem live={live} key={live.id} index={index} />
         ))}
-        <button className="w-full border-dashed border-2 border-gray-300 rounded-lg text-gray-500 py-4">
+        <button
+          className="w-full border-dashed border-2 border-gray-300 rounded-lg text-gray-500 py-4"
+          onClick={addNewLive}
+        >
           + เพิ่มไลฟ์ใหม่
         </button>
       </div>

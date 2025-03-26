@@ -9,18 +9,23 @@ export interface ProductInfo {
   minPrice: number;
   description: string;
   image: string[];
+  liveDId: string;
+  sellerDId: string;
 }
 
 const getProductInfo = async (
-  productId: string,
+  productDId: string,
   token: string,
 ): Promise<ProductInfo> => {
   // TODO: Fetch productId
+  const url = `${process.env.BACKEND}/api/products/${productDId}`;
+  console.log(url)
   const res = await axios.get(
-    `${process.env.BACKEND}/api/products?filters[id]=${productId}&populate=*`,
+    url,
     { headers: { Authorization: `Bearer ${token}` } },
   );
-  const data = res.data.data[0];
+  const data = res.data.data;
+  console.log(data)
   return {
     name: data.product_name,
     image: data.product_image
@@ -34,7 +39,10 @@ const getProductInfo = async (
     type: data.categories,
     seller: data.owner.username,
     description: data.product_description,
+    liveDId: data.lives[0]?.documentId || null,
+    sellerDId: data.owner.documentId,
   };
 };
 
 export default getProductInfo;
+

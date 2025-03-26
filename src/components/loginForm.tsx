@@ -48,7 +48,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Card className="p-5 bg-white rounded-2xl shadow-lg">
+    <Card className="px-4 py-2 rounded-2xl border border-gray-100">
       <CardContent>
         <form onSubmit={handleSubmit}>
           {/* <div className="mb-3 flex items-center gap-8"> */}
@@ -82,7 +82,7 @@ export default function LoginForm() {
           {/* </div> */}
 
           <div className="mb-3 flex items-center gap-11">
-            <label className="block text-gray-699 mb-1 whitespace-nowrap">
+            <label className="block text-gray-699 whitespace-nowrap text-sm">
               อีเมล
             </label>
             <Input
@@ -95,7 +95,7 @@ export default function LoginForm() {
           </div>
 
           <div className="mb-5 flex items-center gap-6">
-            <label className="block text-gray-699 mb-1 whitespace-nowrap">
+            <label className="block text-gray-699 whitespace-nowrap text-sm">
               รหัสผ่าน
             </label>
             <Input
@@ -113,12 +113,18 @@ export default function LoginForm() {
             </div>
           )}
 
+          <div className="flex w-full flex-row items-center justify-center">
           <Button
             type="submit"
-            className="w-full bg-[#11B981] text-white py-2 rounded-lg"
+            className="w-32 bg-[#11B981] text-white py-2 rounded-lg mt-2"
           >
             เข้าสู่ระบบ
           </Button>
+
+
+          </div>
+
+
         </form>
       </CardContent>
     </Card>

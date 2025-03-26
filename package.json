@@ -15,12 +15,18 @@
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
+<<<<<<< HEAD
     "js-cookie": "^3.0.5",
+=======
+    "event-source-polyfill": "^1.0.31",
+    "eventsource-polyfill": "^0.9.6",
+>>>>>>> bfc039ff6da4e5372d11534dff35e880d1c9db02
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.474.0",
-    "next": "15.1.6",
+    "next": "^15.2.3",
     "next-auth": "^5.0.0-beta.25",
     "omise": "^0.12.1",
+    "openapi": "^1.0.1",
     "openapi-fetch": "^0.13.5",
     "qs": "^6.14.0",
     "react": "^19.0.0",

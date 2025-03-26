@@ -1,33 +1,26 @@
-import React, { useState } from 'react';
+"use client";
+import { Trash2Icon, UploadIcon } from "lucide-react";
+import Image from "next/image";
+import { useRef } from "react";
 
-const ProfileImageUploader: React.FC = () => {
-  const [image, setImage] = useState<string | null>(null);
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleImageDelete = () => {
-    setImage(null);
-  };
-
+const ProfileImageUploader: React.FC<{
+  profilePic?: string;
+  setProfilePic: (url: string | undefined) => void;
+}> = ({ profilePic, setProfilePic }) => {
+  const uploadRef = useRef<HTMLInputElement>(null);
   return (
     <div>
-      <h2 className="font-semibold text-2xl ml-6">รูปโปรไฟล์</h2>
-      <div className="flex items-center p-4"> {/* Changed from flex-col to items-center */}
-        <div className="relative w-40 h-40 mr-4"> {/* Added margin-right for spacing */}
-          {image ? (
-            <img
-              src={image}
+      <h2 className="font-semibold text-xl ml-6">รูปโปรไฟล์</h2>
+      <div className="flex items-center p-4">
+        {/* Profile Image */}
+        <div className="relative w-40 h-40 mr-4">
+          {profilePic ? (
+            <Image
+              src={profilePic}
               alt="Profile"
               className="w-full h-full object-cover rounded-full border"
+              height={200}
+              width={200}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-full">
@@ -35,28 +28,48 @@ const ProfileImageUploader: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="flex flex-col space-y-4"> {/* Changed to flex-col for vertical alignment */}
-          <label htmlFor="file-upload" className="cursor-pointer bg-blue-500 text-white p-2 rounded-full shadow">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v16h16V4H4zm8 8v4m0-4H8m4 0h4" />
-            </svg>
-          </label>
-          <input
-            id="file-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="hidden"
-          />
+        <div>
           <button
-            onClick={handleImageDelete}
-            className="bg-red-500 text-white p-2 rounded-full shadow"
+            className="block rounded-full bg-white p-2.5 my-2"
+            onClick={() => uploadRef.current?.click()}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <UploadIcon width={18} height={18} />
+          </button>
+          <button
+            className="block rounded-full bg-white p-2.5"
+            onClick={() => {
+              setProfilePic(undefined);
+              if (uploadRef && uploadRef.current) {
+                uploadRef.current.files = null;
+              }
+            }}
+          >
+            <Trash2Icon width={18} height={18} />
           </button>
         </div>
+        <input
+          id="file-upload"
+          name="image"
+          type="file"
+          accept="image/*"
+          className="hidden"
+          ref={uploadRef}
+          onChange={(e) => {
+            if (!e.currentTarget.files) return;
+            const fileReader = new FileReader();
+            const image = e.currentTarget.files[0];
+            fileReader.readAsDataURL(image);
+            fileReader.onloadend = (res) => {
+              if (
+                res.target &&
+                res.target.result &&
+                typeof res.target.result === "string"
+              ) {
+                setProfilePic(res.target.result);
+              }
+            };
+          }}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import axios from "axios";
 
 export interface Buyer {
@@ -26,34 +26,29 @@ export interface Product {
   id: number;
   product_name: string;
   categories: string | null;
-  images: ProductImage[]; // ✅ Array of images
+  images: ProductImage[];
 }
 
 export interface Order {
   id: number;
   documentId: string;
-  subtotal: number;
-  tax_rate: number;
-  tax_amount: number;
   total_amount: number;
   discount: number;
   payable_amount: number;
   shipping_address: string | null;
   state: string;
   createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
   tracking_no: string | null;
   courier: string | null;
   tracking_url: string | null;
-  buyer: Buyer | null;
-  payment: Payment | null;
-  product: Product | null;
+  buyer: Buyer; // ✅ Buyer info
+  payment: Payment; // ✅ Payment info
+  product: Product;
 }
   
   const getSellerOrders = async (sellerId: string, token: string): Promise<Order[]> => {
     try {
-      const url = `${process.env.BACKEND}/api/orders?seller=${sellerId}&populate=buyer&populate=payment&populate=product`;
+      const url = `${process.env.BACKEND}/api/orders/me`;
       console.log("Fetching orders from:", url);
       console.log("Authorization Token:", token);
   
@@ -61,20 +56,17 @@ export interface Order {
         headers: { Authorization: `Bearer ${token}` },
       });
 
+      console.log(response.data.data[0])
+
       const orders: Order[] = response.data?.data?.map((order: any) => ({
         id: order.id,
         documentId: order.documentId,
-        subtotal: order.subtotal,
-        tax_rate: order.tax_rate,
-        tax_amount: order.tax_amount,
         total_amount: order.total_amount,
         discount: order.discount,
         payable_amount: order.payable_amount,
         shipping_address: order.shipping_address,
         state: order.state,
         createdAt: order.createdAt,
-        updatedAt: order.updatedAt,
-        publishedAt: order.publishedAt,
         tracking_no: order.tracking_no,
         courier: order.courier,
         tracking_url: order.tracking_url,
@@ -117,6 +109,5 @@ export interface Order {
       return [];
     }
   };
-  
 
 export default getSellerOrders;
