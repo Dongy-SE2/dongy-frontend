@@ -1,13 +1,13 @@
 function StatusBadge({ status }: { status: string }) {
   const BGcolors: Record<string, string> = {
+    อยู่ระหว่างดำเนินการ: "bg-gray-100",
     อยู่ระหว่างจัดส่ง: "bg-yellow-100",
-    รอการจัดส่ง: "bg-gray-100",
-    จัดส่งสำเร็จ: "bg-green-100",
+    ได้รับสินค้าแล้ว: "bg-green-100",
   };
   const Textcolors: Record<string, string> = {
+    อยู่ระหว่างดำเนินการ: "text-gray-600",
     อยู่ระหว่างจัดส่ง: "text-yellow-600",
-    รอการจัดส่ง: "text-gray-600",
-    จัดส่งสำเร็จ: "text-green-700",
+    ได้รับสินค้าแล้ว: "text-green-700",
   };
 
   return (

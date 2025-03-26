@@ -14,8 +14,10 @@ interface ProfileData {
 }
 
 const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
-  const [date, month, year] = profile?.dob.split("/") || "--/--/----";
-  const formatDate = `${year}-${month}-${date}`;
+  const formatDateForInput = (isoDate: string | null) => {
+    if (!isoDate) return ""; // Handle null or undefined values
+    return isoDate.split("T")[0]; // Extract YYYY-MM-DD
+  };
 
   return (
     <div>
@@ -69,7 +71,7 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
             <Input
               name="dob"
               type="date"
-              defaultValue={formatDate}
+              defaultValue={formatDateForInput(profile?.dob || "")}
               className="col-span-4"
               required
             />

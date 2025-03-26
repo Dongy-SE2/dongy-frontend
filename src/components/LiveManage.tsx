@@ -14,13 +14,19 @@ interface Props {
   lives: LiveInfo[];
   token: string;
   products: Product[];
+  sellerName: string;
 }
 
 const formatDateForInput = (isoDate: string) => {
   return isoDate ? isoDate.slice(0, 16) : "";
 };
 
-const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
+const LiveManage: React.FC<Props> = ({
+  lives,
+  token,
+  products,
+  sellerName,
+}) => {
   const { selection } = useContext(Selection);
   const live = lives[selection] || lives[0];
 
@@ -64,7 +70,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
           setTimeLeft("กำลังไลฟ์...");
         }
       } else {
-        if (diffMs <= 0) {
+        if (diffMs <= 0 && status === "ongoing") {
           setTimeLeft("กำลังไลฟ์...");
         } else {
           const minutes = Math.floor(diffMs / 60000) % 60;
@@ -117,7 +123,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
           </p>
           <h3 className="font-semibold text-lg">{liveName}</h3>
           <p className="text-gray-500 text-sm align-middle">
-            <User className="inline-block" width={"1rem"} /> live.
+            <User className="inline-block" width={"1rem"} /> {sellerName}
           </p>
           <p className="text-gray-500 text-sm align-middle">
             <Clock className="inline-block" width={"1rem"} /> {timeLeft}
@@ -157,7 +163,7 @@ const LiveManage: React.FC<Props> = ({ lives, token, products }) => {
             }}
             disabled={status === "ongoing" || status === "closed"}
           >
-            <option value="">เลือกผลิตภัณฑ์</option>
+            <option value="">{live.product || "เลือกผลิตภัณฑ์"}</option>
             {/* Map through the list of products to create options */}
             {products.map((productItem) => (
               <option key={productItem.id} value={productItem.id}>
