@@ -28,15 +28,15 @@ const LiveManage: React.FC<Props> = ({
   sellerName,
 }) => {
   const { selection } = useContext(Selection);
-  const live = lives[selection] || lives[0];
+  const live = lives[selection] || null;
 
   const [liveName, setLiveName] = useState(live?.title || "");
   const [product, setProduct] = useState(live?.product || "");
   const [startDate, setStartDate] = useState(
-    formatDateForInput(live?.startDate || ""),
+    formatDateForInput(live?.startDate || "")
   );
   const [endDate, setEndDate] = useState(
-    formatDateForInput(live?.endDate || ""),
+    formatDateForInput(live?.endDate || "")
   );
   const [status, setStatus] = useState(live?.status || "public");
   const [link, setLink] = useState(live?.link || "");
@@ -105,6 +105,10 @@ const LiveManage: React.FC<Props> = ({
       console.error(`❌ Failed to update ${field}:`, error);
     }
   };
+
+  if (!live) {
+    return;
+  }
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>

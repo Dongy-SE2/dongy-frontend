@@ -43,9 +43,9 @@ const LiveItem: React.FC<{
         </div>
       </div>
       <div>
-        <ShoppingBag
+        {/* <ShoppingBag
           className={`inline-flex flex-col h-full align-middle justify-center ${!isSelect ? "text-gray-500" : "text-white"}`}
-        />
+        /> */}
       </div>
     </button>
   );
