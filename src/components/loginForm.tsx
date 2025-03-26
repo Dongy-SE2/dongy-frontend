@@ -5,6 +5,9 @@ import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { signIn } from "next-auth/react"; // Importing signIn from next-auth
+import { redirect } from "next/navigation";
+import { getSellerPayment } from "@/app/api/sellerPayment/sellerPayment";
+import Cookies from "js-cookie";
 
 export default function LoginForm() {
   const [role, setRole] = useState<"buyer" | "seller">("seller");
@@ -30,8 +33,17 @@ export default function LoginForm() {
       setErrorMessage("การเข้าสู่ระบบล้มเหลว");
     } else {
       // Redirect to the appropriate page after successful login
-      if (role === "buyer") window.location.href = "/product"; // Example redirect
-      if (role === "seller") window.location.href = "/user"; // Example redirect
+      if (role === "buyer")
+        window.location.href = "/product"; // Example redirect
+      else if (role === "seller") {
+        const paymentInfo = await getSellerPayment();
+        // const paymentInfo = Cookies.get("paymentInfo");
+        if (paymentInfo) {
+          window.location.href = "/user"; // Example redirect
+        } else {
+          window.location.href = "/sellerpayment";
+        }
+      }
     }
   };
 
