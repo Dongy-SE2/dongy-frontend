@@ -50,7 +50,8 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               name="firstname"
               type="text"
               defaultValue={profile?.firstname || ""}
-              className="col-span-4"
+              className="col-span-4 text-sm"
+              placeholder="ชื่อ"
               required
             />
 
@@ -61,7 +62,9 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               name="lastname"
               type="text"
               defaultValue={profile?.lastname || ""}
-              className="col-span-4"
+              className="col-span-4 text-sm"
+              placeholder="สกุล"
+
               required
             />
 
@@ -72,7 +75,7 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               name="dob"
               type="date"
               defaultValue={formatDateForInput(profile?.dob || "")}
-              className="col-span-4"
+              className="col-span-4 text-sm"
               required
             />
 
@@ -83,7 +86,9 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               name="phone"
               type="tel"
               defaultValue={profile?.phone || ""}
-              className="col-span-3"
+              className="col-span-3 text-sm"
+              placeholder="เบอร์โทรศัพท์"
+
               required
             />
 
@@ -95,7 +100,8 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               name="SSN"
               type="text"
               defaultValue={profile?.SSN || ""}
-              className="col-span-3"
+              className="col-span-3 text-sm"
+              placeholder="เลขบัตรประจำตัวประชาชน"
               required
             />
 
@@ -105,7 +111,8 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
             <textarea
               name="location"
               defaultValue={profile?.location || ""}
-              className="block bg-gray-100 px-4 py-1 text-sm w-50 h-24 resize-none border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 col-span-4"
+              className="block bg-white px-4 py-2 w-50 h-24 resize-none border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 col-span-4 text-sm"
+              placeholder="ที่อยู่"
               required
             />
           </div>

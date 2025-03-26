@@ -19,7 +19,7 @@ export default function PaymentMethod() {
         }}
         ref={mobileRef}
       />
-      <span className="ml-2">Mobile Banking</span>
+      <span className="ml-2 text-sm font-normal">Mobile Banking</span>
       {isOpen ? (
         <div>
           <input
@@ -33,7 +33,7 @@ export default function PaymentMethod() {
                 : null
             }
           />
-          <span className="ml-2">K Plus</span>
+          <span className="ml-2 text-sm font-normal">K Plus</span>
           <input
             type="checkbox"
             name="scb"
@@ -45,7 +45,7 @@ export default function PaymentMethod() {
                 : null
             }
           />
-          <span className="ml-2">SCB Easy</span>
+          <span className="ml-2 text-sm font-normal">SCB Easy</span>
         </div>
       ) : (
         <br />
@@ -60,7 +60,10 @@ export default function PaymentMethod() {
         name="promptpay"
         ref={promptRef}
       />
-      <span className="ml-2">Promptpay</span>
+      <span className="ml-2 font-normal">Promptpay</span>
+
+
+      
     </div>
   );
 }

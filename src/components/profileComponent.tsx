@@ -20,8 +20,9 @@ export default function ProfileClient({ profile, token }: ProfileProps) {
   );
 
   return (
-    <div className="min-h-screen w-full bg-[#F6F7F9] bg-auto">
-      <div className="p-6 max-w-4xl mx-auto">
+
+    <div className="min-h-screen w-full flex justify-evenly bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100%">
+      <div className="p-6 max-w-4xl mx-auto mt-10">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold mb-4">แก้ไขข้อมูล</h2>
           <MovebackButton href="/user" />
@@ -46,7 +47,7 @@ export default function ProfileClient({ profile, token }: ProfileProps) {
             <div className="flex justify-end mt-4">
               <Button
                 type="submit"
-                className="bg-[#10B981] text-white py-2 rounded-lg mt-4 w-36"
+                className="bg-emerald-500 text-white py-2 rounded-lg mt-4 w-36"
               >
                 บันทึก
               </Button>

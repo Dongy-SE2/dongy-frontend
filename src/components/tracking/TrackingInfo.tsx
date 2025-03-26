@@ -16,7 +16,7 @@ interface StatusProps {
 function Status({ name, textColor, color }: StatusProps) {
   return (
     <p
-      className={`text-${textColor} bg-${color} rounded-xl w-40 py-0.5 text-center align-middle`}
+      className={`text-${textColor} bg-${color} rounded-xl w-40 py-0.5 text-center align-middle text-sm`}
     >
       {name}
     </p>
@@ -46,32 +46,32 @@ export default function TrackingInfo() {
   return (
     <>
       <div
-        className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-[0.9rem] grid-flow-row-dense bg-white shadow-md rounded-xl px-8 py-6 w-[35rem] h-72 text-gray-600"
+        className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-[0.9rem] grid-flow-row-dense items-center bg-white shadow-md rounded-xl px-8 py-6 w-[35rem] h-72 text-gray-600"
         style={{ gridAutoRows: "minmax(auto, max-content)" }}
       >
         {!orders[idx] ? (
           <p>ไม่พบสินค้า</p>
         ) : (
           <>
-            <p className="font-medium">ชื่อผู้รับ</p>
-            <p>{orders[idx].receiver}</p>
-            <p className="font-medium">เบอร์โทรศัพท์</p>
-            <p>{orders[idx].tel}</p>
-            <p className="font-medium">ที่อยู่จัดส่ง</p>
-            <p className="w-96">{orders[idx].location}</p>
-            <p className="font-medium">จัดส่งโดย</p>
-            <p>{orders[idx].courier}</p>
-            <p className="font-medium">Tracking No</p>
+            <p className="font-medium text-sm">ชื่อผู้รับ</p>
+            <p className="text-sm">{orders[idx].receiver}</p>
+            <p className="font-medium text-sm">เบอร์โทรศัพท์</p>
+            <p className="text-sm">{orders[idx].tel}</p>
+            <p className="font-medium text-sm">ที่อยู่จัดส่ง</p>
+            <p className="text-sm w-96">{orders[idx].location}</p>
+            <p className="font-medium text-sm">จัดส่งโดย</p>
+            <p className="text-sm">{orders[idx].courier}</p>
+            <p className="font-medium text-sm">Tracking No</p>
             {!orders[idx].trackingId ? (
-              <p>-</p>
+              <p className="text-sm">-</p>
             ) : !orders[idx].trackingUrl ? (
-              <p>{orders[idx].trackingId}</p>
+              <p className="text-sm">{orders[idx].trackingId}</p>
             ) : (
               <Link href={orders[idx].trackingUrl}>
                 {orders[idx].trackingId}
               </Link>
             )}
-            <p className="font-medium">สถานะ</p>
+            <p className="font-medium text-sm">สถานะ</p>
             {statusMap[orders[idx].state]}
           </>
         )}
@@ -82,12 +82,12 @@ export default function TrackingInfo() {
         <div className="w-full flex justify-center mt-5">
           <Link
             href=""
-            className="rounded-md px-5 py-3 bg-red-400 text-white font-medium mr-7"
+            className="rounded-lg px-5 py-3 bg-red-400 text-white font-medium mr-7"
           >
             รายงานปัญหา
           </Link>
           <button
-            className="rounded-md px-5 py-3 bg-green-500 text-white font-medium"
+            className="rounded-lg px-5 py-3 bg-emerald-500 text-white font-medium"
             onClick={async (_) => {
               const { ok, error } = await updateBuyerOrderState(
                 orders[idx].id,

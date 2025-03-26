@@ -21,21 +21,15 @@ export default async function ProductManagePage() {
   
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] p-6">
-      <ProductWraper>
+    <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
+   <ProductWraper>
         <ProductManageHeader
           name={`ยินดีต้อนรับ คุณ${session.user.username}`}
           href="/user"
         />
         <ProductListWithSearch  />
       </ProductWraper>
+
     </div>
-
-
-
-    
-
-
-
   );
 }
