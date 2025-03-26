@@ -6,19 +6,20 @@ import ProductListWithSearch from "@/components/ProductListWithSearch";
 import ProductManageHeader from "@/components/ProductManageHeader";
 import ProductWraper from "@/components/ProductWraper";
 import { redirect } from "next/navigation";
-import { searchProduct } from "../api/searchProduct/searchProduct";
-import { searchProductAPI } from "../api/searchProduct/searchProductAPI";
 
-export default async function ProductManagePage() {
-  
-
-  //auth
+export default async function ProductManagePage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ [key: string]: string }>;
+}) {
   const session = await auth();
   if (session === null || !session.user.id) redirect("/login");
-  const product_list = await getProductList(session.user.jwt);
-
-
-  
+  const search = await searchParams;
+  const product_list = await getProductList(
+    session.user.jwt,
+    undefined,
+    search ? search.search : undefined,
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] p-6">
@@ -27,15 +28,8 @@ export default async function ProductManagePage() {
           name={`ยินดีต้อนรับ คุณ${session.user.username}`}
           href="/user"
         />
-        <ProductListWithSearch  />
+        <ProductListWithSearch product_list={product_list} />
       </ProductWraper>
     </div>
-
-
-
-    
-
-
-
   );
 }

@@ -7,6 +7,7 @@ export interface Product {
   subId: string;
   minPrice: number;
   maxPrice: number;
+  categories: string;
 }
 
 interface Response {
@@ -21,6 +22,7 @@ interface Response {
       publishAt: string;
       price: number;
       product_image?: any[];
+      categories: string;
     },
   ];
 }
@@ -28,15 +30,15 @@ interface Response {
 const getProductList = async (
   token: string,
   seller_id?: string,
+  search_params?: string,
 ): Promise<Product[]> => {
   let result: AxiosResponse<Response>;
   if (seller_id) {
-    result = await axios.get<Response>(
-      `${process.env.BACKEND}/api/products/me`,
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+    result = await axios.get(`${process.env.BACKEND}/api/products/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   } else {
-    result = await axios.get<Response>(
+    result = await axios.get(
       `${process.env.BACKEND}/api/products?populate=product_image&populate=categories`,
       { headers: { Authorization: `Bearer ${token}` } },
     );
@@ -44,6 +46,12 @@ const getProductList = async (
   const res: Product[] = result.data.data
     .map((data) => {
       if (data.product_image == null) return null;
+      if (
+        search_params &&
+        search_params.length > 0 &&
+        !data.product_name.includes(search_params)
+      )
+        return;
       return {
         name: data.product_name,
         image: `${process.env.BACKEND}${data.product_image[0].url}`,
@@ -51,6 +59,7 @@ const getProductList = async (
         subId: data.id.toString(),
         minPrice: data.price,
         maxPrice: 0,
+        categories: data.categories,
       };
     })
     .filter((prod) => prod != null);

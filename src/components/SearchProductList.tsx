@@ -1,12 +1,15 @@
-import { searchProduct } from "../app/api/searchProduct/searchProduct";
+import { Product } from "@/app/api/product/getProductList";
 import SearchProductCard from "./SearchProductCard";
 
 interface searchProductListProps {
-  searchProducts: searchProduct[];
+  searchProducts: Product[];
   filters?: string[]; // array of selected filters
 }
 
-function SearchProductList({ searchProducts, filters }: searchProductListProps) {
+function SearchProductList({
+  searchProducts,
+  filters,
+}: searchProductListProps) {
   const filteredItems = searchProducts.filter((product) => {
     if (!filters || filters.length === 0) return true;
     return filters.some((filter) => product.categories?.includes(filter));

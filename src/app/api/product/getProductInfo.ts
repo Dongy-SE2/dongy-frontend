@@ -16,15 +16,13 @@ const getProductInfo = async (
   productDId: string,
   token: string,
 ): Promise<ProductInfo> => {
-  // TODO: Fetch productId
   const url = `${process.env.BACKEND}/api/products/${productDId}`;
-  console.log(url)
-  const res = await axios.get(
-    url,
-    { headers: { Authorization: `Bearer ${token}` } },
-  );
+  console.log(url);
+  const res = await axios.get(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   const data = res.data.data;
-  console.log(data)
+  console.log(data);
   return {
     name: data.product_name,
     image: data.product_image
@@ -38,9 +36,8 @@ const getProductInfo = async (
     type: data.categories,
     seller: data.owner.username,
     description: data.product_description,
-    liveDId: data.lives[0]?.documentId || null
+    liveDId: data.lives[0]?.documentId || null,
   };
 };
 
 export default getProductInfo;
-
