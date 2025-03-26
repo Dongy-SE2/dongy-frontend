@@ -20,7 +20,7 @@ export default function LoginForm() {
       return;
     }
 
-    const response = await signIn("credentials", {
+    const response: any = await signIn("credentials", {
       email,
       password,
       redirect: false,
@@ -30,8 +30,7 @@ export default function LoginForm() {
       setErrorMessage("การเข้าสู่ระบบล้มเหลว");
     } else {
       // Redirect to the appropriate page after successful login
-      if (role === "buyer") window.location.href = "/product"; // Example redirect
-      if (role === "seller") window.location.href = "/user"; // Example redirect
+      window.location.href = "/user"; // Example redirect
     }
   };
 
@@ -102,17 +101,13 @@ export default function LoginForm() {
           )}
 
           <div className="flex w-full flex-row items-center justify-center">
-          <Button
-            type="submit"
-            className="w-32 bg-[#11B981] text-white py-2 rounded-lg mt-2"
-          >
-            เข้าสู่ระบบ
-          </Button>
-
-
+            <Button
+              type="submit"
+              className="w-32 bg-[#11B981] text-white py-2 rounded-lg mt-2"
+            >
+              เข้าสู่ระบบ
+            </Button>
           </div>
-
-
         </form>
       </CardContent>
     </Card>
