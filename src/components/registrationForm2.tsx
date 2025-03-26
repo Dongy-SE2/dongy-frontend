@@ -89,7 +89,7 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
             />
 
             {/* ✅ Password Fields */}
-            {/* <label className="block text-gray-700 whitespace-nowrap text-sm">
+            <label className="block text-gray-700 whitespace-nowrap text-sm">
               รหัสผ่าน{" "}
               {!location.includes("/profile") ? (
                 <span className="text-red-500">*</span>
@@ -118,7 +118,7 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
               defaultValue={""}
               className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required={!location.includes("/profile")}
-            /> */}
+            />
           </div>
         </CardContent>
       </Card>

@@ -4,9 +4,45 @@ import Image from "next/image";
 
 function OrderCard({ order }: { order: Order }) {
   const statusColors: Record<string, string> = {
+    อยู่ระหว่างดำเนินการ: "bg-gray-400",
     อยู่ระหว่างจัดส่ง: "bg-yellow-400",
-    รอการจัดส่ง: "bg-gray-400",
-    จัดส่งสำเร็จ: "bg-green-400",
+    ได้รับสินค้าแล้ว: "bg-green-400",
+  };
+  const parseDate = (dateStr: string): Date => {
+    if (!dateStr) return new Date(0);
+
+    try {
+      const parts = dateStr.replace(" น.", "").split(/[\s|]/);
+      if (parts.length < 4) return new Date(0);
+
+      const [day, monthText, year, time] = parts;
+      const monthMap: { [key: string]: number } = {
+        มกราคม: 0,
+        กุมภาพันธ์: 1,
+        มีนาคม: 2,
+        เมษายน: 3,
+        พฤษภาคม: 4,
+        มิถุนายน: 5,
+        กรกฎาคม: 6,
+        สิงหาคม: 7,
+        กันยายน: 8,
+        ตุลาคม: 9,
+        พฤศจิกายน: 10,
+        ธันวาคม: 11,
+      };
+
+      const [hour, minute] = time.split(".").map(Number);
+      return new Date(
+        Number(year) - 543,
+        monthMap[monthText] || 0,
+        Number(day),
+        24 - hour || 0,
+        minute || 0
+      );
+    } catch (error) {
+      console.error("Invalid date format:", dateStr);
+      return new Date(0);
+    }
   };
 
   return (

@@ -47,7 +47,7 @@ export default function LiveBiddingHistory({
     };
 
     eventSource.onerror = (error) => {
-      console.error("SSE Error:", error);
+      console.log("SSE Error:", error);
       eventSource.close();
     };
 
