@@ -11,27 +11,40 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [Loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setErrorMessage("")
 
     if (!email || !password) {
       setErrorMessage("กรุณากรอกอีเมลและรหัสผ่าน");
       return;
     }
 
-    const response: any = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    let response: any;
 
-    if (response?.error) {
+    try{
+        setLoading(true)
+        response = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      
+    } catch (error){
+      console.log(error)
+    }
+    finally{
+      setLoading(false)
+      if (response?.error) {
       setErrorMessage("การเข้าสู่ระบบล้มเหลว");
     } else {
       // Redirect to the appropriate page after successful login
       window.location.href = "/user"; // Example redirect
     }
+    }
+
   };
 
   return (
@@ -68,6 +81,7 @@ export default function LoginForm() {
           {/*   </div> */}
           {/* </div> */}
 
+
           <div className="mb-3 flex items-center gap-11">
             <label className="block text-gray-699 whitespace-nowrap text-sm">
               อีเมล
@@ -94,7 +108,14 @@ export default function LoginForm() {
             />
           </div>
 
-          {errorMessage && (
+          {Loading && (
+            <div className="mb-3 text-black text-sm text-center">
+              <p>loading...</p>
+            </div>
+            
+          )}
+
+          {errorMessage && !Loading &&(
             <div className="mb-3 text-red-500 text-sm text-center">
               {errorMessage}
             </div>
