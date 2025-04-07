@@ -5,13 +5,15 @@ import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { signIn } from "next-auth/react"; // Importing signIn from next-auth
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
 
 export default function LoginForm() {
   const [role, setRole] = useState<"buyer" | "seller">("seller");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [Loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -108,27 +110,28 @@ export default function LoginForm() {
             />
           </div>
 
-          {Loading && (
-            <div className="mb-3 text-black text-sm text-center">
-              <p>loading...</p>
-            </div>
-            
-          )}
+          {loading && (
+  <div className="flex flex-col items-center justify-center mb-3 ">
+    <p className="text-black text-sm mb-2">Loading...</p>
+    <Waveform size="20" speed="1" color="black" stroke="1" />
+  </div>
+)}
 
-          {errorMessage && !Loading &&(
+          {errorMessage && !loading &&(
             <div className="mb-3 text-red-500 text-sm text-center">
               {errorMessage}
             </div>
           )}
 
-          <div className="flex w-full flex-row items-center justify-center">
+          {!loading &&( <div className="flex w-full flex-row items-center justify-center">
             <Button
               type="submit"
               className="w-32 bg-[#11B981] text-white py-2 rounded-lg mt-2"
-            >
+            > 
               เข้าสู่ระบบ
             </Button>
           </div>
+          )}
         </form>
       </CardContent>
     </Card>

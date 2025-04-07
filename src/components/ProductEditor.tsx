@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import createProduct from "@/app/api/product/createProduct";
 import { createContext, useState } from "react";
+import { useFormStatus } from "react-dom";
 
 interface Props {
   data: ProductInfo;
@@ -23,33 +24,45 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
   const location = usePathname();
   const router = useRouter();
   const [uploadImage, changeUploadImage] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
   return (
     <form
       className="flex justify-between pt-5"
       action={async (e) => {
-        if (location.includes("register")) {
-          const res = await createProduct(
-            e,
-            session.data?.user.jwt || "",
-            session.data?.user.username || "",
-            uploadImage,
-          );
-          if (res === 201) {
-            alert("Success!");
-            router.replace("/user/");
+        setLoading(true)
+        try{
+          if (location.includes("register")) {
+            const res = await createProduct(
+              e,
+              session.data?.user.jwt || "",
+              session.data?.user.username || "",
+              uploadImage,
+            );
+            if (res === 201) {
+              alert("Success!");
+              router.replace("/user/");
+            }
+      
+          } else {
+            const res = await updateProduct(
+              e,
+              session.data?.user.jwt || "",
+              data.id,
+              uploadImage,
+            );
+            if (res === 201 || res === 200) {
+              alert("Success!");
+              router.refresh();
+            }
           }
-        } else {
-          const res = await updateProduct(
-            e,
-            session.data?.user.jwt || "",
-            data.id,
-            uploadImage,
-          );
-          if (res === 201 || res === 200) {
-            alert("Success!");
-            router.refresh();
-          }
+      
+        } catch (error) {
+          console.log(error)
+        } finally {
+            setLoading(false);
+      
         }
+        
       }}
     >
       <div className="py-8 px-6">
@@ -58,9 +71,11 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
         </uploadImageContext.Provider>
       </div>
       <div className="py-8 px-6 w-[428px] bg-white bg-opacity-70 border border-gray-200 rounded-[10px] mr-5">
-        <ProductInput data={data} />
+        <ProductInput data={data}/>
       </div>
+    
     </form>
+    
   );
 };
 

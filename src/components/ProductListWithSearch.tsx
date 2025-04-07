@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Product } from "@/app/api/product/getProductList";
 import { searchProduct } from "@/app/api/product/searchProduct";
 
+
 const ProductListWithSearch: React.FC<{ product_list: Product[] }> = ({
   product_list,
 }: {
@@ -23,8 +24,11 @@ const ProductListWithSearch: React.FC<{ product_list: Product[] }> = ({
     );
   };
 
+
+
   return (
     <>
+    
       <form className="pt-4 mt-8" action={searchProduct}>
         <div className="flex justify-center">
           <div className="flex flex-row items-center">

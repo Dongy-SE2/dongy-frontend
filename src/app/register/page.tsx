@@ -7,10 +7,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import register from "../api/auth/register";
 import { redirect, usePathname, useRouter } from "next/navigation";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
 
 export default function Register() {
   const [isChecked, setIsChecked] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
 
   const pathName = usePathname();
   const router = useRouter(); 
@@ -71,21 +73,22 @@ export default function Register() {
                 </label>
               </div>
 
-              {loading && (
-                <div className="text-center text-gray-600 mt-4">
-                  กำลังโหลด...
-                </div>
-              )}
+              {Loading && (
+  <div className="flex flex-col items-center justify-center mb-3 ">
+    <p className="text-black text-sm mb-2">Loading...</p>
+    <Waveform size="20" speed="1" color="black" stroke="1" />
+  </div>
+)}
 
-              <div className="flex flex-row w-full items-center justify-center">
+              {!Loading && ( <div className="flex flex-row w-full items-center justify-center">
                 <Button
                   type="submit"
                   className="w-36 bg-emerald-500 text-white py-2 rounded-lg mt-6 text-sm"
-                  disabled={!isChecked || loading}
+                  disabled={!isChecked || Loading}
                 >
                   สมัครใช้งาน
                 </Button>
-              </div>
+              </div> )}
             </CardContent>
           </Card>
         </div>
