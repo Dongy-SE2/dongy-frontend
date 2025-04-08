@@ -25,6 +25,8 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
   const router = useRouter();
   const [uploadImage, changeUploadImage] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
+
+  
   return (
     <form
       className="flex justify-between pt-5"
