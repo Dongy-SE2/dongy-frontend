@@ -3,6 +3,9 @@
 import "./ProductInput.css";
 import { ProductInfo } from "@/app/api/product/getProductInfo";
 import { useState } from "react";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
+import { useFormStatus } from "react-dom";
 
 interface Props {
   data: ProductInfo;
@@ -10,6 +13,7 @@ interface Props {
 
 const ProductInput: React.FC<Props> = ({ data }) => {
   const [sliderValue, changeSliderValue] = useState<number>(data.minPrice);
+  const { pending } = useFormStatus();
   return (
     <div>
       <h2 className="font-semibold text-xl">ข้อมูลสินค้า</h2>
@@ -72,13 +76,22 @@ const ProductInput: React.FC<Props> = ({ data }) => {
         className="resize-none text-sm bg-gray-100 w-full h-24 mb-7 px-4 py-2 rounded-md"
         defaultValue={data.description}
       />
-      <div className="flex justify-center w-full">
+
+      {pending && (
+  <div className="flex flex-col items-center justify-center mb-3 ">
+    <p className="text-black text-sm mb-2">Loading...</p>
+    <Waveform size="20" speed="1" color="black" stroke="1" />
+  </div>
+)}
+
+
+      {!pending && (<div className="flex justify-center w-full">
         <input
           type="submit"
           className="pointer py-2 px-9 bg-emerald-500 text-white rounded-lg cursor-pointer"
           value="บันทึก"
         />
-      </div>
+      </div> )}
     </div>
   );
 };

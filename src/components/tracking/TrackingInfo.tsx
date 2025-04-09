@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import updateBuyerOrderState from "@/app/api/order/updateBuyerOrderState";
+import { useState } from "react";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
 
 interface StatusProps {
   name: string;
@@ -43,6 +46,7 @@ export default function TrackingInfo() {
   const { orders, idx } = useContext(orderProvider);
   const router = useRouter();
   const { data } = useSession();
+  const [loading,setLoading] = useState(false)
   return (
     <>
       <div
@@ -76,39 +80,42 @@ export default function TrackingInfo() {
           </>
         )}
       </div>
+
       {orders[idx] ? (
         orders[idx].state === "ได้รับสินค้าแล้ว" ? (
           <></>
         ) : (
-          <div className="w-full flex justify-center mt-5">
+          !loading && ( 
+            <div className="w-full flex justify-center mt-5">
             <Link
-              href=""
-              className="rounded-md px-5 py-3 bg-red-400 text-white font-medium mr-7"
-            >
-              รายงานปัญหา
-            </Link>
-            <button
-              className="rounded-md px-5 py-3 bg-green-500 text-white font-medium"
-              onClick={async (_) => {
-                const { ok, error } = await updateBuyerOrderState(
-                  orders[idx].id,
-                  data?.user.jwt || "",
-                );
-                if (ok) {
-                  alert("Success!");
-                  router.refresh();
-                } else {
-                  console.error(error);
-                }
-              }}
-            >
-              ได้รับสินค้าแล้ว
-            </button>
-          </div>
+             href=""
+             className="rounded-md px-5 py-3 bg-red-400 text-white font-medium mr-7"
+           >
+             รายงานปัญหา
+           </Link>
+           <button
+             className="rounded-md px-5 py-3 bg-green-500 text-white font-medium"
+             onClick={async (_) => {
+               const { ok, error } = await updateBuyerOrderState(
+                 orders[idx].id,
+                 data?.user.jwt || "",
+               );
+               if (ok) {
+                 alert("Success!");
+                 router.refresh();
+               } else {
+                 console.error(error);
+               }
+             }}
+           >
+             ได้รับสินค้าแล้ว
+           </button> 
+         </div>)
+         
         )
       ) : (
-        <div className="w-full flex justify-center mt-5">
-          <Link
+        !loading && ( <div className="w-full flex justify-center mt-5">
+           <Link
             href=""
             className="rounded-lg px-5 py-3 bg-red-400 text-white font-medium mr-7"
           >
@@ -130,9 +137,16 @@ export default function TrackingInfo() {
             }}
           >
             ได้รับสินค้าแล้ว
-          </button>
-        </div>
+          </button> 
+        </div>)
       )}
+
+{loading && (
+  <div className="flex flex-col items-center justify-center mb-3 ">
+    <p className="text-black text-sm mb-2">Loading...</p>
+    <Waveform size="20" speed="1" color="black" stroke="1" />
+  </div>
+)}
     </>
   );
 }

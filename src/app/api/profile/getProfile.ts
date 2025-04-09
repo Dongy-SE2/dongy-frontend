@@ -29,3 +29,4 @@ export default async function getProfile(token: string): Promise<User> {
       : null,
   };
 }
+

@@ -9,6 +9,8 @@ import { Clock, User } from "lucide-react";
 import openLive from "@/app/api/live/openLive";
 import closeLive from "@/app/api/live/closeLive";
 import { Product } from "@/app/api/product/getProductList";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
 
 interface Props {
   lives: LiveInfo[];
@@ -41,6 +43,7 @@ const LiveManage: React.FC<Props> = ({
   const [status, setStatus] = useState(live?.status || "public");
   const [link, setLink] = useState(live?.link || "");
   const [timeLeft, setTimeLeft] = useState("");
+  const[loading,setLoading] = useState(false)
 
   useEffect(() => {
     setLiveName(live?.title || "");
@@ -254,14 +257,24 @@ const LiveManage: React.FC<Props> = ({
         </div>
       </div>
 
+      {loading && (
+         <div className="mt-5 flex flex-col items-center justify-center mb-3 ">
+         <p className="text-black text-sm mb-2">Loading...</p>
+         <Waveform size="20" speed="1" color="black" stroke="1" />
+       </div>
+
+      )}
+
       {/* Action Buttons */}
-      <div className="mt-5 flex flex-row justify-evenly w-full px-16">
+      {!loading && (<div className="mt-5 flex flex-row justify-evenly w-full px-16">
         <button
           className="rounded-lg bg-red-400 px-12 py-2 text-white"
           onClick={async (e) => {
             e.preventDefault();
+            setLoading(true)
             const res = await deleteLive(live.did, token);
             if (res) alert("Live Deleted!");
+            setLoading(false)
           }}
         >
           ลบ
@@ -271,6 +284,7 @@ const LiveManage: React.FC<Props> = ({
             className="rounded-lg bg-green-500 px-7 py-2 text-white"
             onClick={async (e) => {
               e.preventDefault();
+              setLoading(true)
               if (live.status === "ongoing") {
                 const res = await closeLive(live.did, token);
                 if (res) alert("Live Closed!");
@@ -278,6 +292,7 @@ const LiveManage: React.FC<Props> = ({
                 const res = await openLive(live.did, token);
                 if (res) alert("Live Open!");
               }
+              setLoading(false)
             }}
           >
             {live.status === "ongoing" ? "จบไลฟ์" : "เริ่มไลฟ์"}
@@ -290,7 +305,7 @@ const LiveManage: React.FC<Props> = ({
         >
           คัดลอกลิงค์
         </button>
-      </div>
+      </div> )}
     </form>
   );
 };

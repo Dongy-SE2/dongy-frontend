@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface Props {
   name: string;
@@ -12,11 +13,13 @@ interface Props {
   minPrice: number;
   subId: string;
   id: string;
+  setParentLoading: (loading: boolean) => void;
 }
 
-const ProductCard: React.FC<Props> = ({ name, image, id, subId, minPrice }) => {
+const ProductCard: React.FC<Props> = ({ name, image, id, subId, minPrice ,   setParentLoading}) => {
   const { data: session } = useSession();
   const router = useRouter();
+
   return (
     <div className="relative w-60 h-44 rounded-xl bg-white shadow-sm mt-5">
       <Image
@@ -37,10 +40,18 @@ const ProductCard: React.FC<Props> = ({ name, image, id, subId, minPrice }) => {
           className="p-1.5 bg-white rounded-full mr-1 mt-2"
           onClick={async (e) => {
             e.preventDefault();
-            const res = await deleteProduct(id, session?.user.jwt || "");
-            if (res === 204) {
-              alert("Success!");
-              router.refresh();
+            setParentLoading(true)
+            
+            try {
+              const res = await deleteProduct(id, session?.user.jwt || "");
+              if (res === 204) {
+                alert("Success!");
+                await router.refresh();
+              }
+            } catch(error) {
+                console.log(error)
+            } finally {
+              setParentLoading(false)
             }
           }}
         >

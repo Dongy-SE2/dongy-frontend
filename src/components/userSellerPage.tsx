@@ -2,6 +2,7 @@ import { FolderPlus, Grid2X2, IdCard, BoomBox, Truck } from "lucide-react";
 import ActionButton from "@/components/ActionButton";
 
 function SellerHomePage() {
+  
   return (
     <div>
       <div className="flex justify-between items-center mb-6">

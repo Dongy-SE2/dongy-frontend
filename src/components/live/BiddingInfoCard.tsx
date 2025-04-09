@@ -2,6 +2,8 @@
 
 import createBid from "@/app/api/bid/createBid";
 import { useState } from "react";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
 
 type Props = {
   currentBidding: string;
@@ -20,8 +22,10 @@ export default function BiddingInfoCard({
 }: Props) {
   const [biddingPrice, setBiddingPrice] = useState("");
   const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const placeBidding = async () => {
+    setLoading(true)
     const biddingValue = Number(biddingPrice);
     const currentBiddingValue = Number(currentBidding);
 
@@ -44,6 +48,7 @@ export default function BiddingInfoCard({
     } catch (error) {
       console.error("❌ Error placing bid:", error);
     }
+    setLoading(false)
   };
 
   return (
@@ -71,13 +76,29 @@ export default function BiddingInfoCard({
           onChange={(e) => setBiddingPrice(e.target.value)}
           className="bg-[#F3F4F6] rounded-lg w-40 h-11 text-center"
         />
+        {!loading && (
         <button
           onClick={placeBidding}
           className="w-24 h-8 bg-[#10B981] font-medium text-base text-white rounded-lg"
         >
           ตกลง
-        </button>
+        </button> )}
+
+        {loading && (
+         
+         <div className="flex flex-col items-center justify-center mb-5 ">
+           <p className="text-black text-sm mb-2">Loading...</p>
+           <Waveform size="20" speed="1" color="black" stroke="1" />
+         </div>
+        
+       )}
+
       </div>
+
+     
+      
+
+      
 
       {/* Error Popup */}
       {showErrorPopup && (

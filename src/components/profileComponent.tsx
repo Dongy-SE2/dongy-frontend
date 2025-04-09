@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import updateProfile from "@/app/api/profile/updateProfile";
 import { User } from "@/app/api/profile/getProfile";
 import { useRouter } from "next/navigation";
+import { useFormStatus } from "react-dom";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
 
 interface ProfileProps {
   profile: User;
@@ -19,6 +22,7 @@ export default function ProfileClient({ profile, token }: ProfileProps) {
   const [profilePic, setProfilePic] = useState<string | null>(
     profile.pictureUrl || null,
   );
+
 
   return (
 
@@ -48,8 +52,12 @@ export default function ProfileClient({ profile, token }: ProfileProps) {
                 setProfilePic={setProfilePic}
               />
             </div>
+
+          
+
+
             {/* <RegistrationForm2 profile={profile} /> */}
-            <div className="flex justify-start mt-4">
+             <div className="flex justify-start mt-4">
               <Button
                 type="submit"
                 className="bg-emerald-500 text-white py-2 rounded-lg mt-4 w-36"
@@ -57,6 +65,8 @@ export default function ProfileClient({ profile, token }: ProfileProps) {
                 บันทึก
               </Button>
             </div>
+
+            
           </div>
         </form>
       </div>
