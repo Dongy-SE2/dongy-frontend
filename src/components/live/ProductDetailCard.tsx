@@ -8,8 +8,8 @@ type Props = {
   productType: string;
   productPrice: string;
   productDescription: string;
-  sellerDId;
-  reviewScore;
+  sellerDId: any;
+  reviewScore: any;
 };
 
 export default function ProductDetailCard({

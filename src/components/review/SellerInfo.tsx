@@ -1,11 +1,7 @@
-import { Card } from "./ui/card";
-import { Avatar, AvatarImage } from "./ui/avatar";
+import { Card } from "../ui/card";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { Star } from "lucide-react";
 import { SellerRating } from "@/app/api/review/getSellerRating";
-
-interface SellerName {
-  sellerName: string;
-}
 
 function SellerInfo({ sellerRating }: { sellerRating: SellerRating }) {
   return (

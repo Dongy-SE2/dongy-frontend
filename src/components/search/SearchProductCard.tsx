@@ -36,4 +36,3 @@ function SearchProductCard(props: SearchProductCardProps) {
 }
 
 export default SearchProductCard;
-
