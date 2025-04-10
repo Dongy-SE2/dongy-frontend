@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Card } from "./ui/card";
+import { Card } from "../ui/card";
 import { Star } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import createSellerReview from "@/app/api/review/createSellerReview";
 import { useRouter } from "next/navigation";
 
@@ -49,13 +49,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ token, sellerDid }) => {
             <span className="text-red-500">*</span>
           </p>
           <div className="flex mb-2">
-            {[1, 2, 3, 4, 5].map((i) => (
+            {[...Array(5).keys()].map((i) => (
               <Star
                 key={i}
                 size={24}
                 fill="currentColor"
-                className={i <= rating ? "text-orange-500" : "text-gray-300"}
-                onClick={() => handleRatingClick(i)} // Handle rating click
+                className={i < rating ? "text-orange-500" : "text-gray-300"}
+                onClick={() => handleRatingClick(i + 1)}
               />
             ))}
           </div>

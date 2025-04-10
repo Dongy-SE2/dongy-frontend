@@ -3,7 +3,8 @@
 import createBid from "@/app/api/bid/createBid";
 import { useState } from "react";
 import { Waveform } from "ldrs/react";
-import 'ldrs/react/Waveform.css'
+import "ldrs/react/Waveform.css";
+import Popup from "./Popup";
 
 type Props = {
   currentBidding: string;
@@ -22,10 +23,10 @@ export default function BiddingInfoCard({
 }: Props) {
   const [biddingPrice, setBiddingPrice] = useState("");
   const [showErrorPopup, setShowErrorPopup] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const placeBidding = async () => {
-    setLoading(true)
+    setLoading(true);
     const biddingValue = Number(biddingPrice);
     const currentBiddingValue = Number(currentBidding);
 
@@ -39,7 +40,7 @@ export default function BiddingInfoCard({
         token,
         liveDId,
         userId,
-        biddingPrice // Send bid amount correctly
+        biddingPrice, // Send bid amount correctly
       );
 
       console.log("✅ Bid placed successfully:", res);
@@ -48,12 +49,12 @@ export default function BiddingInfoCard({
     } catch (error) {
       console.error("❌ Error placing bid:", error);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   return (
-    <div className="w-[365px] h-[202px] p-7 bg-white rounded-lg shadow-md">
-      <div className="grid grid-cols-2 grid-rows-3">
+    <div className="w-[365px]  p-7 bg-white rounded-lg shadow-md">
+      <div className="grid grid-cols-2 grid-rows-[auto minmax(0,1fr)]">
         <p className="text-base font-medium text-left pb-3">ราคาปัจจุบัน</p>
         <p className="text-xl font-semibold text-[#10B981] text-left px-5 pb-3">
           {currentBidding} บาท
@@ -62,13 +63,12 @@ export default function BiddingInfoCard({
         <p className="text-xl font-normal text-gray-900 text-left px-5 pb-3">
           {timeLeft}
         </p>
-        <p className="text-base font-medium text-left col-span-2">
-          ราคาที่ต้องการประมูล (บาท)
-        </p>
       </div>
-
+      <p className="text-base font-medium text-left col-span-2">
+        ราคาที่ต้องการประมูล (บาท)
+      </p>
       {/* Input & Submit Button */}
-      <div className="flex space-x-3 items-center">
+      <div className="flex space-x-3 items-center w-full">
         <input
           type="number"
           placeholder="0"
@@ -76,50 +76,22 @@ export default function BiddingInfoCard({
           onChange={(e) => setBiddingPrice(e.target.value)}
           className="bg-[#F3F4F6] rounded-lg w-40 h-11 text-center"
         />
-        {!loading && (
-        <button
-          onClick={placeBidding}
-          className="w-24 h-8 bg-[#10B981] font-medium text-base text-white rounded-lg"
-        >
-          ตกลง
-        </button> )}
 
-        {loading && (
-         
-         <div className="flex flex-col items-center justify-center mb-5 ">
-           <p className="text-black text-sm mb-2">Loading...</p>
-           <Waveform size="20" speed="1" color="black" stroke="1" />
-         </div>
-        
-       )}
-
-      </div>
-
-     
-      
-
-      
-
-      {/* Error Popup */}
-      {showErrorPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[426px] h-[130px] text-center">
-            <p className="text-base font-normal">
-              ราคาที่ท่านเลือกต่ำกว่าราคาปัจจุบัน
-            </p>
-            <p className="text-base font-normal">กรุณากรอกราคาใหม่</p>
-
-            <div className="flex justify-end mt-4">
-              <button
-                onClick={() => setShowErrorPopup(false)}
-                className="text-[#059669] font-medium hover:underline"
-              >
-                ตกลง
-              </button>
-            </div>
+        {loading ? (
+          <div className="flex flex-col items-center justify-center mb-5 ">
+            <p className="text-black text-sm mb-2">Loading...</p>
+            <Waveform size="20" speed="1" color="black" stroke="1" />
           </div>
-        </div>
-      )}
+        ) : (
+          <button
+            onClick={placeBidding}
+            className="w-24 h-8 bg-[#10B981] font-medium text-base text-white rounded-lg"
+          >
+            ตกลง
+          </button>
+        )}
+      </div>
+      {showErrorPopup && <Popup setShowErrorPopup={setShowErrorPopup} />}
     </div>
   );
 }

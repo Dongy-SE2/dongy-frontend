@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CircleUserRound, Clock } from "lucide-react";
 import { BidInfo } from "@/app/api/live/getLive";
+import { formatThaiDate } from "@/lib/utils";
 
 export default function BidHistoryPopup({
   bidHistory,
@@ -10,35 +11,6 @@ export default function BidHistoryPopup({
   bidHistory: BidInfo[] | null;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-
-  function formatThaiDate(isoString: string): string {
-    const date = new Date(isoString);
-
-    const day = date.getDate();
-    const monthIndex = date.getMonth(); // 0-based index (Jan = 0)
-    const yearBE = date.getFullYear() + 543; // Convert to Buddhist Era
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, "0"); // Ensure two digits
-
-    // Map month index to Thai month name
-    const thaiMonths = [
-      "มกราคม",
-      "กุมภาพันธ์",
-      "มีนาคม",
-      "เมษายน",
-      "พฤษภาคม",
-      "มิถุนายน",
-      "กรกฎาคม",
-      "สิงหาคม",
-      "กันยายน",
-      "ตุลาคม",
-      "พฤศจิกายน",
-      "ธันวาคม",
-    ];
-    const monthThai = thaiMonths[monthIndex];
-
-    return `${day} ${monthThai} ${yearBE} ${hours}.${minutes} น.`;
-  }
 
   return (
     <div>

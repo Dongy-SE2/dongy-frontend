@@ -3,11 +3,11 @@
 import { CircleUserRound } from "lucide-react";
 
 type Props = {
-  liveName: String | "No live Name";
-  productName: String | "No product Name";
-  sellerName: String | "No Seller Name";
-  productType: String | "No Product Type";
-  productDescription: String | "No Product Description";
+  liveName: string;
+  productName: string;
+  sellerName: string;
+  productType: string;
+  productDescription: string;
 };
 
 export default function LiveProductInfo({
@@ -17,8 +17,9 @@ export default function LiveProductInfo({
   productType,
   productDescription,
 }: Props) {
+  console.log(productDescription);
   return (
-    <div className="w-[340px] h-[400px] bg-white p-7 rounded-lg shadow-md overflow-y-auto">
+    <div className="w-[340px] bg-white p-7 rounded-lg shadow-md overflow-y-auto">
       <h2 className="text-2xl font-semibold">{liveName}</h2>
       <div className="grid grid-cols-2 grid-rows-4 mt-6">
         <p className="text-lg font-medium pb-3">สินค้า</p>

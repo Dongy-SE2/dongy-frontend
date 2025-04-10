@@ -9,7 +9,6 @@ export interface BidInfo {
   bidOwnerFirstName: string;
   bidOwnerLastName: string;
 }
-
 export interface LiveInfo {
   id: number;
   title: string; // Maps to `live_name`
@@ -29,7 +28,10 @@ export interface LiveInfo {
   OwnerLastName: string;
 }
 
-const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | null> => {
+const getLiveById = async (
+  liveDId: string,
+  token: string,
+): Promise<LiveInfo | null> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
     if (!BACKEND_URL) {
@@ -59,16 +61,15 @@ const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | n
       product: data.bidding_product?.product_name || "ไม่ระบุสินค้า",
       startDate: data.scheduled_live_start_time || "",
       endDate: data.scheduled_live_end_time || "",
-      status: data.state || "unknown",
-      link: data.live_link || null,
-      image:
-        data.bidding_product?.product_image?.[0]?.url
-          ? `${BACKEND_URL}${data.bidding_product.product_image[0].url}`
-          : "/default-image.jpg",
-      sellerName: data.sellerName || "unknown",
-      productDescription: data.bidding_product?.product_description || "unknown",
-      productType: data.bidding_product?.categories || "unknown",
-      presentPrice: data.present_price?.toString() || "unknown",
+      status: data.state,
+      link: data.live_link,
+      image: data.bidding_product?.product_image?.[0]?.url
+        ? `${BACKEND_URL}${data.bidding_product.product_image[0].url}`
+        : "/default-image.jpg",
+      sellerName: data.sellerName,
+      productDescription: data.bidding_product?.product_description,
+      productType: data.bidding_product?.categories,
+      presentPrice: data.present_price?.toString(),
       bids: data.bids?.map((bid: any) => ({
         id: bid.id,
         bidPlaced: bid?.bid_placed,
@@ -76,17 +77,20 @@ const getLiveById = async (liveDId: string, token: string): Promise<LiveInfo | n
         createdAt: bid?.createdAt,
         updatedAt: bid?.updatedAt,
         bidOwnerFirstName: bid.bid_owner?.firstname,
-        bidOwnerLastName: bid.bid_owner?.lastname
+        bidOwnerLastName: bid.bid_owner?.lastname,
       })),
       productDId: data.bidding_product.documentId,
       OwnerFirstName: data.bidding_product.owner.firstname,
-      OwnerLastName: data.bidding_product.owner.lastname
-      || [],
+      OwnerLastName: data.bidding_product.owner.lastname || [],
     };
   } catch (error: any) {
-    console.error("❌ Error fetching live event:", error.response?.data || error.message);
+    console.error(
+      "❌ Error fetching live event:",
+      error.response?.data || error.message,
+    );
     return null;
   }
 };
 
 export default getLiveById;
+

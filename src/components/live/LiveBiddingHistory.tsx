@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { EventSourcePolyfill } from "event-source-polyfill";
 import { BidInfo } from "@/app/api/live/getLive";
 import getLiveById from "@/app/api/live/getLive";
 import BidHistoryPopup from "./BidHistoryPopup";
+import { EventSourcePolyfill } from "event-source-polyfill";
 
 type Props = {
   startTime: string;
@@ -22,7 +22,7 @@ export default function LiveBiddingHistory({
   token,
 }: Props) {
   const [biddingList, setBiddingList] = useState<BidInfo[]>(
-    biddingHistory || []
+    biddingHistory || [],
   );
 
   useEffect(() => {
@@ -58,16 +58,16 @@ export default function LiveBiddingHistory({
 
   return (
     <div className="w-[365px] h-[180px] mt-4 p-7 bg-white rounded-lg shadow-md text-center">
-       <div className="grid grid-cols-3 grid-rows-2">
-         <p className="text-lg font-medium pb-3">เวลาเริ่มต้น</p>
-         <p className="text-base font-normal text-gray-900 col-span-2 pb-3">
-           {startTime}
-         </p>
-         <p className="text-lg font-medium">เวลาสิ้นสุด</p>
-         <p className="text-base font-normal text-gray-900 col-span-2">
-           {endTime}
-         </p>
-       </div>
+      <div className="grid grid-cols-3 grid-rows-2">
+        <p className="text-lg font-medium pb-3">เวลาเริ่มต้น</p>
+        <p className="text-base font-normal text-gray-900 col-span-2 pb-3">
+          {startTime}
+        </p>
+        <p className="text-lg font-medium">เวลาสิ้นสุด</p>
+        <p className="text-base font-normal text-gray-900 col-span-2">
+          {endTime}
+        </p>
+      </div>
 
       <BidHistoryPopup bidHistory={biddingList} />
     </div>
