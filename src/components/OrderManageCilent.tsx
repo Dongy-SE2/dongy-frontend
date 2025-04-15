@@ -6,6 +6,9 @@ import OrderDetails from "@/components/OrderDetail";
 import ShippingDetails from "@/components/OrderShippingDetail";
 import updateOrder from "@/app/api/order/updateOrder"; // ✅ Import update function
 import MovebackButton from "./MovebackButton";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
+
 
 export default function OrderManageClient({
   orders,
@@ -19,6 +22,7 @@ export default function OrderManageClient({
   const [tracking, setTracking] = useState(
     selectedOrder.tracking_no || "ไม่ระบุ"
   );
+  const[loading,setLoading] = useState(false)
 
   useEffect(() => {
     setCarrier(selectedOrder.courier || "ไม่ระบุ");
@@ -31,6 +35,7 @@ export default function OrderManageClient({
   };
 
   const handleSave = async () => {
+    setLoading(true)
     if (selectedOrder.state === "อยู่ระหว่างดำเนินการ") {
       try {
         await updateOrder(selectedOrder.documentId, token, carrier, tracking);
@@ -41,6 +46,7 @@ export default function OrderManageClient({
     } else {
       alert("สถานะนี้ไม่สามารถอัปเดตได้");
     }
+    setLoading(false)
   };
   // console.log(selectedOrder);
 
@@ -78,7 +84,14 @@ export default function OrderManageClient({
               onTrackingChange={setTracking}
             />
 
-            <div className="mt-3 flex gap-2">
+{loading && (
+  <div className="flex flex-col items-center justify-center mb-3 ">
+    <p className="text-black text-sm mb-2">Loading...</p>
+    <Waveform size="20" speed="1" color="black" stroke="1" />
+  </div>
+)}
+
+            {!loading && (<div className="mt-3 flex gap-2">
               <button
                 className="bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-600"
                 onClick={() => console.log("รายงานปัญหา")}
@@ -91,7 +104,7 @@ export default function OrderManageClient({
               >
                 บันทึก
               </button>
-            </div>
+            </div>)}
           </div>
         </div>
       </div>

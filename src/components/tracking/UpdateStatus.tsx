@@ -4,11 +4,14 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import updateBuyerOrderState from "@/app/api/order/updateBuyerOrderState";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
 
 const UpdateStatus: React.FC<{
   order: Order;
+  loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ order, setLoading }) => {
+}> = ({ order, loading ,setLoading }) => {
   const router = useRouter();
   const { data } = useSession();
 
@@ -27,10 +30,21 @@ const UpdateStatus: React.FC<{
     } else {
       console.error(error);
     }
+    setLoading(false)
   };
   return (
+    <>
     <div className="w-full flex justify-center mt-5">
-      <Link
+    {loading && (
+  <div className="flex flex-col items-center justify-center mb-3 ">
+    <p className="text-black text-sm mb-2">Loading...</p>
+    <Waveform size="20" speed="1" color="black" stroke="1" />
+  </div>
+)}
+
+      {!loading && (
+        <div>
+        <Link
         href=""
         className="rounded-md px-5 py-3 bg-red-400 text-white font-medium mr-7"
       >
@@ -42,7 +56,10 @@ const UpdateStatus: React.FC<{
       >
         ได้รับสินค้าแล้ว
       </button>
+      </div>)}
+
     </div>
+    </>
   );
 };
 

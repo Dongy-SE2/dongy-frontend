@@ -21,7 +21,7 @@ export default function TrackingInfo() {
           <p className="font-medium text-sm">สถานะ</p>
           <OrderInfo order={orders[idx]} />
           {orders[idx].state !== "ได้รับสินค้าแล้ว" && (
-            <UpdateStatus setLoading={setLoading} order={orders[idx]} />
+            <UpdateStatus loading={loading} setLoading={setLoading} order={orders[idx]} />
           )}
         </>
       ) : !loading ? (
