@@ -32,6 +32,7 @@ export default function BiddingInfoCard({
 
     if (isNaN(biddingValue) || biddingValue <= currentBiddingValue) {
       setShowErrorPopup(true);
+      setLoading(false)
       return;
     }
 

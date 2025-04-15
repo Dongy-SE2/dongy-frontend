@@ -111,11 +111,11 @@ export default function LoginForm() {
           </div>
 
           {loading && (
-  <div className="flex flex-col items-center justify-center mb-3 ">
-    <p className="text-black text-sm mb-2">Loading...</p>
-    <Waveform size="20" speed="1" color="black" stroke="1" />
-  </div>
-)}
+            <div className="flex flex-col items-center justify-center mb-3 ">
+            <p className="text-black text-sm mb-2">Loading...</p>
+            <Waveform size="20" speed="1" color="black" stroke="1" />
+            </div>
+          )}
 
           {errorMessage && !loading &&(
             <div className="mb-3 text-red-500 text-sm text-center">

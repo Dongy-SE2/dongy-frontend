@@ -5,10 +5,15 @@ import { Input } from "@/components/ui/input";
 import sellerPayment from "@/app/api/sellerPayment/sellerPayment";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Waveform } from "ldrs/react";
+import 'ldrs/react/Waveform.css'
+import { useState } from "react";
 
 function SellerBankAccount({ token }: { token: string }) {
+  const [loading,setLoading] = useState(false)
   const handleSubmit = async (data: FormData) => {
     // EDIT HERE (API HANDLER)
+    setLoading(true)
     const response = await sellerPayment(data, token);
     if (response.success) {
       alert("บันทึกข้อมูลสำเร็จ");
@@ -18,6 +23,7 @@ function SellerBankAccount({ token }: { token: string }) {
       console.error("Seller Payment Error:", response.message);
       alert("บันทึกข้อมูลไม่สำเร็จ");
     }
+    setLoading(false)
   };
 
   return (
@@ -75,12 +81,20 @@ function SellerBankAccount({ token }: { token: string }) {
                 </div>
               </div> */}
               <div className="flex flex-col items-center">
-                <Button
+
+              {loading && (
+  <div className="flex flex-col items-center justify-center mb-3 ">
+    <p className="text-black text-sm mb-2">Loading...</p>
+    <Waveform size="20" speed="1" color="black" stroke="1" />
+  </div>
+)}
+
+                {!loading && (<Button
                   type="submit"
                   className="bg-emerald-500 text-white rounded-md w-28 px-3 py-1 text-sm"
                 >
                   ยืนยัน
-                </Button>
+                </Button>)}
               </div>
             </div>
           </form>
