@@ -31,9 +31,7 @@ export default function LiveStatusCard({ isLive, timeLeft, liveDId }: Props) {
           <p className="text-base text-gray-600">
             การประมูลจะเริ่มต้นในอีก {timeLeft}
           </p>
-          <button className="mt-3 bg-gray-600 text-white px-4 py-2 rounded-lg">
-            ดูการประมูล
-          </button>
+
         </div>
       )}
 

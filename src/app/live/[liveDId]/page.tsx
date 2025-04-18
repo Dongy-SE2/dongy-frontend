@@ -21,7 +21,7 @@ export default async function LiveBidding({
   const liveInfo = (await getLiveById(liveDId, session.user.jwt)) || null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9]">
+    <div className="min-h-screen bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100%">
       <div className="flex justify-center items-center relative w-full pt-14 pb-6">
         {/* Live Stream */}
         <Livestream liveInfo={liveInfo} />

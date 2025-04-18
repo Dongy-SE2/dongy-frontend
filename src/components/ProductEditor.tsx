@@ -41,7 +41,7 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
               uploadImage,
             );
             if (res === 201) {
-              alert("Success!");
+              alert("เพิ่มสินค้าเรียบร้อย");
               router.replace("/user/");
             }
       
@@ -53,7 +53,7 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
               uploadImage,
             );
             if (res === 201 || res === 200) {
-              alert("Success!");
+              alert("แก้ไขข้อมูลเรียบร้อย");
               router.refresh();
             }
           }

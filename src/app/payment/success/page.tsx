@@ -3,7 +3,8 @@ import Link from "next/link";
 
 export default function SuccessPage() {
   return (
-    <div className="bg-white shadow-lg text-center p-10">
+    <div className="mx-auto flex flex-col items-center min-h-screen bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
+    <div className="bg-white shadow-lg rounded-xl bg-opacity-50 border text-center p-10">
       <div className="flex justify-center w-full">
         <CheckCircle2Icon
           className="bg-green-500 text-white rounded-full block"
@@ -21,5 +22,7 @@ export default function SuccessPage() {
         กลับหน้าหลัก
       </Link>
     </div>
+    </div>
+    
   );
 }

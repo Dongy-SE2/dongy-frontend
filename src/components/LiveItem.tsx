@@ -20,7 +20,7 @@ const LiveItem: React.FC<{
   console.log(live);
   return (
     <button
-      className={`flex flex-row justify-between ${!isSelect ? "bg-gray-100" : "bg-gray-600"} px-2 py-2 text-sm rounded-xl my-3 text-left w-full`}
+      className={`flex flex-row justify-between ${!isSelect ? "bg-gray-100" : "bg-gray-600"} px-2 py-2 text-sm mb-5 rounded-xl text-left w-full`}
       onClick={() => {
         if (setSelect) setSelect(index);
         changeSelect(true);

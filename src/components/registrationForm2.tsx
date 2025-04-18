@@ -69,8 +69,9 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
                 <Input
                   type="text"
                   name="username"
+                  placeholder="ชื่อบัญชีผู้ใช้"
                   defaultValue={profile?.username || ""}
-                  className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
+                  className="block my-3 bg-white px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
                   required
                 />
               </>
@@ -83,6 +84,7 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
             <Input
               type="email"
               name="email"
+              placeholder="อีเมล"
               defaultValue={profile?.email || ""}
               className="block bg-white px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required
@@ -100,8 +102,9 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
             <Input
               type="password"
               name="password"
+              placeholder="รหัสผ่าน"
               defaultValue={""}
-              className="block bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
+              className="block bg-white px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required={!location.includes("/profile")}
             />
             <label className="block text-gray-700 whitespace-nowrap text-sm">
@@ -116,7 +119,8 @@ const RegistrationForm2 = ({ profile }: { profile?: any }) => {
               type="password"
               name="confirmPassword"
               defaultValue={""}
-              className="block my-3 bg-gray-100 px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
+              placeholder="ใส่รหัสผ่านอีกครั้ง"
+              className="block my-3 bg-white px-4 py-2 rounded-[8px] text-sm w-64 col-span-2"
               required={!location.includes("/profile")}
             />
           </div>

@@ -30,18 +30,18 @@ function SellerBankAccount({ token }: { token: string }) {
     <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] p-6 py-14">
       <div className="w-3/5 mx-auto">
         <div className="flex">
-          <h1 className="text-3xl font-bold mb-4">สร้างบัญชีผู้ขาย</h1>
+          <h1 className="text-3xl font-bold mb-4">ช่องทางการรับชำระเงิน</h1>
           <span className="ml-auto">
             <MovebackButton href="login" />
           </span>
         </div>
 
-        <div className="flex flex-row gap-5 mt-5 items-center justify-between">
+        <div className="flex flex-row gap-5 mt-5 items-center justify-center">
           <form action={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-1">
-                <h2 className="font-medium">บัญชีธนาคาร</h2>
-                <div className="bg-white w-96 h-fit grid grid-cols-4 gap-5 p-4 items-center">
+                <h2 className="font-medium text-lg">เลขที่บัญชีธนาคาร</h2>
+                <div className="bg-white w-96 mt-2 rounded-md h-fit grid grid-cols-4 gap-5 px-4 py-6 items-center">
                   <p className="text-sm max-w-16">
                     ธนาคาร<span className="text-red-500">*</span>
                   </p>

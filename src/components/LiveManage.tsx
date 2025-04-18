@@ -121,25 +121,25 @@ const LiveManage: React.FC<Props> = ({
           src={live?.images?.[0]?.url || "/default-image.jpg"}
           width={400}
           height={400}
-          alt={live?.title || "Live Thumbnail"}
+          alt=""
           className="w-52 h-32 object-cover rounded-lg"
         />
         <div className="ml-5">
-          <p className="bg-black text-white w-24 h-6 text-center rounded-md text-sm">
+          <p className="flex flex-col items-center justify-center bg-black text-white w-24 h-6 text-center rounded-md text-sm">
             ตัวอย่าง
           </p>
-          <h3 className="font-semibold text-lg">{liveName}</h3>
-          <p className="text-gray-500 text-sm align-middle">
+          <h3 className="mt-2 font-semibold text-lg">{liveName}</h3>
+          <p className="text-gray-500 text-sm align-middle w-60">
             <User className="inline-block" width={"1rem"} /> {sellerName}
           </p>
-          <p className="text-gray-500 text-sm align-middle">
+          <p className="text-gray-500 text-sm align-middle w-60">
             <Clock className="inline-block" width={"1rem"} /> {timeLeft}
           </p>
         </div>
       </div>
 
       {/* 🔹 Live Management Form */}
-      <div className="text-base px-6 py-6 bg-white shadow-md mt-6 rounded-lg">
+      <div className="flex flex-col gap-3 text-base px-6 py-6 bg-white shadow-md mt-6 rounded-lg">
         {/* Live Name */}
         <div className="flex flex-row mb-3 items-center">
           <p>
@@ -235,7 +235,7 @@ const LiveManage: React.FC<Props> = ({
           </select>
         </div>
         {/* Live Link */}
-        <div className="flex flex-row ">
+        <div className="flex flex-row items-center">
           <p>
             ลิงค์<span className="text-red-600 text-sm">*</span>
           </p>
@@ -281,7 +281,7 @@ const LiveManage: React.FC<Props> = ({
         </button>
         {live.status !== "closed" && (
           <button
-            className="rounded-lg bg-green-500 px-7 py-2 text-white"
+            className="rounded-lg bg-emerald-500 px-7 py-2 text-white"
             onClick={async (e) => {
               e.preventDefault();
               setLoading(true)

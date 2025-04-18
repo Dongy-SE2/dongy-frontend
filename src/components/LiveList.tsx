@@ -22,7 +22,7 @@ const LiveList: React.FC<{
 
   return (
     <div className="mb-6">
-      <div className="w-80 max-h-[606px] bg-white shadow-md rounded-xl px-4 py-1 overflow-y-auto">
+      <div className="w-80 h-fit max-h-[606px] bg-white shadow-md rounded-xl p-4 overflow-y-auto">
         {liveList.map((live, index) => (
           <LiveItem live={live} key={live.id} index={index} />
         ))}
