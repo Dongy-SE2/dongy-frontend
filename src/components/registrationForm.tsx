@@ -31,7 +31,7 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               คำนำหน้า<span className="text-red-500">*</span>
             </label>
             <select
-              className="block bg-gray-100 px-4 py-2 text-sm max-w-28 border rounded-lg col-span-2"
+              className="block bg-gray-100 py-2 text-sm max-w-28 border rounded-lg col-span-2"
               name="title"
               defaultValue={profile?.title || ""}
             >

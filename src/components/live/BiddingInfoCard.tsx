@@ -54,14 +54,14 @@ export default function BiddingInfoCard({
   };
 
   return (
-    <div className="w-[365px]  p-7 bg-white rounded-lg shadow-md">
+    <div className="w-[365px] p-7 bg-white rounded-lg shadow-md">
       <div className="grid grid-cols-2 grid-rows-[auto minmax(0,1fr)]">
         <p className="text-base font-medium text-left pb-3">ราคาปัจจุบัน</p>
-        <p className="text-xl font-semibold text-[#10B981] text-left px-5 pb-3">
+        <p className="text-lg font-semibold text-[#10B981] text-left px-5 pb-3">
           {currentBidding} บาท
         </p>
         <p className="text-base font-medium text-left pb-3">เวลาที่เหลือ</p>
-        <p className="text-xl font-normal text-gray-900 text-left px-5 pb-3">
+        <p className="text-lg font-normal text-gray-900 text-left px-5 pb-3">
           {timeLeft}
         </p>
       </div>
@@ -69,7 +69,7 @@ export default function BiddingInfoCard({
         ราคาที่ต้องการประมูล (บาท)
       </p>
       {/* Input & Submit Button */}
-      <div className="flex space-x-3 items-center w-full">
+      <div className="mt-3 flex space-x-3 items-center justify-center w-full gap-3">
         <input
           type="number"
           placeholder="0"
