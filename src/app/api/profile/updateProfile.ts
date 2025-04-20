@@ -1,6 +1,7 @@
 "use server";
 
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 export default async function updateProfile(
   data: FormData,
@@ -34,7 +35,6 @@ export default async function updateProfile(
         headers: { Authorization: `Bearer ${token}` },
       },
     );
-
     if ((profileImage as any).size > 0) {
       const formData = new FormData();
       formData.append("profile_picture", profileImage as any);
@@ -47,6 +47,7 @@ export default async function updateProfile(
       );
       return upload.status;
     }
+
     return res.status;
   } catch (e) {
     console.error(e);

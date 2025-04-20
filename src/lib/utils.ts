@@ -21,9 +21,11 @@ const client = createClient<paths>({
 
 function calculateTimeLeft(startDate?: string): string {
   if (!startDate) return "ไม่มีกำหนดการ"; // No upcoming live
-
   const now = new Date();
   const start = new Date(startDate);
+  console.log(startDate);
+  console.log(start);
+  console.log(now);
   const diffMs = Math.abs(start.getTime() - now.getTime());
 
   const minutes = Math.floor(diffMs / 60000);

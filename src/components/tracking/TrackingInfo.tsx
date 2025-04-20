@@ -12,16 +12,24 @@ export default function TrackingInfo() {
   const { orders, idx } = useContext(orderProvider);
   const [loading, setLoading] = useState(false);
   return (
-    <div
-      className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-[0.9rem] grid-flow-row-dense items-center bg-white shadow-md rounded-xl px-8 py-6 w-[35rem] h-72 text-gray-600"
-      style={{ gridAutoRows: "minmax(auto, max-content)" }}
-    >
-      {!loading || orders[idx] ? (
+    <>
+      {!loading && orders[idx] ? (
         <>
-          <p className="font-medium text-sm">สถานะ</p>
-          <OrderInfo order={orders[idx]} />
+          <div className="bg-white shadow-md rounded-xl px-8 py-6 w-[35rem] h-72 ">
+            <p className="font-medium text-sm">สถานะ</p>
+            <div
+              className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-[0.9rem] grid-flow-row-dense items-center text-gray-600"
+              style={{ gridAutoRows: "minmax(auto, max-content)" }}
+            >
+              <OrderInfo order={orders[idx]} />
+            </div>
+          </div>
           {orders[idx].state !== "ได้รับสินค้าแล้ว" && (
-            <UpdateStatus loading={loading} setLoading={setLoading} order={orders[idx]} />
+            <UpdateStatus
+              loading={loading}
+              setLoading={setLoading}
+              order={orders[idx]}
+            />
           )}
         </>
       ) : !loading ? (
@@ -34,6 +42,6 @@ export default function TrackingInfo() {
           <Waveform size="20" speed="1" color="black" stroke="1" />
         </div>
       )}
-    </div>
+    </>
   );
 }

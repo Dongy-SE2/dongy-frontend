@@ -2,7 +2,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Selection } from "./LiveContext";
 import Image from "next/image";
-import { LiveInfo } from "@/app/api/live/getLiveList";
 import deleteLive from "@/app/api/live/deleteLive";
 import updateLive from "@/app/api/live/updateLive";
 import { Clock, User } from "lucide-react";
@@ -10,40 +9,41 @@ import openLive from "@/app/api/live/openLive";
 import closeLive from "@/app/api/live/closeLive";
 import { Product } from "@/app/api/product/getProductList";
 import { Waveform } from "ldrs/react";
-import 'ldrs/react/Waveform.css'
+import "ldrs/react/Waveform.css";
+import getLiveList from "@/app/api/live/getLiveList";
 
 interface Props {
-  lives: LiveInfo[];
   token: string;
   products: Product[];
   sellerName: string;
 }
 
 const formatDateForInput = (isoDate: string) => {
-  return isoDate ? isoDate.slice(0, 16) : "";
+  const date = new Date(isoDate);
+  const pad = (n: number) => n.toString().padStart(2, "0");
+
+  return (
+    `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}` +
+    `T${pad(date.getHours())}:${pad(date.getMinutes())}`
+  );
 };
 
-const LiveManage: React.FC<Props> = ({
-  lives,
-  token,
-  products,
-  sellerName,
-}) => {
-  const { selection } = useContext(Selection);
+const LiveManage: React.FC<Props> = ({ token, products, sellerName }) => {
+  const { selection, lives, setLives } = useContext(Selection);
   const live = lives[selection] || null;
 
   const [liveName, setLiveName] = useState(live?.title || "");
   const [product, setProduct] = useState(live?.product || "");
   const [startDate, setStartDate] = useState(
-    formatDateForInput(live?.startDate || "")
+    formatDateForInput(live?.startDate || ""),
   );
   const [endDate, setEndDate] = useState(
-    formatDateForInput(live?.endDate || "")
+    formatDateForInput(live?.endDate || ""),
   );
   const [status, setStatus] = useState(live?.status || "public");
   const [link, setLink] = useState(live?.link || "");
   const [timeLeft, setTimeLeft] = useState("");
-  const[loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLiveName(live?.title || "");
@@ -103,6 +103,10 @@ const LiveManage: React.FC<Props> = ({
     console.log(field, value);
     try {
       await updateLive(live.did, token, { [field]: value });
+      const newLives = await getLiveList(token);
+      if (setLives) {
+        setLives(newLives);
+      }
       console.log(`✅ Updated ${field} successfully!`);
     } catch (error) {
       console.error(`❌ Failed to update ${field}:`, error);
@@ -190,8 +194,9 @@ const LiveManage: React.FC<Props> = ({
             type="datetime-local"
             value={startDate}
             onChange={(e) => {
-              setStartDate(e.target.value);
-              handleUpdate("startDate", e.target.value);
+              const date = new Date(e.target.value);
+              setStartDate(date.toISOString());
+              handleUpdate("startDate", date.toISOString());
             }}
             disabled={status === "ongoing" || status === "closed"}
           />
@@ -207,8 +212,9 @@ const LiveManage: React.FC<Props> = ({
             type="datetime-local"
             value={endDate}
             onChange={(e) => {
-              setEndDate(e.target.value);
-              handleUpdate("endDate", e.target.value);
+              const date = new Date(e.target.value);
+              setEndDate(date.toISOString());
+              handleUpdate("endDate", date.toISOString());
             }}
             disabled={status === "ongoing" || status === "closed"}
           />
@@ -258,54 +264,59 @@ const LiveManage: React.FC<Props> = ({
       </div>
 
       {loading && (
-         <div className="mt-5 flex flex-col items-center justify-center mb-3 ">
-         <p className="text-black text-sm mb-2">Loading...</p>
-         <Waveform size="20" speed="1" color="black" stroke="1" />
-       </div>
-
+        <div className="mt-5 flex flex-col items-center justify-center mb-3 ">
+          <p className="text-black text-sm mb-2">Loading...</p>
+          <Waveform size="20" speed="1" color="black" stroke="1" />
+        </div>
       )}
 
       {/* Action Buttons */}
-      {!loading && (<div className="mt-5 flex flex-row justify-evenly w-full px-16">
-        <button
-          className="rounded-lg bg-red-400 px-12 py-2 text-white"
-          onClick={async (e) => {
-            e.preventDefault();
-            setLoading(true)
-            const res = await deleteLive(live.did, token);
-            if (res) alert("Live Deleted!");
-            setLoading(false)
-          }}
-        >
-          ลบ
-        </button>
-        {live.status !== "closed" && (
+      {!loading && (
+        <div className="mt-5 flex flex-row justify-evenly w-full px-16">
           <button
-            className="rounded-lg bg-green-500 px-7 py-2 text-white"
+            className="rounded-lg bg-red-400 px-12 py-2 text-white"
             onClick={async (e) => {
               e.preventDefault();
-              setLoading(true)
-              if (live.status === "ongoing") {
-                const res = await closeLive(live.did, token);
-                if (res) alert("Live Closed!");
-              } else {
-                const res = await openLive(live.did, token);
-                if (res) alert("Live Open!");
-              }
-              setLoading(false)
+              setLoading(true);
+              const res = await deleteLive(live.did, token);
+              if (res) alert("Live Deleted!");
+              const newLives = await getLiveList(token);
+              if (setLives) setLives(newLives);
+              setLoading(false);
             }}
           >
-            {live.status === "ongoing" ? "จบไลฟ์" : "เริ่มไลฟ์"}
+            ลบ
           </button>
-        )}
+          {live.status !== "closed" && (
+            <button
+              className="rounded-lg bg-green-500 px-7 py-2 text-white"
+              onClick={async (e) => {
+                e.preventDefault();
+                setLoading(true);
+                if (live.status === "ongoing") {
+                  const res = await closeLive(live.did, token);
+                  if (res) alert("Live Closed!");
+                } else {
+                  const res = await openLive(live.did, token);
+                  if (res) alert("Live Open!");
+                }
+                const newLives = await getLiveList(token);
+                if (setLives) setLives(newLives);
+                setLoading(false);
+              }}
+            >
+              {live.status === "ongoing" ? "จบไลฟ์" : "เริ่มไลฟ์"}
+            </button>
+          )}
 
-        <button
-          className="rounded-lg bg-gray-500 px-5 py-2 text-white"
-          onClick={() => navigator.clipboard.writeText(link)}
-        >
-          คัดลอกลิงค์
-        </button>
-      </div> )}
+          <button
+            className="rounded-lg bg-gray-500 px-5 py-2 text-white"
+            onClick={() => navigator.clipboard.writeText(link)}
+          >
+            คัดลอกลิงค์
+          </button>
+        </div>
+      )}
     </form>
   );
 };

@@ -21,7 +21,7 @@ export interface LiveInfo {
   productDId: string;
 }
 
-const getLiveList = async (userId: string, token: string): Promise<LiveInfo[]> => {
+const getLiveList = async (token: string): Promise<LiveInfo[]> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
     if (!BACKEND_URL) {
@@ -58,13 +58,24 @@ const getLiveList = async (userId: string, token: string): Promise<LiveInfo[]> =
             thumbnail: `${process.env.BACKEND}${img.formats?.thumbnail?.url || img.url}`,
             small: `${process.env.BACKEND}${img.formats?.small?.url || img.url}`,
           }))
-        : [{ id: 0, url: "/default-image.jpg", thumbnail: "/default-image.jpg", small: "/default-image.jpg" }], // ✅ Default if no images
-      productDId: live.bidding_product?.documentId
+        : [
+            {
+              id: 0,
+              url: "/default-image.jpg",
+              thumbnail: "/default-image.jpg",
+              small: "/default-image.jpg",
+            },
+          ], // ✅ Default if no images
+      productDId: live.bidding_product?.documentId,
     }));
 
     return lives;
   } catch (error: any) {
-    console.error("❌ Error fetching live bidding data:", error.code, error.response?.data || error.message);
+    console.error(
+      "❌ Error fetching live bidding data:",
+      error.code,
+      error.response?.data || error.message,
+    );
 
     return [];
   }

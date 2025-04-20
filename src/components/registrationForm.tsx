@@ -11,10 +11,10 @@ interface ProfileData {
   phone: string;
   SSN: string;
   location: string;
+  documentId: string;
 }
 
 const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
-  console.log(profile);
   const formatDateForInput = (isoDate: string | null) => {
     if (!isoDate) return ""; // Handle null or undefined values
     return isoDate;
@@ -34,6 +34,7 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               className="block bg-gray-100 px-4 py-2 text-sm max-w-28 border rounded-lg col-span-2"
               name="title"
               defaultValue={profile?.title || ""}
+              required
             >
               <option value="" disabled>
                 -- Select --
@@ -65,7 +66,6 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               defaultValue={profile?.lastname || ""}
               className="col-span-4 text-sm"
               placeholder="สกุล"
-
               required
             />
 
@@ -89,7 +89,6 @@ const RegistrationForm = ({ profile }: { profile?: ProfileData }) => {
               defaultValue={profile?.phone || ""}
               className="col-span-3 text-sm"
               placeholder="เบอร์โทรศัพท์"
-
               required
             />
 

@@ -1,8 +1,14 @@
-import { FolderPlus, Grid2X2, IdCard, BoomBox, Truck } from "lucide-react";
+import {
+  FolderPlus,
+  Grid2X2,
+  IdCard,
+  BoomBox,
+  Truck,
+  MegaphoneIcon,
+} from "lucide-react";
 import ActionButton from "@/components/ActionButton";
 
 function SellerHomePage() {
-  
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
@@ -40,6 +46,12 @@ function SellerHomePage() {
           ActionName={"สินค้ารอจัดส่ง"}
           Icon={<Truck />}
           route={"/order"}
+        />
+        <ActionButton
+          key={6}
+          ActionName={"รายงาน"}
+          Icon={<MegaphoneIcon />}
+          route={"/report?type=general"}
         />
       </div>
     </div>

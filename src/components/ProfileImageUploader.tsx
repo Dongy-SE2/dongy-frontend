@@ -30,9 +30,11 @@ const ProfileImageUploader: React.FC<{
         </div>
         <div>
           <button
-            type="button"
             className="block rounded-full bg-white p-2.5 my-2"
-            onClick={() => uploadRef.current?.click()}
+            onClick={(e) => {
+              e.preventDefault();
+              uploadRef.current?.click();
+            }}
           >
             <UploadIcon width={18} height={18} />
           </button>

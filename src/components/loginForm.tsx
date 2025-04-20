@@ -3,21 +3,22 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
-import { cn } from "@/lib/utils";
-import { signIn } from "next-auth/react"; // Importing signIn from next-auth
+import { getSession, signIn, useSession } from "next-auth/react"; // Importing signIn from next-auth
 import { Waveform } from "ldrs/react";
-import 'ldrs/react/Waveform.css'
+import "ldrs/react/Waveform.css";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
-  const [role, setRole] = useState<"buyer" | "seller">("seller");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setErrorMessage("")
+    setErrorMessage("");
 
     if (!email || !password) {
       setErrorMessage("กรุณากรอกอีเมลและรหัสผ่าน");
@@ -26,27 +27,35 @@ export default function LoginForm() {
 
     let response: any;
 
-    try{
-        setLoading(true)
-        response = await signIn("credentials", {
+    try {
+      setLoading(true);
+      response = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
-      
-    } catch (error){
-      console.log(error)
-    }
-    finally{
-      setLoading(false)
+      const session = await getSession();
+      if (session && session.user) {
+        switch (session.user.role) {
+          case "buyer":
+            router.replace("/product");
+            break;
+          case "seller":
+            router.replace("/user");
+            break;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
       if (response?.error) {
-      setErrorMessage("การเข้าสู่ระบบล้มเหลว");
-    } else {
-      // Redirect to the appropriate page after successful login
-      window.location.href = "/user"; // Example redirect
+        setErrorMessage("การเข้าสู่ระบบล้มเหลว");
+      } else {
+        // Redirect to the appropriate page after successful login
+        window.location.href = "/user"; // Example redirect
+      }
     }
-    }
-
   };
 
   return (
@@ -83,7 +92,6 @@ export default function LoginForm() {
           {/*   </div> */}
           {/* </div> */}
 
-
           <div className="mb-3 flex items-center gap-11">
             <label className="block text-gray-699 whitespace-nowrap text-sm">
               อีเมล
@@ -112,25 +120,26 @@ export default function LoginForm() {
 
           {loading && (
             <div className="flex flex-col items-center justify-center mb-3 ">
-            <p className="text-black text-sm mb-2">Loading...</p>
-            <Waveform size="20" speed="1" color="black" stroke="1" />
+              <p className="text-black text-sm mb-2">Loading...</p>
+              <Waveform size="20" speed="1" color="black" stroke="1" />
             </div>
           )}
 
-          {errorMessage && !loading &&(
+          {errorMessage && !loading && (
             <div className="mb-3 text-red-500 text-sm text-center">
               {errorMessage}
             </div>
           )}
 
-          {!loading &&( <div className="flex w-full flex-row items-center justify-center">
-            <Button
-              type="submit"
-              className="w-32 bg-[#11B981] text-white py-2 rounded-lg mt-2"
-            > 
-              เข้าสู่ระบบ
-            </Button>
-          </div>
+          {!loading && (
+            <div className="flex w-full flex-row items-center justify-center">
+              <Button
+                type="submit"
+                className="w-32 bg-[#11B981] text-white py-2 rounded-lg mt-2"
+              >
+                เข้าสู่ระบบ
+              </Button>
+            </div>
           )}
         </form>
       </CardContent>

@@ -12,7 +12,9 @@ import { SessionProvider } from "next-auth/react";
 export default async function TrackingPage() {
   const session = await auth();
   if (!session || !session.user) redirect("/login");
-  const orders = await getBuyerOrder(session.user.jwt);
+  const orders = (await getBuyerOrder(session.user.jwt)).filter(
+    (order) => order.state !== "รอดำเนินการ",
+  );
   return (
     <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
       <div className="flex flex-col">

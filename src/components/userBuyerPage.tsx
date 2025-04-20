@@ -1,4 +1,4 @@
-import { IdCard, Truck, ShoppingCart } from "lucide-react";
+import { IdCard, Truck, ShoppingCart, MegaphoneIcon } from "lucide-react";
 import ActionButton from "@/components/ActionButton";
 import MovebackButton from "./MovebackButton";
 
@@ -29,7 +29,12 @@ function BuyerHomePage() {
           Icon={<Truck />}
           route={"/tracking"}
         />
-        <ActionButton key={4} ActionName={""} Icon={<div />} route={"/user"} />
+        <ActionButton
+          key={4}
+          ActionName={"รายงาน"}
+          Icon={<MegaphoneIcon />}
+          route={"/report?type=general"}
+        />
       </div>
     </div>
   );

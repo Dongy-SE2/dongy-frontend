@@ -1,25 +1,24 @@
 "use client";
-import { useState } from "react";
-import { LiveInfo } from "@/app/api/live/getLiveList";
+import { useContext } from "react";
 import LiveItem from "./LiveItem";
 import createLive from "@/app/api/live/createLive";
 import { useRouter } from "next/navigation";
+import { Selection } from "./LiveContext";
+import getLiveList from "@/app/api/live/getLiveList";
 
 const LiveList: React.FC<{
-  lives: Array<LiveInfo>;
   token: string;
   sellerId: string;
-}> = ({ lives, token, sellerId }) => {
-  const [liveList, setLiveList] = useState(lives);
+}> = ({ token, sellerId }) => {
   const router = useRouter();
 
-  const addNewLive = async () => {
-    const res = await createLive(token, sellerId);
-    // router.refresh();
-    window.location.reload(); // ❌ Alternative if refresh() fails
-  };
-  console.log(token);
+  const { lives: liveList, setLives } = useContext(Selection);
 
+  const addNewLive = async () => {
+    await createLive(token, sellerId);
+    const newLives = await getLiveList(token);
+    if (setLives) setLives(newLives);
+  };
   return (
     <div className="mb-6">
       <div className="w-80 max-h-[606px] bg-white shadow-md rounded-xl px-4 py-1 overflow-y-auto">

@@ -2,8 +2,15 @@ import { Card } from "../ui/card";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Star } from "lucide-react";
 import { SellerRating } from "@/app/api/review/getSellerRating";
+import Link from "next/link";
 
-function SellerInfo({ sellerRating }: { sellerRating: SellerRating }) {
+function SellerInfo({
+  sellerRating,
+  seller_did,
+}: {
+  sellerRating: SellerRating;
+  seller_did: string;
+}) {
   return (
     <Card className="flex items-center p-4 mb-6 h-24 bg-white bg-opacity-70 border border-gray-100">
       <Avatar className="w-12 h-12 mr-4">
@@ -24,6 +31,12 @@ function SellerInfo({ sellerRating }: { sellerRating: SellerRating }) {
           </span>
         </div>
       </div>
+      <Link
+        href={`/report?type=user&id=${seller_did}`}
+        className="bg-red-500 px-3 py-1 text-white rounded-md ml-40"
+      >
+        รายงาน
+      </Link>
     </Card>
   );
 }
