@@ -1,3 +1,4 @@
+"use server";
 import axios from "axios";
 
 export interface BidInfo {
@@ -93,4 +94,3 @@ const getLiveById = async (
 };
 
 export default getLiveById;
-
