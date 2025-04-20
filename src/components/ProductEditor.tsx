@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import createProduct from "@/app/api/product/createProduct";
 import { createContext, useState } from "react";
-import { useFormStatus } from "react-dom";
 
 interface Props {
   data: ProductInfo;
@@ -24,16 +23,19 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
   const location = usePathname();
   const router = useRouter();
   const [uploadImage, changeUploadImage] = useState<File[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
 
-  
   return (
     <form
       className="flex justify-between pt-5"
       action={async (e) => {
-        setLoading(true)
-        try{
+        setLoading(true);
+        try {
           if (location.includes("register")) {
+            if (uploadImage.length <= 0) {
+              alert("กรุณาอัพโหลดอย่างน้อย 1 ภาพ");
+              return;
+            }
             const res = await createProduct(
               e,
               session.data?.user.jwt || "",
@@ -44,7 +46,6 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
               alert("Success!");
               router.replace("/user/");
             }
-      
           } else {
             const res = await updateProduct(
               e,
@@ -57,14 +58,11 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
               router.refresh();
             }
           }
-      
         } catch (error) {
-          console.log(error)
+          console.log(error);
         } finally {
-            setLoading(false);
-      
+          setLoading(false);
         }
-        
       }}
     >
       <div className="py-8 px-6">
@@ -73,11 +71,9 @@ const ProductEditor: React.FC<Props> = ({ data }) => {
         </uploadImageContext.Provider>
       </div>
       <div className="py-8 px-6 w-[428px] bg-white bg-opacity-70 border border-gray-200 rounded-[10px] mr-5">
-        <ProductInput data={data}/>
+        <ProductInput data={data} />
       </div>
-    
     </form>
-    
   );
 };
 

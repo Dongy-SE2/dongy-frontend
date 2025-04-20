@@ -6,15 +6,23 @@ const statusMap = {
   อยู่ระหว่างจัดส่ง: (
     <Status
       name={"อยู่ระหว่างจัดส่ง"}
-      textColor="yellow-600"
-      color="yellow-100"
+      textColor="text-yellow-600"
+      color="bg-yellow-100"
     />
   ),
   รอการจัดส่ง: (
-    <Status name={"รอการจัดส่ง"} textColor="gray-600" color="gray-100" />
+    <Status
+      name={"รอการจัดส่ง"}
+      textColor="text-gray-600"
+      color="bg-gray-100"
+    />
   ),
   ได้รับสินค้าแล้ว: (
-    <Status name={"ได้รับสินค้าแล้ว"} textColor="green-700" color="green-100" />
+    <Status
+      name={"ได้รับสินค้าแล้ว"}
+      textColor="text-green-700"
+      color="bg-green-100"
+    />
   ),
 };
 

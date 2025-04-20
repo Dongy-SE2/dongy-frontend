@@ -28,7 +28,7 @@ export default async function ProductDetail({
   }
   const reviewInfo = await getSellerRating(
     productInfo.sellerDId,
-    session.user.jwt
+    session.user.jwt,
   );
 
   // ✅ Function to calculate time left before the live session starts
@@ -37,48 +37,50 @@ export default async function ProductDetail({
 
     const now = new Date();
     const start = new Date(startDate);
-    const diffMs = Math.abs(start.getTime() - now.getTime());
+    console.log(now);
+    console.log(startDate);
+    console.log(start);
 
+    const diffMs = Math.abs(start.getTime() - now.getTime());
     const minutes = Math.floor(diffMs / 60000);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
 
-    if (days > 0) return `เริ่มในอีก ${days} วัน`;
-    if (hours > 0) return `เริ่มในอีก ${hours} ชั่วโมง`;
-    return `เริ่มในอีก ${minutes} นาที`;
+    if (days > 0) return `${days} วัน`;
+    if (hours > 0) return `${hours} ชั่วโมง`;
+    return `${minutes} นาที`;
   }
 
   return (
     <div className="min-h-screen w-full flex justify-center bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100% p-16">
-    <ProductWraper>
-      <ProductManageHeader name="รายละเอียดสินค้า" href="/product/" />
+      <ProductWraper>
+        <ProductManageHeader name="รายละเอียดสินค้า" href="/product/" />
 
-      {/* Cards Container */}
-      <div className="flex justify-evenly mt-8">
-        {/* Left: Product Image Card */}
-        <div className="relative">
-          {/* Top Left: Image Card */}
-          <ProductImageCard src={productInfo.image[0]} isLive={isLive} />
-          {/* product status condition*/}
-          <LiveStatusCard
-            isLive={isLive}
-            timeLeft={timeLeft}
-            liveDId={productInfo.liveDId}
+        {/* Cards Container */}
+        <div className="flex justify-evenly mt-8">
+          {/* Left: Product Image Card */}
+          <div className="relative">
+            {/* Top Left: Image Card */}
+            <ProductImageCard src={productInfo.image[0]} isLive={isLive} />
+            {/* product status condition*/}
+            <LiveStatusCard
+              isLive={isLive}
+              timeLeft={timeLeft}
+              liveDId={productInfo.liveDId}
+            />
+          </div>
+          {/* Right: Product Detail Card */}
+          <ProductDetailCard
+            productName={productInfo.name}
+            sellerName={productInfo.seller}
+            productType={productInfo.type}
+            productPrice={String(productInfo.minPrice)}
+            productDescription={productInfo.description}
+            sellerDId={productInfo.sellerDId}
+            reviewScore={reviewInfo?.average_rating || "No Review"}
           />
         </div>
-        {/* Right: Product Detail Card */}
-        <ProductDetailCard
-          productName={productInfo.name}
-          sellerName={productInfo.seller}
-          productType={productInfo.type}
-          productPrice={String(productInfo.minPrice)}
-          productDescription={productInfo.description}
-          sellerDId={productInfo.sellerDId}
-          reviewScore={reviewInfo?.average_rating || "No Review"}
-        />
-      </div>
-    </ProductWraper>
+      </ProductWraper>
     </div>
-
   );
 }

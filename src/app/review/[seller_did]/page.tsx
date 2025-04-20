@@ -30,7 +30,9 @@ async function SellerReviewPage({
 
         <div className="flex  py-8 gap-10">
           <div className="flex flex-col w-1/2 gap-3">
-            {rating && <SellerInfo sellerRating={rating} />}
+            {rating && (
+              <SellerInfo sellerRating={rating} seller_did={seller_did} />
+            )}
             <ReviewForm token={session.user.jwt} sellerDid={seller_did} />
           </div>
 

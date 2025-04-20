@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 
 import SellerHomePage from "@/components/userSellerPage";
 import BuyerHomePage from "@/components/userBuyerPage";
-import { get } from "http";
 import getProfile from "../api/profile/getProfile";
 
 export default async function User() {

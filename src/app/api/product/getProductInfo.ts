@@ -23,6 +23,7 @@ const getProductInfo = async (
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = res.data.data;
+  if (data.lives) data.lives.reverse();
   console.log(data);
   return {
     name: data.product_name,

@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import axios from "axios";
 
 export interface UpdateLiveData {
@@ -14,7 +14,11 @@ export interface UpdateLiveData {
   productDId?: string;
 }
 
-const updateLive = async (liveDId: string, token: string, updateData: UpdateLiveData): Promise<any> => {
+const updateLive = async (
+  liveDId: string,
+  token: string,
+  updateData: UpdateLiveData,
+): Promise<any> => {
   try {
     const BACKEND_URL = process.env.BACKEND;
     const url = `${BACKEND_URL}/api/lives/${liveDId}`;
@@ -26,9 +30,9 @@ const updateLive = async (liveDId: string, token: string, updateData: UpdateLive
       live_link: updateData.link, // ✅ Maps `link` to `live_link`
       present_price: updateData.present_price, // ✅ Maps `present_price`
       documentId: updateData.documentId, // ✅ Maps `documentId`
-      bidding_product: updateData.productDId
+      bidding_product: updateData.productDId,
     };
-    console.log(mappedData)
+    console.log(mappedData);
 
     const response = await axios.put(
       url,
@@ -38,13 +42,16 @@ const updateLive = async (liveDId: string, token: string, updateData: UpdateLive
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     console.log("✅ Live bidding event updated successfully:", response.data);
     return response.data;
   } catch (error: any) {
-    console.error("❌ Error updating live bidding event:", error.response?.data || error.message);
+    console.error(
+      "❌ Error updating live bidding event:",
+      error.response?.data || error.message,
+    );
     throw error;
   }
 };
