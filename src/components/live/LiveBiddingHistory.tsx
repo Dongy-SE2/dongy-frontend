@@ -5,6 +5,7 @@ import { BidInfo } from "@/app/api/live/getLive";
 import getLiveById from "@/app/api/live/getLive";
 import BidHistoryPopup from "./BidHistoryPopup";
 import { EventSourcePolyfill } from "event-source-polyfill";
+import { useRouter } from "next/navigation";
 
 type Props = {
   startTime: string;
@@ -24,6 +25,7 @@ export default function LiveBiddingHistory({
   const [biddingList, setBiddingList] = useState<BidInfo[]>(
     biddingHistory || [],
   );
+  const router = useRouter();
 
   useEffect(() => {
     const host = "http://34.135.145.173:1337";
@@ -41,6 +43,7 @@ export default function LiveBiddingHistory({
         console.log("New bid received:", newMessage);
         const liveInfo = await getLiveById(liveDId, token);
         setBiddingList(liveInfo?.bids || []);
+        router.refresh();
       } else if (newMessage.event === "close") {
         eventSource.close();
       }
@@ -54,7 +57,7 @@ export default function LiveBiddingHistory({
     return () => {
       eventSource.close();
     };
-  }, [liveDId, token]); // ✅ เพิ่ม `token` เป็น dependency
+  }, [liveDId, token, router]); // ✅ เพิ่ม `token` เป็น dependency
 
   return (
     <div className="w-[365px] h-[180px] mt-4 p-7 bg-white rounded-lg shadow-md text-center">

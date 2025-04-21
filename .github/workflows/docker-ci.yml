@@ -32,3 +32,5 @@ jobs:
           tags: |
             nack098/dongy_frontend:latest
             nack098/dongy_frontend:${{ env.COMMIT_SHA }}
+          build-args: |
+            NEXT_PUBLIC_OMISE_PUBLIC_KEY=${{ secrets.NEXT_PUBLIC_OMISE_PUBLIC_KEY }}

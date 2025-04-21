@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Waveform } from "ldrs/react";
-import 'ldrs/react/Waveform.css'
+import "ldrs/react/Waveform.css";
 
 declare global {
   interface Window {
@@ -28,10 +28,10 @@ const Total: React.FC = () => {
   const tax = parseFloat((price * 0.07).toFixed(2));
   const total = parseFloat((price + tax).toFixed(2));
   const session = useSession();
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const TransanctionProcess = async (data: FormData) => {
-    setLoading(true)
+    setLoading(true);
     const promptpay = data.get("promptpay")?.toString();
     const scb = data.get("scb")?.toString();
     const kplus = data.get("kplus")?.toString();
@@ -99,7 +99,7 @@ const Total: React.FC = () => {
         },
       );
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   return (
@@ -165,20 +165,21 @@ const Total: React.FC = () => {
       <PaymentMethod />
 
       {loading && (
-  <div className="flex flex-col items-center justify-center mb-3 ">
-    <p className="text-black text-sm mb-2">Loading...</p>
-    <Waveform size="20" speed="1" color="black" stroke="1" />
-  </div>
-)}
+        <div className="flex flex-col items-center justify-center mb-3 ">
+          <p className="text-black text-sm mb-2">Loading...</p>
+          <Waveform size="20" speed="1" color="black" stroke="1" />
+        </div>
+      )}
 
-
-      {!loading &&( <div className="w-full flex justify-end mt-5">
-        <input
-          type="submit"
-          className="cursor-pointer bg-emerald-500 rounded-lg px-11 py-2 text-white font-medium"
-          value="ต่อไป"
-        />
-      </div> )}
+      {!loading && (
+        <div className="w-full flex justify-end mt-5">
+          <input
+            type="submit"
+            className="cursor-pointer bg-emerald-500 rounded-lg px-11 py-2 text-white font-medium"
+            value="ต่อไป"
+          />
+        </div>
+      )}
     </form>
   );
 };
