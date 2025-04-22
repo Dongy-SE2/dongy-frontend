@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
-    remotePatterns: [{ hostname: "34.135.145.173" }],
+    remotePatterns: [{ hostname: "35.192.16.199" }],
   },
   eslint: {
     ignoreDuringBuilds: true,
