@@ -52,7 +52,6 @@ const LiveManage: React.FC<Props> = ({ token, products, sellerName }) => {
     setEndDate(formatDateForInput(live?.endDate || ""));
     setStatus(live?.status || "public");
     setLink(live?.link || "");
-    updateLive(live.did, token, { status });
   }, [live]);
 
   useEffect(() => {
