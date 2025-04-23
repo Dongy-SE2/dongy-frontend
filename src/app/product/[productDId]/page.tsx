@@ -25,6 +25,15 @@ export default async function ProductDetail({
     isLive = liveInfo?.status === "ongoing"; // Check if live is currently streaming
     if (isLive) timeLeft = calculateTimeLeft(liveInfo?.endDate);
     else timeLeft = calculateTimeLeft(liveInfo?.startDate);
+    console.log(liveInfo?.status);
+    if (
+      !liveInfo?.status ||
+      liveInfo.status === "closed" ||
+      new Date(liveInfo?.endDate).getTime() < new Date().getTime()
+    ) {
+      timeLeft = "";
+      isLive = false;
+    }
   }
   const reviewInfo = await getSellerRating(
     productInfo.sellerDId,
@@ -65,8 +74,8 @@ export default async function ProductDetail({
             {/* product status condition*/}
             <LiveStatusCard
               isLive={isLive}
-              timeLeft={timeLeft}
               liveDId={productInfo.liveDId}
+              timeLeft={timeLeft}
             />
           </div>
           {/* Right: Product Detail Card */}

@@ -1,6 +1,5 @@
 "use client";
 
-import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { Selection } from "./LiveContext";
@@ -28,7 +27,7 @@ const LiveItem: React.FC<{
     >
       <div>
         <Image
-          src={live.images[0]?.url || "No image"}
+          src={live.images[0]?.url || "/image/Logo.jpg"}
           alt={live.title || "No image"}
           width={400}
           height={400}
@@ -41,11 +40,6 @@ const LiveItem: React.FC<{
             {live.title}
           </p>
         </div>
-      </div>
-      <div>
-        {/* <ShoppingBag
-          className={`inline-flex flex-col h-full align-middle justify-center ${!isSelect ? "text-gray-500" : "text-white"}`}
-        /> */}
       </div>
     </button>
   );

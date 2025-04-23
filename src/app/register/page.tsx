@@ -6,23 +6,20 @@ import RegistrationForm2 from "@/components/registrationForm2";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import register from "../api/auth/register";
-import { redirect, usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { Waveform } from "ldrs/react";
 import "ldrs/react/Waveform.css";
 
 export default function Register() {
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
   const [Loading, setLoading] = useState(false);
 
   const pathName = usePathname();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (data: FormData) => {
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-
-    const res = await register(formData);
+    const res = await register(data);
 
     if (res.success) {
       redirect("/login");
@@ -38,7 +35,7 @@ export default function Register() {
     <div className="mx-auto flex flex-col items-center min-h-screen bg-gradient-to-b from-emerald-100 from-0% via-slate-50 via-30% to-gray-50 to-100%">
       <form
         className="max-w-5xl w-full p-8 flex justify-between space-x-8"
-        onSubmit={handleSubmit}
+        action={handleSubmit}
       >
         <div className="w-1/2">
           <h1 className="text-left font-semibold text-black text-2xl mb-4">
@@ -59,8 +56,6 @@ export default function Register() {
               <div className="flex items-start gap-3">
                 <input
                   type="checkbox"
-                  checked={isChecked}
-                  onChange={(e) => setIsChecked(e.target.checked)}
                   className="mt-1 w-5 h-5 cursor-pointer"
                   required
                 />
@@ -84,7 +79,7 @@ export default function Register() {
                   <Button
                     type="submit"
                     className="w-36 bg-emerald-500 text-white py-2 rounded-lg mt-6 text-sm"
-                    disabled={!isChecked || Loading}
+                    disabled={Loading}
                   >
                     สมัครใช้งาน
                   </Button>

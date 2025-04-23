@@ -61,9 +61,9 @@ const getLiveList = async (token: string): Promise<LiveInfo[]> => {
         : [
             {
               id: 0,
-              url: "/default-image.jpg",
-              thumbnail: "/default-image.jpg",
-              small: "/default-image.jpg",
+              url: "/image/Logo.jpg",
+              thumbnail: "/image/Logo.jpg",
+              small: "/image/Logo.jpg",
             },
           ], // ✅ Default if no images
       productDId: live.bidding_product?.documentId,

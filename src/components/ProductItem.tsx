@@ -10,16 +10,25 @@ const ProductItem: React.FC<{
   product: Order;
 }> = ({ product }) => {
   const [isSelect, changeSelect] = useState(false);
-  const {selection, setSelect } = useContext(Selection);
+  const { selection, setSelect } = useContext(Selection);
   useEffect(() => {
     if (selection && selection.id !== product.id) {
-      changeSelect(false)
+      changeSelect(false);
     }
-  },[selection, product, isSelect])
+  }, [selection, product, isSelect]);
   return (
     <button
       className={`flex flex-row justify-between ${!isSelect ? "bg-gray-200" : "bg-gray-600"} px-2 py-2 text-sm rounded-xl my-3 text-left w-full`}
-      onClick={() => {changeSelect(!isSelect); if (setSelect) setSelect(product)}}
+      onClick={() => {
+        changeSelect(!isSelect);
+        if (setSelect) {
+          if (!isSelect) {
+            setSelect(product);
+          } else {
+            setSelect(null);
+          }
+        }
+      }}
     >
       <div>
         <Image

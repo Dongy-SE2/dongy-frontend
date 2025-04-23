@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Waveform } from "ldrs/react";
 import "ldrs/react/Waveform.css";
+import { Button } from "./ui/button";
 
 declare global {
   interface Window {
@@ -176,11 +177,12 @@ const Total: React.FC = () => {
 
       {!loading && (
         <div className="w-full flex justify-end mt-5">
-          <input
+          <Button
             type="submit"
             className="cursor-pointer bg-emerald-500 rounded-lg px-11 py-2 text-white font-medium"
-            value="ต่อไป"
-          />
+          >
+            ต่อไป
+          </Button>
         </div>
       )}
     </form>

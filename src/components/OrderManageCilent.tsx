@@ -7,8 +7,8 @@ import ShippingDetails from "@/components/OrderShippingDetail";
 import updateOrder from "@/app/api/order/updateOrder"; // ✅ Import update function
 import MovebackButton from "./MovebackButton";
 import { Waveform } from "ldrs/react";
-import 'ldrs/react/Waveform.css'
-
+import "ldrs/react/Waveform.css";
+import { useRouter } from "next/navigation";
 
 export default function OrderManageClient({
   orders,
@@ -20,9 +20,11 @@ export default function OrderManageClient({
   const [selectedOrder, setSelectedOrder] = useState(orders[0]);
   const [carrier, setCarrier] = useState(selectedOrder.courier || "ไม่ระบุ");
   const [tracking, setTracking] = useState(
-    selectedOrder.tracking_no || "ไม่ระบุ"
+    selectedOrder.tracking_no || "ไม่ระบุ",
   );
-  const[loading,setLoading] = useState(false)
+
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setCarrier(selectedOrder.courier || "ไม่ระบุ");
@@ -35,23 +37,23 @@ export default function OrderManageClient({
   };
 
   const handleSave = async () => {
-    setLoading(true)
+    setLoading(true);
     if (selectedOrder.state === "อยู่ระหว่างดำเนินการ") {
       try {
         await updateOrder(selectedOrder.documentId, token, carrier, tracking);
         alert("อัปเดตข้อมูลการจัดส่งเรียบร้อย!");
-      } catch (error) {
+      } catch (e) {
+        console.log(e);
         alert("เกิดข้อผิดพลาดในการอัปเดต กรุณาลองอีกครั้ง");
       }
     } else {
       alert("สถานะนี้ไม่สามารถอัปเดตได้");
     }
-    setLoading(false)
+    setLoading(false);
   };
   // console.log(selectedOrder);
 
   return (
-    
     <div className="min-h-screen bg-gradient-to-b from-[#E6F6F1] to-[#F6F7F9] flex justify-center p-6">
       <div className="w-[832px] items-center justify-center">
         <div className="flex justify-between items-center mb-6">
@@ -84,27 +86,33 @@ export default function OrderManageClient({
               onTrackingChange={setTracking}
             />
 
-{loading && (
-  <div className="flex flex-col items-center justify-center mb-3 ">
-    <p className="text-black text-sm mb-2">Loading...</p>
-    <Waveform size="20" speed="1" color="black" stroke="1" />
-  </div>
-)}
+            {loading && (
+              <div className="flex flex-col items-center justify-center mb-3 ">
+                <p className="text-black text-sm mb-2">Loading...</p>
+                <Waveform size="20" speed="1" color="black" stroke="1" />
+              </div>
+            )}
 
-            {!loading && (<div className="mt-3 flex gap-2">
-              <button
-                className="bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                onClick={() => console.log("รายงานปัญหา")}
-              >
-                รายงานปัญหา
-              </button>
-              <button
-                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-                onClick={handleSave}
-              >
-                บันทึก
-              </button>
-            </div>)}
+            {!loading && (
+              <div className="mt-3 flex gap-2">
+                <button
+                  className="bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                  onClick={() =>
+                    router.replace(
+                      `/report?type=order&id=${selectedOrder.documentId}`,
+                    )
+                  }
+                >
+                  รายงานปัญหา
+                </button>
+                <button
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                  onClick={handleSave}
+                >
+                  บันทึก
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

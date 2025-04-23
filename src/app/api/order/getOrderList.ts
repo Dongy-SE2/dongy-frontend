@@ -105,9 +105,9 @@ const getSellerOrders = async (
                 : [
                     {
                       id: 0,
-                      url: "/default-product.jpg",
-                      thumbnail: "/default-product.jpg",
-                      small: "/default-product.jpg",
+                      url: "/image/Logo.jpg",
+                      thumbnail: "/image/Logo.jpg",
+                      small: "/image/Logo.jpg",
                     },
                   ], // ✅ Default if no images
             }

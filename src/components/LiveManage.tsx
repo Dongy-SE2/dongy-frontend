@@ -52,6 +52,7 @@ const LiveManage: React.FC<Props> = ({ token, products, sellerName }) => {
     setEndDate(formatDateForInput(live?.endDate || ""));
     setStatus(live?.status || "public");
     setLink(live?.link || "");
+    updateLive(live.did, token, { status });
   }, [live]);
 
   useEffect(() => {
@@ -122,7 +123,7 @@ const LiveManage: React.FC<Props> = ({ token, products, sellerName }) => {
       {/* 🔹 Live Preview */}
       <div className="flex flex-row bg-white px-6 py-6 rounded-lg shadow-md w-[32rem]">
         <Image
-          src={live?.images?.[0]?.url || "/default-image.jpg"}
+          src={live?.images?.[0]?.url || "/image/Logo.jpg"}
           width={400}
           height={400}
           alt={live?.title || "Live Thumbnail"}
