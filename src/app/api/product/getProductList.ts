@@ -54,7 +54,7 @@ const getProductList = async (
         return;
       return {
         name: data.product_name,
-        image: `${process.env.BACKEND}${data.product_image[0].url}`,
+        image: `${process.env.BACKEND}${data.product_image[0].url}?`,
         id: data.documentId,
         subId: data.id.toString(),
         minPrice: data.price,

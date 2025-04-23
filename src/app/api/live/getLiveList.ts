@@ -54,9 +54,9 @@ const getLiveList = async (token: string): Promise<LiveInfo[]> => {
       images: live.bidding_product?.product_image
         ? live.bidding_product.product_image.map((img: any) => ({
             id: img.id,
-            url: `${process.env.BACKEND}${img.url}`,
-            thumbnail: `${process.env.BACKEND}${img.formats?.thumbnail?.url || img.url}`,
-            small: `${process.env.BACKEND}${img.formats?.small?.url || img.url}`,
+            url: `${process.env.BACKEND}${img.url}?`,
+            thumbnail: `${process.env.BACKEND}${img.formats?.thumbnail?.url || img.url}?`,
+            small: `${process.env.BACKEND}${img.formats?.small?.url || img.url}?`,
           }))
         : [
             {

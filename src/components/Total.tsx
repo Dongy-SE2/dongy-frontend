@@ -140,6 +140,7 @@ const Total: React.FC = () => {
           id="name"
           type="text"
           placeholder="ชื่อผู้รับ"
+          required
         />
         <p className="mr-[1.85rem] text-sm">
           เบอร์โทรศัพท์<span className="text-red-500">*</span>
@@ -149,6 +150,7 @@ const Total: React.FC = () => {
           id="telephone"
           type="tel"
           placeholder="เบอร์โทรศัพท์"
+          required
         />
         <p className="mr-[3.0rem] text-sm">
           ที่อยู่จัดส่ง<span className="text-red-500">*</span>
@@ -158,6 +160,7 @@ const Total: React.FC = () => {
           className="bg-white border rounded-md px-3 py-2 w-[19rem] h-[3rem] resize-none text-sm col-span-2"
           spellCheck="false"
           placeholder="ที่อยู่จัดส่ง"
+          required
         />
       </div>
 

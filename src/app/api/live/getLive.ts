@@ -65,7 +65,7 @@ const getLiveById = async (
       status: data.state,
       link: data.live_link,
       image: data.bidding_product?.product_image?.[0]?.url
-        ? `${BACKEND_URL}${data.bidding_product.product_image[0].url}`
+        ? `${BACKEND_URL}${data.bidding_product.product_image[0].url}?`
         : "/default-image.jpg",
       sellerName: data.sellerName,
       productDescription: data.bidding_product?.product_description,

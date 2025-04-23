@@ -32,7 +32,7 @@ async function getBuyerOrder(token: string): Promise<Order[]> {
     id: val.documentId,
     name: val.product.product_name,
     price: val.subtotal,
-    image: `${process.env.BACKEND}${val.product?.product_image[0].url}`,
+    image: `${process.env.BACKEND}${val.product?.product_image[0].url}?`,
     receiver: `${profile.data.firstname} ${profile.data.lastname}`,
     tel: profile.data.phone,
     location: val.shipping_address,

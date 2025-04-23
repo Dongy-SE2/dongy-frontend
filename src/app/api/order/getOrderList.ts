@@ -45,20 +45,24 @@ export interface Order {
   payment: Payment; // ✅ Payment info
   product: Product;
 }
-  
-  const getSellerOrders = async (sellerId: string, token: string): Promise<Order[]> => {
-    try {
-      const url = `${process.env.BACKEND}/api/orders/me`;
-      console.log("Fetching orders from:", url);
-      console.log("Authorization Token:", token);
-  
-      const response = await axios.get(url, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
 
-      console.log(response.data.data[0])
+const getSellerOrders = async (
+  sellerId: string,
+  token: string,
+): Promise<Order[]> => {
+  try {
+    const url = `${process.env.BACKEND}/api/orders/me`;
+    console.log("Fetching orders from:", url);
+    console.log("Authorization Token:", token);
 
-      const orders: Order[] = response.data?.data?.map((order: any) => ({
+    const response = await axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log(response.data.data[0]);
+
+    const orders: Order[] =
+      response.data?.data?.map((order: any) => ({
         id: order.id,
         documentId: order.documentId,
         total_amount: order.total_amount,
@@ -94,21 +98,31 @@ export interface Order {
               images: order.product.product_image
                 ? order.product.product_image.map((img: any) => ({
                     id: img.id,
-                    url: `${process.env.BACKEND}${img.url}`,
-                    thumbnail: `${process.env.BACKEND}${img.formats?.thumbnail?.url || img.url}`,
-                    small: `${process.env.BACKEND}${img.formats?.small?.url || img.url}`,
+                    url: `${process.env.BACKEND}${img.url}?`,
+                    thumbnail: `${process.env.BACKEND}${img.formats?.thumbnail?.url || img.url}?`,
+                    small: `${process.env.BACKEND}${img.formats?.small?.url || img.url}?`,
                   }))
-                : [{ id: 0, url: "/default-product.jpg", thumbnail: "/default-product.jpg", small: "/default-product.jpg" }], // ✅ Default if no images
+                : [
+                    {
+                      id: 0,
+                      url: "/default-product.jpg",
+                      thumbnail: "/default-product.jpg",
+                      small: "/default-product.jpg",
+                    },
+                  ], // ✅ Default if no images
             }
           : null,
       })) || [];
-      console.log(orders)
-  
-      return orders;
-    } catch (error: any) {
-      console.error("Error fetching orders:", error.response?.data || error.message);
-      return [];
-    }
-  };
+    console.log(orders);
+
+    return orders;
+  } catch (error: any) {
+    console.error(
+      "Error fetching orders:",
+      error.response?.data || error.message,
+    );
+    return [];
+  }
+};
 
 export default getSellerOrders;

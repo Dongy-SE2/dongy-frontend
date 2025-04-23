@@ -25,8 +25,7 @@ export default async function getProfile(token: string): Promise<User> {
   return {
     ...res.data,
     pictureUrl: res.data.profile_picture
-      ? `${process.env.BACKEND}${res.data.profile_picture.url}`
+      ? `${process.env.BACKEND}${res.data.profile_picture.url}?`
       : null,
   };
 }
-

@@ -29,7 +29,7 @@ const getProductInfo = async (
     name: data.product_name,
     image: data.product_image
       .map((img: any) => {
-        return `${process.env.BACKEND}${img.url}`;
+        return `${process.env.BACKEND}${img.url}?`;
       })
       .reverse(),
     id: data.documentId,
